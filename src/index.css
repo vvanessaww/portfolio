@@ -63,3 +63,64 @@ body {
   font-size: 1.1rem;
   line-height: 1.6;
 }
+
+/* Home page / 3D scene styles */
+.home-page {
+  max-width: none;
+  padding: 0;
+}
+
+.home-page .main {
+  padding: 0;
+}
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 80px);
+  min-height: 500px;
+}
+
+.hero-overlay {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hero-overlay h1 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  background: none;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5) !important;
+  letter-spacing: 0.1em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    height: calc(100vh - 60px);
+    min-height: 400px;
+  }
+
+  .hero-overlay h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.8rem;
+  }
+}
