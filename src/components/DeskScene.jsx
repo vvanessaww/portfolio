@@ -332,6 +332,56 @@ function DeskLamp() {
   )
 }
 
+// Desk chair
+function DeskChair() {
+  return (
+    <group position={[0, -0.5, 1.2]}>
+      {/* Seat */}
+      <mesh position={[0, 0.5, 0]}>
+        <boxGeometry args={[0.5, 0.08, 0.5]} />
+        <meshStandardMaterial color="#2a2a2a" roughness={0.6} />
+      </mesh>
+      {/* Seat cushion detail */}
+      <mesh position={[0, 0.54, 0]}>
+        <boxGeometry args={[0.45, 0.02, 0.45]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.8} />
+      </mesh>
+      {/* Backrest */}
+      <mesh position={[0, 0.8, -0.2]} rotation={[-0.1, 0, 0]}>
+        <boxGeometry args={[0.5, 0.6, 0.08]} />
+        <meshStandardMaterial color="#2a2a2a" roughness={0.6} />
+      </mesh>
+      {/* Backrest cushion */}
+      <mesh position={[0, 0.8, -0.16]} rotation={[-0.1, 0, 0]}>
+        <boxGeometry args={[0.45, 0.55, 0.02]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.8} />
+      </mesh>
+      {/* Central column */}
+      <mesh position={[0, 0.25, 0]}>
+        <cylinderGeometry args={[0.05, 0.08, 0.5, 12]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.5} />
+      </mesh>
+      {/* Base (5-star) */}
+      {[0, 72, 144, 216, 288].map((angle, i) => {
+        const rad = (angle * Math.PI) / 180
+        return (
+          <group key={i} rotation={[0, rad, 0]}>
+            <mesh position={[0.2, 0.02, 0]}>
+              <boxGeometry args={[0.25, 0.04, 0.08]} />
+              <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
+            </mesh>
+            {/* Wheel */}
+            <mesh position={[0.32, 0.02, 0]} rotation={[Math.PI / 2, 0, 0]}>
+              <cylinderGeometry args={[0.04, 0.04, 0.06, 12]} />
+              <meshStandardMaterial color="#0a0a0a" roughness={0.3} />
+            </mesh>
+          </group>
+        )
+      })}
+    </group>
+  )
+}
+
 // Main scene content
 function Scene({ onObjectClick }) {
   const [hoveredObject, setHoveredObject] = useState(null)
@@ -375,7 +425,6 @@ function Scene({ onObjectClick }) {
       <InteractiveObject 
         name="laptop" 
         position={[0, 0.3, 0]}
-        rotation={[0, Math.PI, 0]}
         onClick={onObjectClick}
       >
         <Laptop hovered={hoveredObject === 'laptop'} />
@@ -405,6 +454,7 @@ function Scene({ onObjectClick }) {
       <PalmTree />
       <Window />
       <DeskLamp />
+      <DeskChair />
     </>
   )
 }
