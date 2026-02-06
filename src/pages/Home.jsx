@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import DeskScene from '../components/DeskScene'
+import AudioPlayer from '../components/AudioPlayer'
 
 function Home() {
   const navigate = useNavigate()
@@ -30,6 +31,7 @@ function Home() {
           <p className="hero-subtitle">(click objects to explore my work)</p>
         </div>
       </div>
+      <AudioPlayer src="https://cdn.pixabay.com/audio/2022/05/13/audio_1808fbf07a.mp3" />
     </div>
   )
 }
