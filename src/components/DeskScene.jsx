@@ -97,6 +97,16 @@ function Laptop({ hovered }) {
             emissiveIntensity={0.5}
           />
         </mesh>
+        {/* Apple logo on back of screen */}
+        <mesh position={[0, 0.25, -0.009]}>
+          <circleGeometry args={[0.04, 32]} />
+          <meshStandardMaterial 
+            color="#ffffff" 
+            emissive="#ffffff"
+            emissiveIntensity={0.2}
+            roughness={0.3}
+          />
+        </mesh>
       </group>
     </group>
   )
