@@ -1,12 +1,24 @@
+import { useNavigate } from 'react-router-dom'
 import DeskScene from '../components/DeskScene'
 
 function Home() {
+  const navigate = useNavigate()
+
   const handleObjectClick = (objectName) => {
-    console.log(`Object clicked: ${objectName}`)
-    // TODO: Add routing based on object
-    // - laptop -> /projects
-    // - postcard -> /strava (travel/adventures)
-    // - notebook -> /writing
+    // Navigate based on clicked object
+    switch(objectName) {
+      case 'laptop':
+        navigate('/projects')
+        break
+      case 'postcard':
+        navigate('/strava')
+        break
+      case 'notebook':
+        navigate('/writing')
+        break
+      default:
+        console.log(`Clicked: ${objectName}`)
+    }
   }
 
   return (
@@ -14,8 +26,8 @@ function Home() {
       <div className="hero-section">
         <DeskScene onObjectClick={handleObjectClick} />
         <div className="hero-overlay">
-          <h1>Welcome</h1>
-          <p className="hero-subtitle">Explore my desk — click the objects to navigate</p>
+          <h1>Vanessa's Desk</h1>
+          <p className="hero-subtitle">Click the objects to explore my work</p>
         </div>
       </div>
     </div>

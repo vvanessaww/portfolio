@@ -210,6 +210,128 @@ function PenHolder() {
   )
 }
 
+// Palm tree plant
+function PalmTree() {
+  return (
+    <group position={[-1.8, 0.3, 0.7]}>
+      {/* Pot */}
+      <mesh position={[0, 0.05, 0]}>
+        <cylinderGeometry args={[0.12, 0.1, 0.15, 8]} />
+        <meshStandardMaterial color="#2a2520" roughness={0.7} />
+      </mesh>
+      {/* Soil */}
+      <mesh position={[0, 0.12, 0]}>
+        <cylinderGeometry args={[0.11, 0.11, 0.02, 8]} />
+        <meshStandardMaterial color="#3d2f1f" roughness={0.95} />
+      </mesh>
+      {/* Trunk */}
+      <mesh position={[0, 0.25, 0]}>
+        <cylinderGeometry args={[0.02, 0.025, 0.3, 6]} />
+        <meshStandardMaterial color="#4a3f2a" roughness={0.8} />
+      </mesh>
+      {/* Fronds */}
+      {[0, 60, 120, 180, 240, 300].map((angle, i) => {
+        const rad = (angle * Math.PI) / 180
+        return (
+          <group key={i} position={[0, 0.38, 0]} rotation={[0, rad, Math.PI / 6]}>
+            <mesh position={[0, 0.08, 0]}>
+              <boxGeometry args={[0.02, 0.18, 0.01]} />
+              <meshStandardMaterial color="#2d5016" roughness={0.6} />
+            </mesh>
+          </group>
+        )
+      })}
+    </group>
+  )
+}
+
+// Window on background wall
+function Window() {
+  return (
+    <group position={[1.5, 1.8, -2.98]}>
+      {/* Frame */}
+      <mesh>
+        <boxGeometry args={[0.8, 1, 0.04]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.6} metalness={0.3} />
+      </mesh>
+      {/* Glass panes */}
+      <mesh position={[-0.2, 0.25, 0.025]}>
+        <boxGeometry args={[0.35, 0.45, 0.01]} />
+        <meshStandardMaterial 
+          color="#d0e8ff" 
+          transparent 
+          opacity={0.3} 
+          emissive="#8ab4d5" 
+          emissiveIntensity={0.2}
+        />
+      </mesh>
+      <mesh position={[0.2, 0.25, 0.025]}>
+        <boxGeometry args={[0.35, 0.45, 0.01]} />
+        <meshStandardMaterial 
+          color="#d0e8ff" 
+          transparent 
+          opacity={0.3} 
+          emissive="#8ab4d5" 
+          emissiveIntensity={0.2}
+        />
+      </mesh>
+      <mesh position={[-0.2, -0.25, 0.025]}>
+        <boxGeometry args={[0.35, 0.45, 0.01]} />
+        <meshStandardMaterial 
+          color="#d0e8ff" 
+          transparent 
+          opacity={0.3} 
+          emissive="#8ab4d5" 
+          emissiveIntensity={0.2}
+        />
+      </mesh>
+      <mesh position={[0.2, -0.25, 0.025]}>
+        <boxGeometry args={[0.35, 0.45, 0.01]} />
+        <meshStandardMaterial 
+          color="#d0e8ff" 
+          transparent 
+          opacity={0.3} 
+          emissive="#8ab4d5" 
+          emissiveIntensity={0.2}
+        />
+      </mesh>
+    </group>
+  )
+}
+
+// Desk lamp with functional light
+function DeskLamp() {
+  return (
+    <group position={[1.6, 0.3, -0.7]}>
+      {/* Base */}
+      <mesh position={[0, 0.02, 0]}>
+        <cylinderGeometry args={[0.08, 0.1, 0.04, 16]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
+      </mesh>
+      {/* Arm */}
+      <mesh position={[0, 0.15, 0]} rotation={[0, 0, -Math.PI / 6]}>
+        <cylinderGeometry args={[0.015, 0.015, 0.3, 8]} />
+        <meshStandardMaterial color="#2a2a2a" roughness={0.5} metalness={0.5} />
+      </mesh>
+      {/* Shade */}
+      <mesh position={[0.13, 0.25, 0]} rotation={[0, 0, Math.PI / 4]}>
+        <coneGeometry args={[0.08, 0.12, 16, 1, true]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} side={THREE.DoubleSide} />
+      </mesh>
+      {/* Light source */}
+      <spotLight
+        position={[0.13, 0.22, 0]}
+        angle={Math.PI / 6}
+        penumbra={0.5}
+        intensity={0.5}
+        color="#fff8e1"
+        distance={3}
+        target-position={[0.3, 0, 0]}
+      />
+    </group>
+  )
+}
+
 // Main scene content
 function Scene({ onObjectClick }) {
   const [hoveredObject, setHoveredObject] = useState(null)
@@ -279,6 +401,9 @@ function Scene({ onObjectClick }) {
       {/* Ambient objects (non-interactive) */}
       <Mug />
       <PenHolder />
+      <PalmTree />
+      <Window />
+      <DeskLamp />
     </>
   )
 }
