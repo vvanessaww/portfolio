@@ -27,7 +27,7 @@ function Home() {
         <DeskScene onObjectClick={handleObjectClick} />
         <div className="hero-overlay">
           <h1>Vanessa's Desk</h1>
-          <p className="hero-subtitle">Click the objects to explore my work</p>
+          <p className="hero-subtitle">(click objects to explore my work)</p>
         </div>
       </div>
     </div>

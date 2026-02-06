@@ -375,6 +375,7 @@ function Scene({ onObjectClick }) {
       <InteractiveObject 
         name="laptop" 
         position={[0, 0.3, 0]}
+        rotation={[0, Math.PI, 0]}
         onClick={onObjectClick}
       >
         <Laptop hovered={hoveredObject === 'laptop'} />
