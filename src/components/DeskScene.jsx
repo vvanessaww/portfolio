@@ -335,49 +335,49 @@ function DeskLamp() {
 // Desk chair
 function DeskChair() {
   return (
-    <group position={[0, -0.5, 1.2]}>
-      {/* Seat */}
-      <mesh position={[0, 0.5, 0]}>
-        <boxGeometry args={[0.5, 0.08, 0.5]} />
-        <meshStandardMaterial color="#2a2a2a" roughness={0.6} />
-      </mesh>
-      {/* Seat cushion detail */}
-      <mesh position={[0, 0.54, 0]}>
-        <boxGeometry args={[0.45, 0.02, 0.45]} />
-        <meshStandardMaterial color="#1a1a1a" roughness={0.8} />
-      </mesh>
-      {/* Backrest */}
-      <mesh position={[0, 0.8, -0.2]} rotation={[-0.1, 0, 0]}>
-        <boxGeometry args={[0.5, 0.6, 0.08]} />
-        <meshStandardMaterial color="#2a2a2a" roughness={0.6} />
-      </mesh>
-      {/* Backrest cushion */}
-      <mesh position={[0, 0.8, -0.16]} rotation={[-0.1, 0, 0]}>
-        <boxGeometry args={[0.45, 0.55, 0.02]} />
-        <meshStandardMaterial color="#1a1a1a" roughness={0.8} />
-      </mesh>
-      {/* Central column */}
-      <mesh position={[0, 0.25, 0]}>
-        <cylinderGeometry args={[0.05, 0.08, 0.5, 12]} />
-        <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.5} />
-      </mesh>
+    <group position={[0, -1.25, 1.2]}>
       {/* Base (5-star) */}
       {[0, 72, 144, 216, 288].map((angle, i) => {
         const rad = (angle * Math.PI) / 180
         return (
           <group key={i} rotation={[0, rad, 0]}>
-            <mesh position={[0.2, 0.02, 0]}>
-              <boxGeometry args={[0.25, 0.04, 0.08]} />
+            <mesh position={[0.25, 0.03, 0]}>
+              <boxGeometry args={[0.3, 0.05, 0.1]} />
               <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
             </mesh>
             {/* Wheel */}
-            <mesh position={[0.32, 0.02, 0]} rotation={[Math.PI / 2, 0, 0]}>
-              <cylinderGeometry args={[0.04, 0.04, 0.06, 12]} />
+            <mesh position={[0.4, 0.03, 0]} rotation={[Math.PI / 2, 0, 0]}>
+              <cylinderGeometry args={[0.05, 0.05, 0.08, 12]} />
               <meshStandardMaterial color="#0a0a0a" roughness={0.3} />
             </mesh>
           </group>
         )
       })}
+      {/* Central column */}
+      <mesh position={[0, 0.5, 0]}>
+        <cylinderGeometry args={[0.06, 0.09, 1.0, 12]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.5} />
+      </mesh>
+      {/* Seat */}
+      <mesh position={[0, 1.05, 0]}>
+        <boxGeometry args={[0.55, 0.1, 0.55]} />
+        <meshStandardMaterial color="#2a2a2a" roughness={0.6} />
+      </mesh>
+      {/* Seat cushion detail */}
+      <mesh position={[0, 1.1, 0]}>
+        <boxGeometry args={[0.5, 0.03, 0.5]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.8} />
+      </mesh>
+      {/* Backrest */}
+      <mesh position={[0, 1.45, -0.22]} rotation={[-0.1, 0, 0]}>
+        <boxGeometry args={[0.55, 0.7, 0.1]} />
+        <meshStandardMaterial color="#2a2a2a" roughness={0.6} />
+      </mesh>
+      {/* Backrest cushion */}
+      <mesh position={[0, 1.45, -0.17]} rotation={[-0.1, 0, 0]}>
+        <boxGeometry args={[0.5, 0.65, 0.03]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.8} />
+      </mesh>
     </group>
   )
 }
