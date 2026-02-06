@@ -335,7 +335,7 @@ function DeskLamp() {
 // Desk chair
 function DeskChair() {
   return (
-    <group position={[0, -1.25, 1.2]}>
+    <group position={[0, -1.25, -1.3]}>
       {/* Base (5-star) */}
       {[0, 72, 144, 216, 288].map((angle, i) => {
         const rad = (angle * Math.PI) / 180
