@@ -312,31 +312,31 @@ function Window() {
 // Desk lamp with functional light
 function DeskLamp() {
   return (
-    <group position={[1.6, 0.3, -0.7]}>
+    <group position={[1.6, 0.3, -0.7]} scale={1.8}>
       {/* Base */}
       <mesh position={[0, 0.02, 0]}>
         <cylinderGeometry args={[0.08, 0.1, 0.04, 16]} />
         <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
       </mesh>
       {/* Arm */}
-      <mesh position={[0, 0.15, 0]} rotation={[0, 0, -Math.PI / 6]}>
+      <mesh position={[0, 0.15, 0]} rotation={[Math.PI / 12, Math.PI / 3, -Math.PI / 4]}>
         <cylinderGeometry args={[0.015, 0.015, 0.3, 8]} />
         <meshStandardMaterial color="#2a2a2a" roughness={0.5} metalness={0.5} />
       </mesh>
       {/* Shade */}
-      <mesh position={[0.13, 0.25, 0]} rotation={[0, 0, Math.PI / 4]}>
+      <mesh position={[0.05, 0.25, 0.08]} rotation={[Math.PI / 6, Math.PI / 3, Math.PI / 6]}>
         <coneGeometry args={[0.08, 0.12, 16, 1, true]} />
         <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} side={THREE.DoubleSide} />
       </mesh>
       {/* Light source */}
       <spotLight
-        position={[0.13, 0.22, 0]}
-        angle={Math.PI / 6}
+        position={[0.05, 0.22, 0.08]}
+        angle={Math.PI / 5}
         penumbra={0.5}
-        intensity={0.5}
+        intensity={0.8}
         color="#fff8e1"
-        distance={3}
-        target-position={[0.3, 0, 0]}
+        distance={4}
+        target-position={[-0.9, 0, 0.4]}
       />
     </group>
   )
