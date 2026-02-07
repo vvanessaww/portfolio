@@ -147,7 +147,7 @@ function Laptop({ hovered }) {
           />
         </mesh>
         {/* Screen display with Mac home screen */}
-        <group position={[0, 0.2, 0.008]} rotation={[0, 0, 0]}>
+        <group position={[0, 0.2, -0.008]} rotation={[0, Math.PI, 0]}>
           <mesh>
             <planeGeometry args={[0.5, 0.32]} />
             <meshStandardMaterial 
