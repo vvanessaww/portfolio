@@ -223,7 +223,7 @@ function PenHolder() {
 // Palm tree plant
 function PalmTree() {
   return (
-    <group position={[-1.8, 0.3, 0.7]}>
+    <group position={[-2.5, -1.2, 1]} scale={3}>
       {/* Pot */}
       <mesh position={[0, 0.05, 0]}>
         <cylinderGeometry args={[0.12, 0.1, 0.15, 8]} />
