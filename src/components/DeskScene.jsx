@@ -54,9 +54,67 @@ function Desk() {
   )
 }
 
+// Mac Home Screen Component (mini version for laptop)
+function MacHomeScreen({ mini = false }) {
+  const scale = mini ? 0.001 : 1
+  const wallpaperColor = "#1e3a5f"
+  
+  return (
+    <group scale={[1, 1, scale]}>
+      {/* Wallpaper gradient */}
+      <mesh>
+        <planeGeometry args={[1, 1]} />
+        <meshStandardMaterial 
+          color={wallpaperColor}
+          emissive={wallpaperColor}
+          emissiveIntensity={mini ? 0.3 : 0.2}
+        />
+      </mesh>
+      
+      {mini && (
+        <>
+          {/* Dock at bottom */}
+          <mesh position={[0, -0.4, 0.001]}>
+            <planeGeometry args={[0.6, 0.08]} />
+            <meshStandardMaterial 
+              color="#ffffff"
+              transparent
+              opacity={0.3}
+              emissive="#ffffff"
+              emissiveIntensity={0.1}
+            />
+          </mesh>
+          
+          {/* App icons in dock */}
+          {[-0.2, -0.1, 0, 0.1, 0.2].map((x, i) => (
+            <mesh key={i} position={[x, -0.4, 0.002]}>
+              <planeGeometry args={[0.05, 0.05]} />
+              <meshStandardMaterial 
+                color={['#3a7dff', '#ff3a3a', '#3aff3a', '#ff3aff', '#ffaa3a'][i]}
+                emissive={['#3a7dff', '#ff3a3a', '#3aff3a', '#ff3aff', '#ffaa3a'][i]}
+                emissiveIntensity={0.3}
+              />
+            </mesh>
+          ))}
+          
+          {/* Menu bar at top */}
+          <mesh position={[0, 0.47, 0.001]}>
+            <planeGeometry args={[1, 0.03]} />
+            <meshStandardMaterial 
+              color="#000000"
+              transparent
+              opacity={0.4}
+            />
+          </mesh>
+        </>
+      )}
+    </group>
+  )
+}
+
 // Laptop with screen and keyboard
 function Laptop({ hovered }) {
-  const screenAngle = -Math.PI / 6
+  const screenAngle = -Math.PI / 2  // 90 degrees open
   return (
     <group scale={1.3}>
       {/* Base/keyboard */}
@@ -88,15 +146,21 @@ function Laptop({ hovered }) {
             metalness={0.6} 
           />
         </mesh>
-        {/* Screen display */}
-        <mesh position={[0, 0.2, 0.008]}>
-          <boxGeometry args={[0.5, 0.32, 0.001]} />
-          <meshStandardMaterial 
-            color="#0a0a0a" 
-            emissive={hovered ? "#1a3a5a" : "#0a1a2a"}
-            emissiveIntensity={0.5}
-          />
-        </mesh>
+        {/* Screen display with Mac home screen */}
+        <group position={[0, 0.2, 0.008]} rotation={[0, 0, 0]}>
+          <mesh>
+            <planeGeometry args={[0.5, 0.32]} />
+            <meshStandardMaterial 
+              color="#0a0a0a" 
+              emissive={hovered ? "#1a3a5a" : "#0a1a2a"}
+              emissiveIntensity={0.3}
+            />
+          </mesh>
+          {/* Mac home screen on laptop display */}
+          <group scale={[0.5, 0.32, 1]} position={[0, 0, 0.001]}>
+            <MacHomeScreen mini={true} />
+          </group>
+        </group>
         {/* Apple logo on back of screen */}
         <mesh position={[0, 0.25, -0.009]}>
           <circleGeometry args={[0.04, 32]} />
@@ -857,37 +921,191 @@ function Scene({ onObjectClick }) {
   )
 }
 
+// Full-screen Mac Home Screen overlay
+function MacHomeScreenFullscreen({ onClose }) {
+  const [isVisible, setIsVisible] = useState(false)
+
+  // Trigger animation on mount
+  useState(() => {
+    setTimeout(() => setIsVisible(true), 10)
+  }, [])
+
+  const handleClose = () => {
+    setIsVisible(false)
+    setTimeout(onClose, 300) // Wait for fade-out animation
+  }
+
+  return (
+    <div 
+      onClick={handleClose}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        background: '#1e3a5f',
+        zIndex: 1000,
+        cursor: 'pointer',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'scale(1)' : 'scale(0.8)',
+        transition: 'opacity 0.3s ease, transform 0.3s ease',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        padding: 0,
+        overflow: 'hidden'
+      }}
+    >
+      {/* Menu bar */}
+      <div style={{
+        width: '100%',
+        height: '28px',
+        background: 'rgba(0, 0, 0, 0.3)',
+        backdropFilter: 'blur(20px)',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 16px',
+        fontSize: '13px',
+        color: '#fff',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}>
+        <span style={{ fontWeight: 600, marginRight: '20px' }}>🍎</span>
+        <span style={{ marginRight: '16px' }}>Finder</span>
+        <span style={{ marginRight: '16px' }}>File</span>
+        <span style={{ marginRight: '16px' }}>Edit</span>
+        <span style={{ marginRight: '16px' }}>View</span>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: '16px' }}>
+          <span>🔋</span>
+          <span>📶</span>
+          <span>{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
+        </div>
+      </div>
+
+      {/* Desktop area */}
+      <div style={{
+        flex: 1,
+        position: 'relative',
+        padding: '20px'
+      }}>
+        {/* Desktop icons */}
+        {['Documents', 'Downloads', 'Projects'].map((name, i) => (
+          <div key={i} style={{
+            position: 'absolute',
+            top: 20 + (i * 90),
+            right: 20,
+            width: '70px',
+            textAlign: 'center',
+            color: '#fff',
+            fontSize: '12px',
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          }}>
+            <div style={{
+              width: '60px',
+              height: '60px',
+              background: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '8px',
+              margin: '0 auto 4px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '32px'
+            }}>
+              📁
+            </div>
+            {name}
+          </div>
+        ))}
+      </div>
+
+      {/* Dock */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        paddingBottom: '8px'
+      }}>
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.2)',
+          backdropFilter: 'blur(40px)',
+          borderRadius: '16px',
+          padding: '8px 16px',
+          display: 'flex',
+          gap: '12px',
+          border: '1px solid rgba(255, 255, 255, 0.1)'
+        }}>
+          {['📁', '🌐', '✉️', '📅', '🎵', '📸', '⚙️'].map((icon, i) => (
+            <div key={i} style={{
+              width: '60px',
+              height: '60px',
+              background: `linear-gradient(135deg, ${['#5EA3F7', '#FF5E5E', '#FFD93D', '#6BCF7F', '#FF8C69', '#A78BFA', '#94A3B8'][i]}, ${['#2D7DD2', '#D93A3A', '#F4C430', '#48A760', '#E56B50', '#845EC2', '#64748B'][i]})`,
+              borderRadius: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '32px',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-8px) scale(1.1)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}
+            >
+              {icon}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // Main exported component
 function DeskScene({ onObjectClick }) {
+  const [showMacScreen, setShowMacScreen] = useState(false)
+
+  const handleObjectClick = (name) => {
+    if (name === 'laptop') {
+      setShowMacScreen(true)
+    } else if (onObjectClick) {
+      onObjectClick(name)
+    }
+  }
+
   return (
-    <div style={{ 
-      width: '100%', 
-      height: '100%', 
-      minHeight: '500px',
-      background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%)'
-    }}>
-      <Canvas
-        shadows
-        camera={{ 
-          position: [0, 2.5, 4], 
-          fov: 45,
-          near: 0.1,
-          far: 100
-        }}
-        style={{ width: '100%', height: '100%' }}
-      >
-        <Scene onObjectClick={onObjectClick} />
-        <OrbitControls 
-          enablePan={false}
-          enableZoom={true}
-          minDistance={2}
-          maxDistance={8}
-          minPolarAngle={Math.PI / 6}
-          maxPolarAngle={Math.PI / 2.2}
-          target={[0, 0.2, 0]}
-        />
-      </Canvas>
-    </div>
+    <>
+      <div style={{ 
+        width: '100%', 
+        height: '100%', 
+        minHeight: '500px',
+        background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%)'
+      }}>
+        <Canvas
+          shadows
+          camera={{ 
+            position: [0, 2.5, 4], 
+            fov: 45,
+            near: 0.1,
+            far: 100
+          }}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <Scene onObjectClick={handleObjectClick} />
+          <OrbitControls 
+            enablePan={false}
+            enableZoom={true}
+            minDistance={2}
+            maxDistance={8}
+            minPolarAngle={Math.PI / 6}
+            maxPolarAngle={Math.PI / 2.2}
+            target={[0, 0.2, 0]}
+          />
+        </Canvas>
+      </div>
+      
+      {showMacScreen && (
+        <MacHomeScreenFullscreen onClose={() => setShowMacScreen(false)} />
+      )}
+    </>
   )
 }
 
