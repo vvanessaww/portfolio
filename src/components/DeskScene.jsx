@@ -394,9 +394,9 @@ function FloorToCeilingWindow() {
               emissiveIntensity={0.3}
               roughness={0.7}
             />
-            {/* Window dots on buildings */}
-            {Array.from({ length: Math.floor(Math.random() * 3) + 2 }).map((_, wi) => (
-              <mesh key={`window-${wi}`} position={[0, (Math.random() - 0.5) * height * 0.6, 0.06]}>
+            {/* Window dots on buildings - static positions */}
+            {Array.from({ length: 3 }).map((_, wi) => (
+              <mesh key={`window-${wi}`} position={[0, (wi - 1) * height * 0.2, 0.06]}>
                 <boxGeometry args={[width * 0.15, 0.03, 0.01]} />
                 <meshStandardMaterial 
                   color="#ffdd88" 
@@ -664,7 +664,7 @@ function CoffeeTable() {
 // Floor lamp next to sofa
 function FloorLamp() {
   return (
-    <group position={[1.8, -1.25, 5]} scale={1.8}>
+    <group position={[2.3, -1.25, 5]} scale={1.8}>
       {/* Base */}
       <mesh position={[0, 0.02, 0]}>
         <cylinderGeometry args={[0.15, 0.18, 0.04, 16]} />
