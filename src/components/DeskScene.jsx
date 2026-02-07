@@ -1,4 +1,4 @@
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useLoader } from '@react-three/fiber'
 import { OrbitControls, Environment } from '@react-three/drei'
 import { useState, useRef } from 'react'
 import * as THREE from 'three'
@@ -230,6 +230,45 @@ function CurvedMonitor() {
       <mesh position={[0, -0.3, 0.02]}>
         <boxGeometry args={[1.02, 0.04, 0.03]} />
         <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
+      </mesh>
+    </group>
+  )
+}
+
+// Photo Frame with real image texture
+function PhotoFrame({ imagePath, size = [0.25, 0.18], hovered }) {
+  const texture = useLoader(THREE.TextureLoader, imagePath)
+  const [width, height] = size
+  
+  return (
+    <group>
+      {/* Frame border */}
+      <mesh position={[0, 0, -0.005]}>
+        <boxGeometry args={[width + 0.03, height + 0.03, 0.015]} />
+        <meshStandardMaterial 
+          color={hovered ? "#2a2a2a" : "#1a1a1a"} 
+          roughness={0.3} 
+          metalness={0.4}
+        />
+      </mesh>
+      {/* Photo with texture */}
+      <mesh>
+        <planeGeometry args={[width, height]} />
+        <meshStandardMaterial 
+          map={texture} 
+          emissive={hovered ? "#ffffff" : "#000000"}
+          emissiveIntensity={hovered ? 0.1 : 0}
+        />
+      </mesh>
+      {/* Glass effect overlay */}
+      <mesh position={[0, 0, 0.001]}>
+        <planeGeometry args={[width, height]} />
+        <meshStandardMaterial 
+          transparent
+          opacity={0.05}
+          roughness={0.1}
+          metalness={0.1}
+        />
       </mesh>
     </group>
   )
@@ -986,6 +1025,23 @@ function Scene({ onObjectClick }) {
       >
         <Notebook hovered={hoveredObject === 'notebook'} />
       </InteractiveObject>
+
+      {/* Photo frames on desk */}
+      <group position={[-1.2, 0.32, -0.4]} rotation={[0, 0.3, 0]}>
+        <PhotoFrame 
+          imagePath="/photo-nyc.jpg" 
+          size={[0.3, 0.2]}
+          hovered={hoveredObject === 'photo-nyc'}
+        />
+      </group>
+      
+      <group position={[1.3, 0.32, 0.1]} rotation={[0, -0.4, 0]}>
+        <PhotoFrame 
+          imagePath="/photo-bears.jpg" 
+          size={[0.25, 0.25]}
+          hovered={hoveredObject === 'photo-bears'}
+        />
+      </group>
 
       {/* Ambient objects (non-interactive) */}
       <Mug />
