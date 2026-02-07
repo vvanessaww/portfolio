@@ -115,20 +115,25 @@ function Laptop({ hovered }) {
 // Curved desktop monitor
 function CurvedMonitor() {
   const segments = 32
-  const radius = 0.5
+  const radius = 0.6
   const angle = Math.PI / 3
   
   return (
-    <group position={[0, 0.6, 0.4]} rotation={[0, 0, 0]}>
-      {/* Monitor stand base */}
-      <mesh position={[0, -0.3, 0]}>
-        <cylinderGeometry args={[0.1, 0.12, 0.03, 16]} />
+    <group position={[0, 0.85, 0.4]} rotation={[0, 0, 0]} scale={1.2}>
+      {/* Monitor stand platform */}
+      <mesh position={[0, -0.55, 0]}>
+        <cylinderGeometry args={[0.15, 0.18, 0.03, 16]} />
         <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
       </mesh>
-      {/* Monitor stand pole */}
-      <mesh position={[0, -0.15, 0]}>
-        <cylinderGeometry args={[0.02, 0.02, 0.25, 12]} />
+      {/* Monitor stand pole - taller */}
+      <mesh position={[0, -0.35, 0]}>
+        <cylinderGeometry args={[0.025, 0.025, 0.4, 12]} />
         <meshStandardMaterial color="#2a2a2a" roughness={0.5} metalness={0.5} />
+      </mesh>
+      {/* Monitor stand arm */}
+      <mesh position={[0, -0.15, 0]}>
+        <boxGeometry args={[0.25, 0.03, 0.1]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
       </mesh>
       {/* Monitor back housing - curved */}
       <mesh rotation={[0, 0, 0]}>
@@ -150,11 +155,9 @@ function CurvedMonitor() {
             <meshStandardMaterial 
               color="#0a0a0a" 
               transparent
-              opacity={0.7}
-              emissive="#1a3a5a"
-              emissiveIntensity={0.5}
-              roughness={0.1}
-              metalness={0.3}
+              opacity={0.8}
+              roughness={0.05}
+              metalness={0.2}
             />
           </mesh>
         )
@@ -327,10 +330,10 @@ function PalmTree({ position = [-2.5, -1.2, 1.8], scale = 3 }) {
 function FloorToCeilingWindow() {
   return (
     <group position={[4.5, 1.5, 0]} rotation={[0, -Math.PI / 2, 0]}>
-      {/* Glass panels - clearer */}
+      {/* Glass panels - clearer, wider */}
       {[-1.5, -0.5, 0.5, 1.5].map((y, i) => (
         <mesh key={`glass-${i}`} position={[0, y, 0]}>
-          <boxGeometry args={[4, 2, 0.02]} />
+          <boxGeometry args={[6, 2, 0.02]} />
           <meshStandardMaterial 
             color="#e0f0ff" 
             transparent 
@@ -345,12 +348,12 @@ function FloorToCeilingWindow() {
       {/* Horizontal dividers */}
       {[-0.5, 0.5, 1.5].map((y, i) => (
         <mesh key={`h-div-${i}`} position={[0, y, 0.01]}>
-          <boxGeometry args={[4, 0.06, 0.04]} />
+          <boxGeometry args={[6, 0.06, 0.04]} />
           <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
         </mesh>
       ))}
       {/* Vertical dividers */}
-      {[-1, 0, 1].map((x, i) => (
+      {[-2, -1, 0, 1, 2].map((x, i) => (
         <mesh key={`v-div-${i}`} position={[x, 1, 0.01]}>
           <boxGeometry args={[0.06, 6, 0.04]} />
           <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
@@ -358,17 +361,22 @@ function FloorToCeilingWindow() {
       ))}
       {/* Cityscape silhouette behind glass */}
       <group position={[0, 0, -0.5]}>
-        {/* Buildings at different heights */}
+        {/* Buildings at different heights - more buildings for wider window */}
         {[
-          [-1.5, 0.8, 0.4, 1.5],
-          [-1.2, 0.5, 0.3, 1.0],
-          [-0.8, 1.2, 0.4, 2.4],
-          [-0.4, 0.7, 0.3, 1.4],
-          [0, 1.0, 0.35, 2.0],
-          [0.4, 0.6, 0.3, 1.2],
-          [0.8, 1.3, 0.4, 2.6],
-          [1.2, 0.8, 0.35, 1.6],
-          [1.5, 0.5, 0.3, 1.0]
+          [-2.5, 0.6, 0.35, 1.2],
+          [-2.2, 0.9, 0.3, 1.8],
+          [-1.8, 0.7, 0.4, 1.4],
+          [-1.4, 1.1, 0.35, 2.2],
+          [-1.0, 0.8, 0.4, 1.6],
+          [-0.6, 1.3, 0.3, 2.6],
+          [-0.2, 0.65, 0.35, 1.3],
+          [0.2, 1.0, 0.4, 2.0],
+          [0.6, 0.75, 0.3, 1.5],
+          [1.0, 1.2, 0.35, 2.4],
+          [1.4, 0.85, 0.4, 1.7],
+          [1.8, 0.55, 0.3, 1.1],
+          [2.2, 1.15, 0.35, 2.3],
+          [2.5, 0.7, 0.3, 1.4]
         ].map(([x, height, width, yOffset], i) => (
           <mesh key={`building-${i}`} position={[x, -1.5 + height / 2, 0]}>
             <boxGeometry args={[width, height, 0.1]} />
@@ -538,9 +546,9 @@ function CloudCouch() {
 function CoffeeTable() {
   return (
     <group position={[0, -1.25, 3.2]}>
-      {/* Glass top - oval shaped */}
-      <mesh position={[0, 0.4, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.3, 1, 1]}>
-        <cylinderGeometry args={[0.6, 0.6, 0.03, 32]} />
+      {/* Glass top - oval shaped, larger */}
+      <mesh position={[0, 0.4, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.5, 1.1, 1]}>
+        <cylinderGeometry args={[0.7, 0.7, 0.03, 32]} />
         <meshStandardMaterial 
           color="#ffffff"
           transparent
@@ -551,8 +559,8 @@ function CoffeeTable() {
         />
       </mesh>
       {/* Glass edge highlight */}
-      <mesh position={[0, 0.415, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.3, 1, 1]}>
-        <torusGeometry args={[0.6, 0.015, 8, 32]} />
+      <mesh position={[0, 0.415, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.5, 1.1, 1]}>
+        <torusGeometry args={[0.7, 0.015, 8, 32]} />
         <meshStandardMaterial 
           color="#e0e0e0"
           transparent
@@ -563,10 +571,10 @@ function CoffeeTable() {
       </mesh>
       {/* Brown wood legs */}
       {[
-        [-0.35, 0.2, -0.25],
-        [0.35, 0.2, -0.25],
-        [-0.35, 0.2, 0.25],
-        [0.35, 0.2, 0.25]
+        [-0.45, 0.2, -0.3],
+        [0.45, 0.2, -0.3],
+        [-0.45, 0.2, 0.3],
+        [0.45, 0.2, 0.3]
       ].map((pos, i) => (
         <mesh key={i} position={pos}>
           <cylinderGeometry args={[0.025, 0.035, 0.4, 8]} />
@@ -575,8 +583,41 @@ function CoffeeTable() {
       ))}
       {/* Leg connectors/stretchers */}
       <mesh position={[0, 0.05, 0]}>
-        <torusGeometry args={[0.4, 0.015, 8, 16]} />
+        <torusGeometry args={[0.5, 0.015, 8, 16]} />
         <meshStandardMaterial color="#5a3f2a" roughness={0.7} metalness={0.1} />
+      </mesh>
+      {/* Coffee mug */}
+      <group position={[-0.3, 0.43, 0.2]}>
+        <mesh>
+          <cylinderGeometry args={[0.04, 0.035, 0.08, 16]} />
+          <meshStandardMaterial color="#2a2a2a" roughness={0.3} />
+        </mesh>
+        {/* Handle */}
+        <mesh position={[0.045, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+          <torusGeometry args={[0.02, 0.008, 8, 16, Math.PI]} />
+          <meshStandardMaterial color="#2a2a2a" roughness={0.3} />
+        </mesh>
+        {/* Coffee */}
+        <mesh position={[0, 0.03, 0]}>
+          <cylinderGeometry args={[0.035, 0.035, 0.01, 16]} />
+          <meshStandardMaterial color="#3d2314" roughness={0.1} />
+        </mesh>
+      </group>
+      {/* Coffee table books */}
+      {/* Book 1 - bottom */}
+      <mesh position={[0.25, 0.43, -0.15]} rotation={[0, 0.3, 0]}>
+        <boxGeometry args={[0.25, 0.03, 0.35]} />
+        <meshStandardMaterial color="#8b4513" roughness={0.8} />
+      </mesh>
+      {/* Book 2 - middle */}
+      <mesh position={[0.22, 0.46, -0.13]} rotation={[0, 0.2, 0]}>
+        <boxGeometry args={[0.23, 0.03, 0.32]} />
+        <meshStandardMaterial color="#2c4a6a" roughness={0.8} />
+      </mesh>
+      {/* Book 3 - top */}
+      <mesh position={[0.2, 0.49, -0.11]} rotation={[0, 0.4, 0]}>
+        <boxGeometry args={[0.2, 0.025, 0.28]} />
+        <meshStandardMaterial color="#4a2a2a" roughness={0.8} />
       </mesh>
     </group>
   )
