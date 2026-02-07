@@ -112,6 +112,60 @@ function Laptop({ hovered }) {
   )
 }
 
+// Curved desktop monitor
+function CurvedMonitor() {
+  const segments = 32
+  const radius = 0.5
+  const angle = Math.PI / 3
+  
+  return (
+    <group position={[0, 0.6, -0.4]} rotation={[0, 0, 0]}>
+      {/* Monitor stand base */}
+      <mesh position={[0, -0.3, 0]}>
+        <cylinderGeometry args={[0.1, 0.12, 0.03, 16]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
+      </mesh>
+      {/* Monitor stand pole */}
+      <mesh position={[0, -0.15, 0]}>
+        <cylinderGeometry args={[0.02, 0.02, 0.25, 12]} />
+        <meshStandardMaterial color="#2a2a2a" roughness={0.5} metalness={0.5} />
+      </mesh>
+      {/* Monitor back housing - curved */}
+      <mesh rotation={[0, 0, 0]}>
+        <boxGeometry args={[1, 0.6, 0.05]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
+      </mesh>
+      {/* Curved screen - using multiple segments for curve effect */}
+      {Array.from({ length: segments }).map((_, i) => {
+        const segmentAngle = (angle / segments) * i - angle / 2
+        const x = Math.sin(segmentAngle) * radius
+        const z = Math.cos(segmentAngle) * radius - radius + 0.025
+        return (
+          <mesh 
+            key={i} 
+            position={[x, 0, z]} 
+            rotation={[0, -segmentAngle, 0]}
+          >
+            <boxGeometry args={[1 / segments, 0.55, 0.01]} />
+            <meshStandardMaterial 
+              color="#0a0a0a" 
+              emissive="#1a2a3a"
+              emissiveIntensity={0.3}
+              roughness={0.2}
+              metalness={0.1}
+            />
+          </mesh>
+        )
+      })}
+      {/* Bezel bottom */}
+      <mesh position={[0, -0.3, 0.02]}>
+        <boxGeometry args={[1.02, 0.04, 0.03]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
+      </mesh>
+    </group>
+  )
+}
+
 // Postcard/photo frame
 function Postcard({ hovered }) {
   return (
@@ -357,7 +411,7 @@ function DeskLamp() {
 // Bookshelf with books
 function Bookshelf() {
   return (
-    <group position={[3.5, -1.25, -2]}>
+    <group position={[-3.5, -1.25, -1.5]}>
       {/* Main frame */}
       {/* Left side */}
       <mesh position={[-0.75, 1.5, 0]}>
@@ -410,26 +464,26 @@ function Bookshelf() {
 // Cloud couch (CB2 style)
 function CloudCouch() {
   return (
-    <group position={[0, -1.25, 2.5]} scale={1.8} rotation={[0, Math.PI, 0]}>
+    <group position={[0, -1.25, 5]} scale={1.8} rotation={[0, Math.PI, 0]}>
       {/* Base/frame */}
       <mesh position={[0, 0.2, 0]}>
         <boxGeometry args={[1.8, 0.15, 1]} />
-        <meshStandardMaterial color="#e8e8e8" roughness={0.9} />
+        <meshStandardMaterial color="#d0d0d0" roughness={0.9} />
       </mesh>
       {/* Main seat cushion - puffy */}
       <mesh position={[0, 0.35, 0]}>
         <boxGeometry args={[1.7, 0.3, 0.9]} />
-        <meshStandardMaterial color="#f5f5f5" roughness={0.95} />
+        <meshStandardMaterial color="#dadada" roughness={0.95} />
       </mesh>
       {/* Left seat cushion puff */}
       <mesh position={[-0.45, 0.4, 0]} scale={[1, 1.1, 1]}>
         <boxGeometry args={[0.7, 0.35, 0.85]} />
-        <meshStandardMaterial color="#ffffff" roughness={0.95} />
+        <meshStandardMaterial color="#e0e0e0" roughness={0.95} />
       </mesh>
       {/* Right seat cushion puff */}
       <mesh position={[0.45, 0.4, 0]} scale={[1, 1.1, 1]}>
         <boxGeometry args={[0.7, 0.35, 0.85]} />
-        <meshStandardMaterial color="#ffffff" roughness={0.95} />
+        <meshStandardMaterial color="#e0e0e0" roughness={0.95} />
       </mesh>
       {/* Back cushions - cloud style */}
       {[-0.5, 0, 0.5].map((xPos, i) => (
@@ -437,23 +491,23 @@ function CloudCouch() {
           {/* Main back cushion */}
           <mesh>
             <boxGeometry args={[0.5, 0.6, 0.25]} />
-            <meshStandardMaterial color="#ffffff" roughness={0.95} />
+            <meshStandardMaterial color="#e0e0e0" roughness={0.95} />
           </mesh>
           {/* Puffy detail on top */}
           <mesh position={[0, 0.25, 0.05]} scale={[0.9, 0.8, 0.8]}>
             <boxGeometry args={[0.5, 0.3, 0.2]} />
-            <meshStandardMaterial color="#fafafa" roughness={0.95} />
+            <meshStandardMaterial color="#e5e5e5" roughness={0.95} />
           </mesh>
         </group>
       ))}
       {/* Arm rests - chunky and puffy */}
       <mesh position={[-0.8, 0.45, 0]}>
         <boxGeometry args={[0.25, 0.5, 0.9]} />
-        <meshStandardMaterial color="#f5f5f5" roughness={0.95} />
+        <meshStandardMaterial color="#dadada" roughness={0.95} />
       </mesh>
       <mesh position={[0.8, 0.45, 0]}>
         <boxGeometry args={[0.25, 0.5, 0.9]} />
-        <meshStandardMaterial color="#f5f5f5" roughness={0.95} />
+        <meshStandardMaterial color="#dadada" roughness={0.95} />
       </mesh>
     </group>
   )
@@ -594,6 +648,7 @@ function Scene({ onObjectClick }) {
       </InteractiveObject>
 
       {/* Ambient objects (non-interactive) */}
+      <CurvedMonitor />
       <Mug />
       <PenHolder />
       <PalmTree />
