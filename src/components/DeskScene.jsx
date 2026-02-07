@@ -119,28 +119,28 @@ function CurvedMonitor() {
   const angle = Math.PI / 3
   
   return (
-    <group position={[0, 0.85, 0.4]} rotation={[0, 0, 0]} scale={1.2}>
-      {/* Monitor stand platform */}
-      <mesh position={[0, -0.55, 0]}>
-        <cylinderGeometry args={[0.15, 0.18, 0.03, 16]} />
-        <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
+    <group position={[0, 0.95, 0.4]} rotation={[0, 0, 0]} scale={1.2}>
+      {/* Chrome arched monitor stand base */}
+      <mesh position={[0, -0.65, 0]}>
+        <cylinderGeometry args={[0.12, 0.15, 0.02, 16]} />
+        <meshStandardMaterial color="#c0c0c0" roughness={0.1} metalness={0.9} />
       </mesh>
-      {/* Monitor stand pole - taller */}
-      <mesh position={[0, -0.35, 0]}>
-        <cylinderGeometry args={[0.025, 0.025, 0.4, 12]} />
-        <meshStandardMaterial color="#2a2a2a" roughness={0.5} metalness={0.5} />
+      {/* Chrome arched stand */}
+      <mesh position={[0, -0.35, -0.05]} rotation={[Math.PI / 6, 0, 0]}>
+        <torusGeometry args={[0.15, 0.015, 16, 32, Math.PI]} />
+        <meshStandardMaterial color="#d0d0d0" roughness={0.1} metalness={0.9} />
       </mesh>
-      {/* Monitor stand arm */}
+      {/* Chrome connection arm */}
       <mesh position={[0, -0.15, 0]}>
-        <boxGeometry args={[0.25, 0.03, 0.1]} />
-        <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
+        <cylinderGeometry args={[0.015, 0.015, 0.1, 12]} />
+        <meshStandardMaterial color="#c0c0c0" roughness={0.1} metalness={0.9} />
       </mesh>
       {/* Monitor back housing - curved */}
       <mesh rotation={[0, 0, 0]}>
         <boxGeometry args={[1, 0.6, 0.05]} />
         <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
       </mesh>
-      {/* Curved screen - using multiple segments for curve effect */}
+      {/* Curved screen - clean glass, no bars */}
       {Array.from({ length: segments }).map((_, i) => {
         const segmentAngle = (angle / segments) * i - angle / 2
         const x = Math.sin(segmentAngle) * radius
@@ -155,9 +155,9 @@ function CurvedMonitor() {
             <meshStandardMaterial 
               color="#0a0a0a" 
               transparent
-              opacity={0.8}
-              roughness={0.05}
-              metalness={0.2}
+              opacity={0.9}
+              roughness={0.02}
+              metalness={0.1}
             />
           </mesh>
         )
@@ -330,10 +330,10 @@ function PalmTree({ position = [-2.5, -1.2, 1.8], scale = 3 }) {
 function FloorToCeilingWindow() {
   return (
     <group position={[4.5, 1.5, 0]} rotation={[0, -Math.PI / 2, 0]}>
-      {/* Glass panels - clearer, wider */}
+      {/* Glass panels - clearer, much wider to reach couch */}
       {[-1.5, -0.5, 0.5, 1.5].map((y, i) => (
         <mesh key={`glass-${i}`} position={[0, y, 0]}>
-          <boxGeometry args={[6, 2, 0.02]} />
+          <boxGeometry args={[10, 2, 0.02]} />
           <meshStandardMaterial 
             color="#e0f0ff" 
             transparent 
@@ -348,12 +348,12 @@ function FloorToCeilingWindow() {
       {/* Horizontal dividers */}
       {[-0.5, 0.5, 1.5].map((y, i) => (
         <mesh key={`h-div-${i}`} position={[0, y, 0.01]}>
-          <boxGeometry args={[6, 0.06, 0.04]} />
+          <boxGeometry args={[10, 0.06, 0.04]} />
           <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
         </mesh>
       ))}
-      {/* Vertical dividers */}
-      {[-2, -1, 0, 1, 2].map((x, i) => (
+      {/* Vertical dividers - only 3 */}
+      {[-2.5, 0, 2.5].map((x, i) => (
         <mesh key={`v-div-${i}`} position={[x, 1, 0.01]}>
           <boxGeometry args={[0.06, 6, 0.04]} />
           <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
@@ -361,22 +361,30 @@ function FloorToCeilingWindow() {
       ))}
       {/* Cityscape silhouette behind glass */}
       <group position={[0, 0, -0.5]}>
-        {/* Buildings at different heights - more buildings for wider window */}
+        {/* Buildings at different heights - even more buildings for full window */}
         {[
-          [-2.5, 0.6, 0.35, 1.2],
-          [-2.2, 0.9, 0.3, 1.8],
-          [-1.8, 0.7, 0.4, 1.4],
-          [-1.4, 1.1, 0.35, 2.2],
-          [-1.0, 0.8, 0.4, 1.6],
-          [-0.6, 1.3, 0.3, 2.6],
-          [-0.2, 0.65, 0.35, 1.3],
-          [0.2, 1.0, 0.4, 2.0],
-          [0.6, 0.75, 0.3, 1.5],
-          [1.0, 1.2, 0.35, 2.4],
-          [1.4, 0.85, 0.4, 1.7],
-          [1.8, 0.55, 0.3, 1.1],
-          [2.2, 1.15, 0.35, 2.3],
-          [2.5, 0.7, 0.3, 1.4]
+          [-4.2, 0.7, 0.35, 1.4],
+          [-3.8, 1.0, 0.4, 2.0],
+          [-3.4, 0.65, 0.3, 1.3],
+          [-3.0, 0.85, 0.35, 1.7],
+          [-2.6, 1.2, 0.4, 2.4],
+          [-2.2, 0.75, 0.3, 1.5],
+          [-1.8, 0.9, 0.35, 1.8],
+          [-1.4, 1.3, 0.4, 2.6],
+          [-1.0, 0.8, 0.3, 1.6],
+          [-0.6, 1.1, 0.35, 2.2],
+          [-0.2, 0.7, 0.4, 1.4],
+          [0.2, 1.0, 0.35, 2.0],
+          [0.6, 0.65, 0.3, 1.3],
+          [1.0, 0.95, 0.4, 1.9],
+          [1.4, 1.25, 0.35, 2.5],
+          [1.8, 0.8, 0.3, 1.6],
+          [2.2, 1.15, 0.4, 2.3],
+          [2.6, 0.7, 0.35, 1.4],
+          [3.0, 0.9, 0.3, 1.8],
+          [3.4, 1.05, 0.4, 2.1],
+          [3.8, 0.75, 0.35, 1.5],
+          [4.2, 0.85, 0.3, 1.7]
         ].map(([x, height, width, yOffset], i) => (
           <mesh key={`building-${i}`} position={[x, -1.5 + height / 2, 0]}>
             <boxGeometry args={[width, height, 0.1]} />
@@ -603,22 +611,52 @@ function CoffeeTable() {
           <meshStandardMaterial color="#3d2314" roughness={0.1} />
         </mesh>
       </group>
-      {/* Coffee table books */}
+      {/* Coffee table books - much larger */}
       {/* Book 1 - bottom */}
-      <mesh position={[0.25, 0.43, -0.15]} rotation={[0, 0.3, 0]}>
-        <boxGeometry args={[0.25, 0.03, 0.35]} />
+      <mesh position={[0.3, 0.43, -0.2]} rotation={[0, 0.3, 0]}>
+        <boxGeometry args={[0.4, 0.05, 0.55]} />
         <meshStandardMaterial color="#8b4513" roughness={0.8} />
       </mesh>
       {/* Book 2 - middle */}
-      <mesh position={[0.22, 0.46, -0.13]} rotation={[0, 0.2, 0]}>
-        <boxGeometry args={[0.23, 0.03, 0.32]} />
+      <mesh position={[0.27, 0.48, -0.18]} rotation={[0, 0.2, 0]}>
+        <boxGeometry args={[0.37, 0.05, 0.5]} />
         <meshStandardMaterial color="#2c4a6a" roughness={0.8} />
       </mesh>
       {/* Book 3 - top */}
-      <mesh position={[0.2, 0.49, -0.11]} rotation={[0, 0.4, 0]}>
-        <boxGeometry args={[0.2, 0.025, 0.28]} />
+      <mesh position={[0.25, 0.53, -0.15]} rotation={[0, 0.4, 0]}>
+        <boxGeometry args={[0.33, 0.04, 0.45]} />
         <meshStandardMaterial color="#4a2a2a" roughness={0.8} />
       </mesh>
+      {/* Candle with flickering light */}
+      <group position={[0, 0.43, 0.1]}>
+        {/* Candle body */}
+        <mesh>
+          <cylinderGeometry args={[0.03, 0.03, 0.12, 16]} />
+          <meshStandardMaterial color="#f5e6d3" roughness={0.7} />
+        </mesh>
+        {/* Wick */}
+        <mesh position={[0, 0.065, 0]}>
+          <cylinderGeometry args={[0.002, 0.002, 0.015, 8]} />
+          <meshStandardMaterial color="#1a1a1a" />
+        </mesh>
+        {/* Flame glow */}
+        <mesh position={[0, 0.08, 0]}>
+          <sphereGeometry args={[0.015, 8, 8]} />
+          <meshStandardMaterial 
+            color="#ff6600" 
+            emissive="#ff6600"
+            emissiveIntensity={1}
+          />
+        </mesh>
+        {/* Flickering point light */}
+        <pointLight
+          position={[0, 0.08, 0]}
+          color="#ffaa55"
+          intensity={0.3 + Math.sin(Date.now() * 0.003) * 0.1}
+          distance={0.8}
+          decay={2}
+        />
+      </group>
     </group>
   )
 }
