@@ -336,7 +336,7 @@ function DeskLamp() {
         <meshStandardMaterial color="#2a2a2a" roughness={0.5} metalness={0.5} />
       </mesh>
       {/* Shade */}
-      <mesh position={[0.05, 0.25, 0.08]} rotation={[Math.PI / 6, Math.PI / 3, Math.PI / 6]}>
+      <mesh position={[0.05, 0.25, 0.08]} rotation={[-Math.PI / 3, Math.PI / 3, -Math.PI / 8]}>
         <coneGeometry args={[0.08, 0.12, 16, 1, true]} />
         <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} side={THREE.DoubleSide} />
       </mesh>
