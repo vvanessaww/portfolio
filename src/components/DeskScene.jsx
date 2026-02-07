@@ -58,7 +58,7 @@ function Desk() {
 function Laptop({ hovered }) {
   const screenAngle = -Math.PI / 6
   return (
-    <group>
+    <group scale={1.3}>
       {/* Base/keyboard */}
       <mesh position={[0, 0.02, 0]}>
         <boxGeometry args={[0.6, 0.03, 0.4]} />
@@ -627,8 +627,8 @@ function CoffeeTable() {
         <boxGeometry args={[0.33, 0.04, 0.45]} />
         <meshStandardMaterial color="#4a2a2a" roughness={0.8} />
       </mesh>
-      {/* Candle with flickering light */}
-      <group position={[0, 0.43, 0.1]}>
+      {/* Candle with flickering light - larger */}
+      <group position={[0, 0.43, 0.1]} scale={1.5}>
         {/* Candle body */}
         <mesh>
           <cylinderGeometry args={[0.03, 0.03, 0.12, 16]} />
@@ -652,11 +652,55 @@ function CoffeeTable() {
         <pointLight
           position={[0, 0.08, 0]}
           color="#ffaa55"
-          intensity={0.3 + Math.sin(Date.now() * 0.003) * 0.1}
-          distance={0.8}
+          intensity={0.4 + Math.sin(Date.now() * 0.003) * 0.15}
+          distance={1.2}
           decay={2}
         />
       </group>
+    </group>
+  )
+}
+
+// Floor lamp next to sofa
+function FloorLamp() {
+  return (
+    <group position={[-1.5, -1.25, 5]}>
+      {/* Base */}
+      <mesh position={[0, 0.02, 0]}>
+        <cylinderGeometry args={[0.15, 0.18, 0.04, 16]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
+      </mesh>
+      {/* Pole */}
+      <mesh position={[0, 0.9, 0]}>
+        <cylinderGeometry args={[0.02, 0.025, 1.8, 12]} />
+        <meshStandardMaterial color="#2a2a2a" roughness={0.5} metalness={0.5} />
+      </mesh>
+      {/* Shade */}
+      <mesh position={[0, 1.8, 0]} rotation={[Math.PI, 0, 0]}>
+        <coneGeometry args={[0.25, 0.35, 16, 1, true]} />
+        <meshStandardMaterial 
+          color="#f5f5f0" 
+          roughness={0.7}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+      {/* Light bulb glow */}
+      <mesh position={[0, 1.65, 0]}>
+        <sphereGeometry args={[0.05, 16, 16]} />
+        <meshStandardMaterial 
+          color="#fff8e1" 
+          emissive="#fff8e1"
+          emissiveIntensity={0.8}
+        />
+      </mesh>
+      {/* Light source */}
+      <pointLight
+        position={[0, 1.65, 0]}
+        color="#fff8e1"
+        intensity={1.2}
+        distance={4}
+        decay={2}
+      />
     </group>
   )
 }
@@ -796,7 +840,6 @@ function Scene({ onObjectClick }) {
       </InteractiveObject>
 
       {/* Ambient objects (non-interactive) */}
-      <CurvedMonitor />
       <Mug />
       <PenHolder />
       <PalmTree position={[2.5, -1.2, -1.5]} scale={3} />
@@ -808,6 +851,7 @@ function Scene({ onObjectClick }) {
       <Bookshelf />
       <CloudCouch />
       <CoffeeTable />
+      <FloorLamp />
       <Carpet />
     </>
   )
