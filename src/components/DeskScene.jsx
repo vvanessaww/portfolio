@@ -664,7 +664,7 @@ function CoffeeTable() {
 // Floor lamp next to sofa
 function FloorLamp() {
   return (
-    <group position={[-1.5, -1.25, 5]}>
+    <group position={[1.8, -1.25, 5]} scale={1.8}>
       {/* Base */}
       <mesh position={[0, 0.02, 0]}>
         <cylinderGeometry args={[0.15, 0.18, 0.04, 16]} />
