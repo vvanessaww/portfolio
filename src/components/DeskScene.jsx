@@ -149,10 +149,12 @@ function CurvedMonitor() {
             <boxGeometry args={[1 / segments, 0.55, 0.01]} />
             <meshStandardMaterial 
               color="#0a0a0a" 
-              emissive="#1a2a3a"
-              emissiveIntensity={0.3}
-              roughness={0.2}
-              metalness={0.1}
+              transparent
+              opacity={0.7}
+              emissive="#1a3a5a"
+              emissiveIntensity={0.5}
+              roughness={0.1}
+              metalness={0.3}
             />
           </mesh>
         )
@@ -325,18 +327,18 @@ function PalmTree({ position = [-2.5, -1.2, 1.8], scale = 3 }) {
 function FloorToCeilingWindow() {
   return (
     <group position={[4.5, 1.5, 0]} rotation={[0, -Math.PI / 2, 0]}>
-      {/* Glass panels */}
+      {/* Glass panels - clearer */}
       {[-1.5, -0.5, 0.5, 1.5].map((y, i) => (
         <mesh key={`glass-${i}`} position={[0, y, 0]}>
           <boxGeometry args={[4, 2, 0.02]} />
           <meshStandardMaterial 
-            color="#b0d0e8" 
+            color="#e0f0ff" 
             transparent 
-            opacity={0.25}
-            emissive="#6a9abd" 
-            emissiveIntensity={0.15}
-            roughness={0.1}
-            metalness={0.1}
+            opacity={0.1}
+            emissive="#b0d0e8" 
+            emissiveIntensity={0.05}
+            roughness={0.05}
+            metalness={0.05}
           />
         </mesh>
       ))}
@@ -532,6 +534,54 @@ function CloudCouch() {
   )
 }
 
+// Glass coffee table
+function CoffeeTable() {
+  return (
+    <group position={[0, -1.25, 3.2]}>
+      {/* Glass top - oval shaped */}
+      <mesh position={[0, 0.4, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.3, 1, 1]}>
+        <cylinderGeometry args={[0.6, 0.6, 0.03, 32]} />
+        <meshStandardMaterial 
+          color="#ffffff"
+          transparent
+          opacity={0.2}
+          roughness={0.05}
+          metalness={0.1}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+      {/* Glass edge highlight */}
+      <mesh position={[0, 0.415, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.3, 1, 1]}>
+        <torusGeometry args={[0.6, 0.015, 8, 32]} />
+        <meshStandardMaterial 
+          color="#e0e0e0"
+          transparent
+          opacity={0.4}
+          roughness={0.1}
+          metalness={0.3}
+        />
+      </mesh>
+      {/* Brown wood legs */}
+      {[
+        [-0.35, 0.2, -0.25],
+        [0.35, 0.2, -0.25],
+        [-0.35, 0.2, 0.25],
+        [0.35, 0.2, 0.25]
+      ].map((pos, i) => (
+        <mesh key={i} position={pos}>
+          <cylinderGeometry args={[0.025, 0.035, 0.4, 8]} />
+          <meshStandardMaterial color="#5a3f2a" roughness={0.7} metalness={0.1} />
+        </mesh>
+      ))}
+      {/* Leg connectors/stretchers */}
+      <mesh position={[0, 0.05, 0]}>
+        <torusGeometry args={[0.4, 0.015, 8, 16]} />
+        <meshStandardMaterial color="#5a3f2a" roughness={0.7} metalness={0.1} />
+      </mesh>
+    </group>
+  )
+}
+
 // Carpet
 function Carpet() {
   return (
@@ -678,6 +728,7 @@ function Scene({ onObjectClick }) {
       <DeskChair />
       <Bookshelf />
       <CloudCouch />
+      <CoffeeTable />
       <Carpet />
     </>
   )
