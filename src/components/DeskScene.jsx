@@ -357,7 +357,7 @@ function DeskLamp() {
 // Bookshelf with books
 function Bookshelf() {
   return (
-    <group position={[-3, -1.25, -1]}>
+    <group position={[3.5, -1.25, -2]}>
       {/* Main frame */}
       {/* Left side */}
       <mesh position={[-0.75, 1.5, 0]}>
@@ -410,7 +410,7 @@ function Bookshelf() {
 // Cloud couch (CB2 style)
 function CloudCouch() {
   return (
-    <group position={[3, -1.25, 0.5]}>
+    <group position={[0, -1.25, 2.5]} scale={1.8} rotation={[0, Math.PI, 0]}>
       {/* Base/frame */}
       <mesh position={[0, 0.2, 0]}>
         <boxGeometry args={[1.8, 0.15, 1]} />
@@ -462,7 +462,7 @@ function CloudCouch() {
 // Carpet
 function Carpet() {
   return (
-    <group position={[1, -1.24, 0.3]} rotation={[-Math.PI / 2, 0, 0]}>
+    <group position={[0, -1.24, 0]} rotation={[-Math.PI / 2, 0, 0]}>
       {/* Main carpet */}
       <mesh>
         <planeGeometry args={[3.5, 2.5]} />
