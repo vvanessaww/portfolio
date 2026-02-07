@@ -236,7 +236,7 @@ function CurvedMonitor() {
 }
 
 // Photo Frame with real image texture
-function PhotoFrame({ imagePath, size = [0.25, 0.18], hovered }) {
+function PhotoFrame({ imagePath, size = [0.25, 0.18], hovered, frameColor = "#1a1a1a" }) {
   const texture = useLoader(THREE.TextureLoader, imagePath)
   const [width, height] = size
   
@@ -246,9 +246,9 @@ function PhotoFrame({ imagePath, size = [0.25, 0.18], hovered }) {
       <mesh position={[0, 0, -0.005]}>
         <boxGeometry args={[width + 0.03, height + 0.03, 0.015]} />
         <meshStandardMaterial 
-          color={hovered ? "#2a2a2a" : "#1a1a1a"} 
+          color={frameColor} 
           roughness={0.3} 
-          metalness={0.4}
+          metalness={frameColor === "#ffffff" ? 0.1 : 0.4}
         />
       </mesh>
       {/* Photo with texture */}
@@ -1058,22 +1058,30 @@ function Scene({ onObjectClick }) {
       <FloorLamp />
       <Carpet />
       
-      {/* Abstract art on wall behind couch */}
-      <AbstractArt 
-        position={[-2.5, 0.8, 6.8]} 
-        colors={['#ff6b6b', '#4ecdc4', '#ffe66d', '#a8e6cf']}
-        pattern="geometric"
-      />
-      <AbstractArt 
-        position={[0, 0.6, 6.8]} 
-        colors={['#667eea', '#764ba2', '#f093fb', '#4facfe']}
-        pattern="organic"
-      />
-      <AbstractArt 
-        position={[2.5, 0.8, 6.8]} 
-        colors={['#fa709a', '#fee140', '#30cfd0', '#330867']}
-        pattern="lines"
-      />
+      {/* Photo frames on wall behind couch */}
+      <group position={[-2.5, 0.8, 6.8]}>
+        <PhotoFrame 
+          imagePath="/photo-catan.jpg" 
+          size={[1.2, 0.9]}
+          frameColor="#ffffff"
+        />
+      </group>
+      
+      <group position={[0, 0.6, 6.8]}>
+        <PhotoFrame 
+          imagePath="/photo-nyc.jpg" 
+          size={[1.4, 0.9]}
+          frameColor="#ffffff"
+        />
+      </group>
+      
+      <group position={[2.5, 0.8, 6.8]}>
+        <PhotoFrame 
+          imagePath="/photo-dumplings.jpg" 
+          size={[0.9, 1.2]}
+          frameColor="#ffffff"
+        />
+      </group>
     </>
   )
 }
