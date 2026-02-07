@@ -114,7 +114,7 @@ function MacHomeScreen({ mini = false }) {
 
 // Laptop with screen and keyboard
 function Laptop({ hovered }) {
-  const screenAngle = -Math.PI / 2  // 90 degrees open
+  const screenAngle = -Math.PI / 12  // 90 degrees to table (nearly perpendicular)
   return (
     <group scale={1.3}>
       {/* Base/keyboard */}
@@ -562,6 +562,90 @@ function Bookshelf() {
   )
 }
 
+// Abstract art painting
+function AbstractArt({ position, colors, pattern = 'geometric' }) {
+  const frameColor = '#1a1a1a'
+  const canvasWidth = 1.2
+  const canvasHeight = 1.4
+  
+  return (
+    <group position={position}>
+      {/* Frame */}
+      <mesh position={[0, 0, -0.02]}>
+        <boxGeometry args={[canvasWidth + 0.1, canvasHeight + 0.1, 0.05]} />
+        <meshStandardMaterial color={frameColor} roughness={0.3} metalness={0.2} />
+      </mesh>
+      
+      {/* Canvas background */}
+      <mesh>
+        <planeGeometry args={[canvasWidth, canvasHeight]} />
+        <meshStandardMaterial color="#f5f5f0" roughness={0.8} />
+      </mesh>
+      
+      {/* Abstract shapes */}
+      {pattern === 'geometric' && (
+        <>
+          {/* Geometric shapes */}
+          <mesh position={[-0.2, 0.3, 0.001]}>
+            <circleGeometry args={[0.25, 32]} />
+            <meshStandardMaterial color={colors[0]} roughness={0.7} />
+          </mesh>
+          <mesh position={[0.3, -0.2, 0.001]} rotation={[0, 0, Math.PI / 4]}>
+            <planeGeometry args={[0.4, 0.4]} />
+            <meshStandardMaterial color={colors[1]} roughness={0.7} />
+          </mesh>
+          <mesh position={[-0.1, -0.3, 0.002]}>
+            <circleGeometry args={[0.15, 3]} />
+            <meshStandardMaterial color={colors[2]} roughness={0.7} />
+          </mesh>
+          <mesh position={[0.2, 0.4, 0.001]}>
+            <planeGeometry args={[0.3, 0.2]} />
+            <meshStandardMaterial color={colors[3]} roughness={0.7} />
+          </mesh>
+        </>
+      )}
+      
+      {pattern === 'organic' && (
+        <>
+          {/* Organic flowing shapes */}
+          {[0, 1, 2, 3, 4].map((i) => {
+            const x = (Math.random() - 0.5) * 0.8
+            const y = (Math.random() - 0.5) * 1.0
+            const size = 0.15 + Math.random() * 0.2
+            return (
+              <mesh key={i} position={[x, y, 0.001 + i * 0.0001]}>
+                <circleGeometry args={[size, 32]} />
+                <meshStandardMaterial 
+                  color={colors[i % colors.length]} 
+                  roughness={0.7}
+                  transparent
+                  opacity={0.7 + Math.random() * 0.3}
+                />
+              </mesh>
+            )
+          })}
+        </>
+      )}
+      
+      {pattern === 'lines' && (
+        <>
+          {/* Abstract lines */}
+          {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+            <mesh 
+              key={i} 
+              position={[0, -0.5 + i * 0.18, 0.001]}
+              rotation={[0, 0, (Math.random() - 0.5) * 0.5]}
+            >
+              <planeGeometry args={[0.9, 0.05]} />
+              <meshStandardMaterial color={colors[i % colors.length]} roughness={0.7} />
+            </mesh>
+          ))}
+        </>
+      )}
+    </group>
+  )
+}
+
 // Cloud couch (CB2 style)
 function CloudCouch() {
   return (
@@ -917,6 +1001,23 @@ function Scene({ onObjectClick }) {
       <CoffeeTable />
       <FloorLamp />
       <Carpet />
+      
+      {/* Abstract art on wall behind couch */}
+      <AbstractArt 
+        position={[-2.5, 0.8, 6.8]} 
+        colors={['#ff6b6b', '#4ecdc4', '#ffe66d', '#a8e6cf']}
+        pattern="geometric"
+      />
+      <AbstractArt 
+        position={[0, 0.6, 6.8]} 
+        colors={['#667eea', '#764ba2', '#f093fb', '#4facfe']}
+        pattern="organic"
+      />
+      <AbstractArt 
+        position={[2.5, 0.8, 6.8]} 
+        colors={['#fa709a', '#fee140', '#30cfd0', '#330867']}
+        pattern="lines"
+      />
     </>
   )
 }
