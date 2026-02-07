@@ -223,7 +223,7 @@ function PenHolder() {
 // Palm tree plant
 function PalmTree() {
   return (
-    <group position={[-2.5, -1.2, 1]} scale={3}>
+    <group position={[-2.5, -1.2, 1.8]} scale={3}>
       {/* Pot */}
       <mesh position={[0, 0.05, 0]}>
         <cylinderGeometry args={[0.12, 0.1, 0.15, 8]} />
@@ -234,18 +234,30 @@ function PalmTree() {
         <cylinderGeometry args={[0.11, 0.11, 0.02, 8]} />
         <meshStandardMaterial color="#3d2f1f" roughness={0.95} />
       </mesh>
-      {/* Trunk */}
-      <mesh position={[0, 0.25, 0]}>
-        <cylinderGeometry args={[0.02, 0.025, 0.3, 6]} />
+      {/* Trunk - taller */}
+      <mesh position={[0, 0.35, 0]}>
+        <cylinderGeometry args={[0.02, 0.025, 0.5, 6]} />
         <meshStandardMaterial color="#4a3f2a" roughness={0.8} />
       </mesh>
-      {/* Fronds */}
+      {/* Lower frond layer */}
+      {[30, 90, 150, 210, 270, 330].map((angle, i) => {
+        const rad = (angle * Math.PI) / 180
+        return (
+          <group key={`lower-${i}`} position={[0, 0.48, 0]} rotation={[0, rad, Math.PI / 5]}>
+            <mesh position={[0, 0.08, 0]}>
+              <boxGeometry args={[0.02, 0.16, 0.01]} />
+              <meshStandardMaterial color="#3a6818" roughness={0.6} />
+            </mesh>
+          </group>
+        )
+      })}
+      {/* Upper frond layer */}
       {[0, 60, 120, 180, 240, 300].map((angle, i) => {
         const rad = (angle * Math.PI) / 180
         return (
-          <group key={i} position={[0, 0.38, 0]} rotation={[0, rad, Math.PI / 6]}>
-            <mesh position={[0, 0.08, 0]}>
-              <boxGeometry args={[0.02, 0.18, 0.01]} />
+          <group key={`upper-${i}`} position={[0, 0.58, 0]} rotation={[0, rad, Math.PI / 6]}>
+            <mesh position={[0, 0.1, 0]}>
+              <boxGeometry args={[0.02, 0.2, 0.01]} />
               <meshStandardMaterial color="#2d5016" roughness={0.6} />
             </mesh>
           </group>
