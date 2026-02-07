@@ -354,6 +354,129 @@ function DeskLamp() {
   )
 }
 
+// Bookshelf with books
+function Bookshelf() {
+  return (
+    <group position={[-3, -1.25, -1]}>
+      {/* Main frame */}
+      {/* Left side */}
+      <mesh position={[-0.75, 1.5, 0]}>
+        <boxGeometry args={[0.05, 3, 0.4]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.6} metalness={0.2} />
+      </mesh>
+      {/* Right side */}
+      <mesh position={[0.75, 1.5, 0]}>
+        <boxGeometry args={[0.05, 3, 0.4]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.6} metalness={0.2} />
+      </mesh>
+      {/* Back panel */}
+      <mesh position={[0, 1.5, -0.175]}>
+        <boxGeometry args={[1.5, 3, 0.05]} />
+        <meshStandardMaterial color="#2a2a2a" roughness={0.8} />
+      </mesh>
+      {/* Shelves */}
+      {[0.2, 0.9, 1.6, 2.3, 2.95].map((y, i) => (
+        <mesh key={i} position={[0, y, 0]}>
+          <boxGeometry args={[1.5, 0.04, 0.4]} />
+          <meshStandardMaterial color="#1a1a1a" roughness={0.6} metalness={0.2} />
+        </mesh>
+      ))}
+      {/* Books on shelves */}
+      {[0.25, 0.92, 1.63, 2.33].map((shelfY, shelfIndex) => {
+        const booksOnShelf = 8 + Math.floor(Math.random() * 3)
+        return Array.from({ length: booksOnShelf }).map((_, bookIndex) => {
+          const bookWidth = 0.03 + Math.random() * 0.04
+          const bookHeight = 0.2 + Math.random() * 0.15
+          const xPos = -0.65 + (bookIndex * 0.16)
+          const colors = ['#8b4513', '#2c4a6a', '#4a2a2a', '#2a4a2a', '#5a3a1a', '#1a2a4a', '#4a1a3a']
+          const bookColor = colors[Math.floor(Math.random() * colors.length)]
+          
+          return (
+            <mesh 
+              key={`shelf${shelfIndex}-book${bookIndex}`} 
+              position={[xPos, shelfY + bookHeight / 2, 0.05]}
+              rotation={[0, (Math.random() - 0.5) * 0.1, 0]}
+            >
+              <boxGeometry args={[bookWidth, bookHeight, 0.12]} />
+              <meshStandardMaterial color={bookColor} roughness={0.8} />
+            </mesh>
+          )
+        })
+      })}
+    </group>
+  )
+}
+
+// Cloud couch (CB2 style)
+function CloudCouch() {
+  return (
+    <group position={[3, -1.25, 0.5]}>
+      {/* Base/frame */}
+      <mesh position={[0, 0.2, 0]}>
+        <boxGeometry args={[1.8, 0.15, 1]} />
+        <meshStandardMaterial color="#e8e8e8" roughness={0.9} />
+      </mesh>
+      {/* Main seat cushion - puffy */}
+      <mesh position={[0, 0.35, 0]}>
+        <boxGeometry args={[1.7, 0.3, 0.9]} />
+        <meshStandardMaterial color="#f5f5f5" roughness={0.95} />
+      </mesh>
+      {/* Left seat cushion puff */}
+      <mesh position={[-0.45, 0.4, 0]} scale={[1, 1.1, 1]}>
+        <boxGeometry args={[0.7, 0.35, 0.85]} />
+        <meshStandardMaterial color="#ffffff" roughness={0.95} />
+      </mesh>
+      {/* Right seat cushion puff */}
+      <mesh position={[0.45, 0.4, 0]} scale={[1, 1.1, 1]}>
+        <boxGeometry args={[0.7, 0.35, 0.85]} />
+        <meshStandardMaterial color="#ffffff" roughness={0.95} />
+      </mesh>
+      {/* Back cushions - cloud style */}
+      {[-0.5, 0, 0.5].map((xPos, i) => (
+        <group key={i} position={[xPos, 0.7, -0.35]}>
+          {/* Main back cushion */}
+          <mesh>
+            <boxGeometry args={[0.5, 0.6, 0.25]} />
+            <meshStandardMaterial color="#ffffff" roughness={0.95} />
+          </mesh>
+          {/* Puffy detail on top */}
+          <mesh position={[0, 0.25, 0.05]} scale={[0.9, 0.8, 0.8]}>
+            <boxGeometry args={[0.5, 0.3, 0.2]} />
+            <meshStandardMaterial color="#fafafa" roughness={0.95} />
+          </mesh>
+        </group>
+      ))}
+      {/* Arm rests - chunky and puffy */}
+      <mesh position={[-0.8, 0.45, 0]}>
+        <boxGeometry args={[0.25, 0.5, 0.9]} />
+        <meshStandardMaterial color="#f5f5f5" roughness={0.95} />
+      </mesh>
+      <mesh position={[0.8, 0.45, 0]}>
+        <boxGeometry args={[0.25, 0.5, 0.9]} />
+        <meshStandardMaterial color="#f5f5f5" roughness={0.95} />
+      </mesh>
+    </group>
+  )
+}
+
+// Carpet
+function Carpet() {
+  return (
+    <group position={[1, -1.24, 0.3]} rotation={[-Math.PI / 2, 0, 0]}>
+      {/* Main carpet */}
+      <mesh>
+        <planeGeometry args={[3.5, 2.5]} />
+        <meshStandardMaterial color="#8a7a6a" roughness={0.95} />
+      </mesh>
+      {/* Subtle pattern/border */}
+      <mesh position={[0, 0, 0.001]}>
+        <planeGeometry args={[3.3, 2.3]} />
+        <meshStandardMaterial color="#9a8a7a" roughness={0.98} />
+      </mesh>
+    </group>
+  )
+}
+
 // Desk chair
 function DeskChair() {
   return (
@@ -477,6 +600,9 @@ function Scene({ onObjectClick }) {
       <Window />
       <DeskLamp />
       <DeskChair />
+      <Bookshelf />
+      <CloudCouch />
+      <Carpet />
     </>
   )
 }
