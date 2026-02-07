@@ -119,7 +119,7 @@ function CurvedMonitor() {
   const angle = Math.PI / 3
   
   return (
-    <group position={[0, 0.6, -0.4]} rotation={[0, 0, 0]}>
+    <group position={[0, 0.6, 0.4]} rotation={[0, 0, 0]}>
       {/* Monitor stand base */}
       <mesh position={[0, -0.3, 0]}>
         <cylinderGeometry args={[0.1, 0.12, 0.03, 16]} />
@@ -275,9 +275,9 @@ function PenHolder() {
 }
 
 // Palm tree plant
-function PalmTree() {
+function PalmTree({ position = [-2.5, -1.2, 1.8], scale = 3 }) {
   return (
-    <group position={[-2.5, -1.2, 1.8]} scale={3}>
+    <group position={position} scale={scale}>
       {/* Pot */}
       <mesh position={[0, 0.05, 0]}>
         <cylinderGeometry args={[0.12, 0.1, 0.15, 8]} />
@@ -321,56 +321,75 @@ function PalmTree() {
   )
 }
 
-// Window on background wall
-function Window() {
+// Floor-to-ceiling window with cityscape
+function FloorToCeilingWindow() {
   return (
-    <group position={[1.5, 1.8, -2.98]}>
-      {/* Frame */}
-      <mesh>
-        <boxGeometry args={[0.8, 1, 0.04]} />
-        <meshStandardMaterial color="#1a1a1a" roughness={0.6} metalness={0.3} />
-      </mesh>
-      {/* Glass panes */}
-      <mesh position={[-0.2, 0.25, 0.025]}>
-        <boxGeometry args={[0.35, 0.45, 0.01]} />
-        <meshStandardMaterial 
-          color="#d0e8ff" 
-          transparent 
-          opacity={0.3} 
-          emissive="#8ab4d5" 
-          emissiveIntensity={0.2}
-        />
-      </mesh>
-      <mesh position={[0.2, 0.25, 0.025]}>
-        <boxGeometry args={[0.35, 0.45, 0.01]} />
-        <meshStandardMaterial 
-          color="#d0e8ff" 
-          transparent 
-          opacity={0.3} 
-          emissive="#8ab4d5" 
-          emissiveIntensity={0.2}
-        />
-      </mesh>
-      <mesh position={[-0.2, -0.25, 0.025]}>
-        <boxGeometry args={[0.35, 0.45, 0.01]} />
-        <meshStandardMaterial 
-          color="#d0e8ff" 
-          transparent 
-          opacity={0.3} 
-          emissive="#8ab4d5" 
-          emissiveIntensity={0.2}
-        />
-      </mesh>
-      <mesh position={[0.2, -0.25, 0.025]}>
-        <boxGeometry args={[0.35, 0.45, 0.01]} />
-        <meshStandardMaterial 
-          color="#d0e8ff" 
-          transparent 
-          opacity={0.3} 
-          emissive="#8ab4d5" 
-          emissiveIntensity={0.2}
-        />
-      </mesh>
+    <group position={[4.5, 1.5, 0]} rotation={[0, -Math.PI / 2, 0]}>
+      {/* Glass panels */}
+      {[-1.5, -0.5, 0.5, 1.5].map((y, i) => (
+        <mesh key={`glass-${i}`} position={[0, y, 0]}>
+          <boxGeometry args={[4, 2, 0.02]} />
+          <meshStandardMaterial 
+            color="#b0d0e8" 
+            transparent 
+            opacity={0.25}
+            emissive="#6a9abd" 
+            emissiveIntensity={0.15}
+            roughness={0.1}
+            metalness={0.1}
+          />
+        </mesh>
+      ))}
+      {/* Horizontal dividers */}
+      {[-0.5, 0.5, 1.5].map((y, i) => (
+        <mesh key={`h-div-${i}`} position={[0, y, 0.01]}>
+          <boxGeometry args={[4, 0.06, 0.04]} />
+          <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
+        </mesh>
+      ))}
+      {/* Vertical dividers */}
+      {[-1, 0, 1].map((x, i) => (
+        <mesh key={`v-div-${i}`} position={[x, 1, 0.01]}>
+          <boxGeometry args={[0.06, 6, 0.04]} />
+          <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
+        </mesh>
+      ))}
+      {/* Cityscape silhouette behind glass */}
+      <group position={[0, 0, -0.5]}>
+        {/* Buildings at different heights */}
+        {[
+          [-1.5, 0.8, 0.4, 1.5],
+          [-1.2, 0.5, 0.3, 1.0],
+          [-0.8, 1.2, 0.4, 2.4],
+          [-0.4, 0.7, 0.3, 1.4],
+          [0, 1.0, 0.35, 2.0],
+          [0.4, 0.6, 0.3, 1.2],
+          [0.8, 1.3, 0.4, 2.6],
+          [1.2, 0.8, 0.35, 1.6],
+          [1.5, 0.5, 0.3, 1.0]
+        ].map(([x, height, width, yOffset], i) => (
+          <mesh key={`building-${i}`} position={[x, -1.5 + height / 2, 0]}>
+            <boxGeometry args={[width, height, 0.1]} />
+            <meshStandardMaterial 
+              color="#1a2a3a" 
+              emissive="#2a4a6a"
+              emissiveIntensity={0.3}
+              roughness={0.7}
+            />
+            {/* Window dots on buildings */}
+            {Array.from({ length: Math.floor(Math.random() * 3) + 2 }).map((_, wi) => (
+              <mesh key={`window-${wi}`} position={[0, (Math.random() - 0.5) * height * 0.6, 0.06]}>
+                <boxGeometry args={[width * 0.15, 0.03, 0.01]} />
+                <meshStandardMaterial 
+                  color="#ffdd88" 
+                  emissive="#ffdd88"
+                  emissiveIntensity={0.8}
+                />
+              </mesh>
+            ))}
+          </mesh>
+        ))}
+      </group>
     </group>
   )
 }
@@ -651,8 +670,10 @@ function Scene({ onObjectClick }) {
       <CurvedMonitor />
       <Mug />
       <PenHolder />
-      <PalmTree />
-      <Window />
+      <PalmTree position={[2.5, -1.2, -1.5]} scale={3} />
+      <PalmTree position={[2.5, -1.2, -0.5]} scale={2.7} />
+      <PalmTree position={[2.5, -1.2, 0.5]} scale={3.3} />
+      <FloorToCeilingWindow />
       <DeskLamp />
       <DeskChair />
       <Bookshelf />
