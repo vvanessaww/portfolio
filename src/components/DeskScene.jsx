@@ -1329,20 +1329,31 @@ function PostcardFullscreen({ onClose }) {
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
-          fontFamily: '"Courier New", monospace'
+          justifyContent: 'flex-start',
+          fontFamily: '"Caveat", cursive',
+          padding: '10px 0'
         }}>
           {/* Message area */}
-          <div>
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} style={{
-                width: '100%',
-                height: '2px',
-                background: '#2a2a2a',
-                marginBottom: '28px',
-                opacity: 0.3
-              }} />
-            ))}
+          <div style={{
+            fontSize: '22px',
+            lineHeight: '1.8',
+            color: '#2a2a2a'
+          }}>
+            <p style={{ marginBottom: '16px' }}>
+              I'm constantly thinking through
+            </p>
+            <p style={{ marginBottom: '16px' }}>
+              the next idea in my head. Now
+            </p>
+            <p style={{ marginBottom: '16px' }}>
+              I'm trying to replace that with
+            </p>
+            <p style={{ marginBottom: '16px' }}>
+              building.
+            </p>
+            <p style={{ marginTop: '32px', fontStyle: 'italic', fontSize: '20px', color: '#666' }}>
+              Coming soon...
+            </p>
           </div>
           
           {/* Address area */}
