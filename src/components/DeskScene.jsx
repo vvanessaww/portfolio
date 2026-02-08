@@ -556,6 +556,15 @@ function DeskLamp() {
         <coneGeometry args={[0.08, 0.12, 16, 1, false]} />
         <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} side={THREE.DoubleSide} />
       </mesh>
+      {/* Light bulb */}
+      <mesh position={[0, 0.04 + stemHeight - 0.04, 0]}>
+        <sphereGeometry args={[0.025, 16, 16]} />
+        <meshStandardMaterial 
+          color="#fff8e1" 
+          emissive="#fff8e1"
+          emissiveIntensity={1.2}
+        />
+      </mesh>
       {/* Light source */}
       <spotLight
         position={[0, 0.04 + stemHeight - 0.02, 0]}
