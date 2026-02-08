@@ -932,6 +932,82 @@ function Carpet() {
   )
 }
 
+// Striped rug under couch area
+function StripedRug() {
+  return (
+    <group position={[0, -1.239, 3.2]} rotation={[-Math.PI / 2, 0, 0]}>
+      {/* Base rug */}
+      <mesh>
+        <planeGeometry args={[5, 3.5]} />
+        <meshStandardMaterial color="#1a3a5a" roughness={0.95} />
+      </mesh>
+      {/* White stripes */}
+      {[-1.5, -0.75, 0, 0.75, 1.5].map((y, i) => (
+        <mesh key={i} position={[0, y, 0.001]}>
+          <planeGeometry args={[5, 0.15]} />
+          <meshStandardMaterial color="#f5f5f0" roughness={0.95} />
+        </mesh>
+      ))}
+    </group>
+  )
+}
+
+// Bar cart
+function BarCart() {
+  return (
+    <group position={[-2.5, -1.25, 5]} scale={1.5}>
+      {/* Frame - dark brown */}
+      {/* Top shelf */}
+      <mesh position={[0, 0.6, 0]}>
+        <boxGeometry args={[0.6, 0.03, 0.4]} />
+        <meshStandardMaterial color="#3d2f1f" roughness={0.7} metalness={0.2} />
+      </mesh>
+      {/* Bottom shelf */}
+      <mesh position={[0, 0.3, 0]}>
+        <boxGeometry args={[0.6, 0.03, 0.4]} />
+        <meshStandardMaterial color="#3d2f1f" roughness={0.7} metalness={0.2} />
+      </mesh>
+      {/* Legs */}
+      {[[-0.25, 0.45, -0.15], [0.25, 0.45, -0.15], [-0.25, 0.45, 0.15], [0.25, 0.45, 0.15]].map((pos, i) => (
+        <mesh key={i} position={pos}>
+          <cylinderGeometry args={[0.02, 0.02, 0.9, 8]} />
+          <meshStandardMaterial color="#2a1f14" roughness={0.6} metalness={0.2} />
+        </mesh>
+      ))}
+      {/* Bottles on top shelf */}
+      {[-0.15, 0, 0.15].map((x, i) => (
+        <mesh key={`bottle-${i}`} position={[x, 0.7, 0]}>
+          <cylinderGeometry args={[0.03, 0.03, 0.15, 8]} />
+          <meshStandardMaterial 
+            color={['#2a4a2a', '#4a2a2a', '#2a3a4a'][i]} 
+            transparent
+            opacity={0.7}
+            roughness={0.1}
+          />
+        </mesh>
+      ))}
+      {/* Glasses on bottom shelf */}
+      {[-0.2, 0.2].map((x, i) => (
+        <mesh key={`glass-${i}`} position={[x, 0.35, 0]}>
+          <cylinderGeometry args={[0.025, 0.02, 0.08, 8]} />
+          <meshStandardMaterial 
+            color="#e0e0e0" 
+            transparent
+            opacity={0.3}
+            roughness={0.05}
+            metalness={0.1}
+          />
+        </mesh>
+      ))}
+      {/* Handle/rail */}
+      <mesh position={[0.3, 0.45, 0]} rotation={[0, 0, 0]}>
+        <torusGeometry args={[0.4, 0.015, 8, 16, Math.PI]} />
+        <meshStandardMaterial color="#2a1f14" roughness={0.5} metalness={0.3} />
+      </mesh>
+    </group>
+  )
+}
+
 // Desk chair
 function DeskChair() {
   return (
@@ -1063,31 +1139,8 @@ function Scene({ onObjectClick }) {
       <CoffeeTable />
       <FloorLamp />
       <Carpet />
-      
-      {/* Photo frames on wall behind couch */}
-      <group position={[-2.5, 0.8, 6.8]}>
-        <PhotoFrame 
-          imagePath="/photo-catan.jpg" 
-          size={[1.2, 0.9]}
-          frameColor="#ffffff"
-        />
-      </group>
-      
-      <group position={[0, 0.6, 6.8]}>
-        <PhotoFrame 
-          imagePath="/photo-nyc.jpg" 
-          size={[1.4, 0.9]}
-          frameColor="#ffffff"
-        />
-      </group>
-      
-      <group position={[2.5, 0.8, 6.8]}>
-        <PhotoFrame 
-          imagePath="/photo-dumplings.jpg" 
-          size={[0.9, 1.2]}
-          frameColor="#ffffff"
-        />
-      </group>
+      <StripedRug />
+      <BarCart />
     </>
   )
 }
