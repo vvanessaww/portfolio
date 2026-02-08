@@ -1178,6 +1178,90 @@ function Scene({ onObjectClick }) {
   )
 }
 
+// Full-screen Notebook overlay
+function NotebookFullscreen({ onClose }) {
+  const [isVisible, setIsVisible] = useState(false)
+
+  // Trigger animation on mount
+  useState(() => {
+    setTimeout(() => setIsVisible(true), 10)
+  }, [])
+
+  const handleClose = () => {
+    setIsVisible(false)
+    setTimeout(onClose, 300) // Wait for fade-out animation
+  }
+
+  return (
+    <div 
+      onClick={handleClose}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        background: '#2c4a6a',
+        zIndex: 1000,
+        cursor: 'pointer',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'scale(1)' : 'scale(0.8)',
+        transition: 'opacity 0.3s ease, transform 0.3s ease',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '40px'
+      }}
+    >
+      {/* Notebook page */}
+      <div style={{
+        width: '800px',
+        height: '90%',
+        background: '#f5f5f0',
+        borderRadius: '8px',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+        position: 'relative',
+        padding: '60px 80px',
+        overflow: 'auto'
+      }}>
+        {/* Ruled lines */}
+        {Array.from({ length: 25 }).map((_, i) => (
+          <div key={i} style={{
+            width: '100%',
+            height: '32px',
+            borderBottom: '1px solid #d0d0d0',
+            marginBottom: '0px'
+          }} />
+        ))}
+        
+        {/* Left margin line */}
+        <div style={{
+          position: 'absolute',
+          left: '80px',
+          top: '60px',
+          bottom: '60px',
+          width: '2px',
+          background: '#ff8888',
+          opacity: 0.3
+        }} />
+        
+        {/* Close hint */}
+        <div style={{
+          position: 'absolute',
+          bottom: '20px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          color: '#888',
+          fontSize: '14px',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        }}>
+          Click anywhere to close
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // Full-screen Mac Home Screen overlay
 function MacHomeScreenFullscreen({ onClose }) {
   const [isVisible, setIsVisible] = useState(false)
@@ -1319,10 +1403,13 @@ function MacHomeScreenFullscreen({ onClose }) {
 // Main exported component
 function DeskScene({ onObjectClick }) {
   const [showMacScreen, setShowMacScreen] = useState(false)
+  const [showNotebook, setShowNotebook] = useState(false)
 
   const handleObjectClick = (name) => {
     if (name === 'laptop') {
       setShowMacScreen(true)
+    } else if (name === 'notebook') {
+      setShowNotebook(true)
     } else if (onObjectClick) {
       onObjectClick(name)
     }
@@ -1361,6 +1448,10 @@ function DeskScene({ onObjectClick }) {
       
       {showMacScreen && (
         <MacHomeScreenFullscreen onClose={() => setShowMacScreen(false)} />
+      )}
+      
+      {showNotebook && (
+        <NotebookFullscreen onClose={() => setShowNotebook(false)} />
       )}
     </>
   )
