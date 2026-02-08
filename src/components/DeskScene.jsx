@@ -728,6 +728,86 @@ function AbstractArt({ position, colors, pattern = 'geometric' }) {
   )
 }
 
+// Pink teddy bear
+function TeddyBear() {
+  const pinkColor = "#ffb6c1"
+  const darkPinkColor = "#ff9cb0"
+  
+  return (
+    <group position={[-0.6, -1.25, 5]} scale={0.25} rotation={[0, Math.PI, 0]}>
+      {/* Body */}
+      <mesh position={[0, 0.6, 0]}>
+        <sphereGeometry args={[0.4, 16, 16]} />
+        <meshStandardMaterial color={pinkColor} roughness={0.9} />
+      </mesh>
+      
+      {/* Head */}
+      <mesh position={[0, 1.1, 0]}>
+        <sphereGeometry args={[0.35, 16, 16]} />
+        <meshStandardMaterial color={pinkColor} roughness={0.9} />
+      </mesh>
+      
+      {/* Ears */}
+      <mesh position={[-0.2, 1.3, 0]}>
+        <sphereGeometry args={[0.12, 16, 16]} />
+        <meshStandardMaterial color={darkPinkColor} roughness={0.9} />
+      </mesh>
+      <mesh position={[0.2, 1.3, 0]}>
+        <sphereGeometry args={[0.12, 16, 16]} />
+        <meshStandardMaterial color={darkPinkColor} roughness={0.9} />
+      </mesh>
+      
+      {/* Snout */}
+      <mesh position={[0, 1.05, 0.25]}>
+        <sphereGeometry args={[0.15, 16, 16]} />
+        <meshStandardMaterial color={darkPinkColor} roughness={0.9} />
+      </mesh>
+      
+      {/* Nose */}
+      <mesh position={[0, 1.1, 0.35]}>
+        <sphereGeometry args={[0.05, 16, 16]} />
+        <meshStandardMaterial color="#3d2f1f" roughness={0.5} />
+      </mesh>
+      
+      {/* Eyes */}
+      <mesh position={[-0.1, 1.15, 0.3]}>
+        <sphereGeometry args={[0.04, 16, 16]} />
+        <meshStandardMaterial color="#1a1a1a" />
+      </mesh>
+      <mesh position={[0.1, 1.15, 0.3]}>
+        <sphereGeometry args={[0.04, 16, 16]} />
+        <meshStandardMaterial color="#1a1a1a" />
+      </mesh>
+      
+      {/* Arms */}
+      <mesh position={[-0.35, 0.7, 0.15]} rotation={[0, 0, -0.5]}>
+        <capsuleGeometry args={[0.1, 0.3, 8, 16]} />
+        <meshStandardMaterial color={pinkColor} roughness={0.9} />
+      </mesh>
+      <mesh position={[0.35, 0.7, 0.15]} rotation={[0, 0, 0.5]}>
+        <capsuleGeometry args={[0.1, 0.3, 8, 16]} />
+        <meshStandardMaterial color={pinkColor} roughness={0.9} />
+      </mesh>
+      
+      {/* Legs */}
+      <mesh position={[-0.15, 0.25, 0.1]} rotation={[0.3, 0, 0]}>
+        <capsuleGeometry args={[0.12, 0.25, 8, 16]} />
+        <meshStandardMaterial color={pinkColor} roughness={0.9} />
+      </mesh>
+      <mesh position={[0.15, 0.25, 0.1]} rotation={[0.3, 0, 0]}>
+        <capsuleGeometry args={[0.12, 0.25, 8, 16]} />
+        <meshStandardMaterial color={pinkColor} roughness={0.9} />
+      </mesh>
+      
+      {/* Belly spot */}
+      <mesh position={[0, 0.6, 0.35]}>
+        <sphereGeometry args={[0.2, 16, 16]} />
+        <meshStandardMaterial color="#ffe0e8" roughness={0.9} />
+      </mesh>
+    </group>
+  )
+}
+
 // Cloud couch (CB2 style)
 function CloudCouch() {
   return (
@@ -1169,6 +1249,7 @@ function Scene({ onObjectClick }) {
       <DeskChair />
       <Bookshelf />
       <CloudCouch />
+      <TeddyBear />
       <CoffeeTable />
       <FloorLamp />
       <Carpet />
