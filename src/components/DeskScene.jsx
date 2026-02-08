@@ -1587,7 +1587,7 @@ function MacHomeScreenFullscreen({ onClose }) {
         </div>
       </div>
 
-      {/* LinkedIn iframe */}
+      {/* LinkedIn mockup */}
       <div style={{
         flex: 1,
         position: 'relative',
@@ -1596,19 +1596,93 @@ function MacHomeScreenFullscreen({ onClose }) {
         alignItems: 'center',
         justifyContent: 'center'
       }}>
-        <iframe
-          src="https://www.linkedin.com/in/vvanessaww"
+        <div 
           style={{
             width: '100%',
             height: '100%',
-            border: 'none',
             borderRadius: '8px',
             background: '#fff',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.3)'
+            boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+            overflow: 'auto'
           }}
-          title="LinkedIn Profile"
           onClick={(e) => e.stopPropagation()}
-        />
+        >
+          {/* LinkedIn content */}
+          <div style={{ background: '#f3f2ef', minHeight: '100%' }}>
+            {/* LinkedIn header */}
+            <div style={{ background: '#0a66c2', height: '120px' }} />
+            <div style={{ padding: '0 24px' }}>
+              {/* Profile photo */}
+              <div style={{
+                width: '150px',
+                height: '150px',
+                borderRadius: '50%',
+                background: '#fff',
+                border: '4px solid #fff',
+                marginTop: '-75px',
+                marginBottom: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '48px'
+              }}>
+                👩‍💻
+              </div>
+              {/* Name and title */}
+              <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
+                <h1 style={{ fontSize: '24px', fontWeight: '600', margin: '8px 0', color: '#000' }}>Vanessa Wang</h1>
+                <p style={{ fontSize: '16px', color: '#666', margin: '4px 0' }}>Product Manager at ServiceNow</p>
+                <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>New York, NY · 500+ connections</p>
+              </div>
+              
+              {/* View Full Profile Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  window.open('https://www.linkedin.com/in/vvanessaww', '_blank')
+                }}
+                style={{
+                  marginTop: '16px',
+                  padding: '10px 24px',
+                  background: '#0a66c2',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '24px',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                  transition: 'background 0.2s ease',
+                  boxShadow: '0 2px 8px rgba(10,102,194,0.3)'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = '#004182'}
+                onMouseLeave={(e) => e.currentTarget.style.background = '#0a66c2'}
+              >
+                View Full LinkedIn Profile →
+              </button>
+              
+              {/* About section */}
+              <div style={{ marginTop: '24px', padding: '20px', background: '#fff', borderRadius: '8px' }}>
+                <h2 style={{ fontSize: '20px', fontWeight: '600', margin: '0 0 12px 0', color: '#000' }}>About</h2>
+                <p style={{ fontSize: '14px', color: '#000', lineHeight: '1.6' }}>
+                  Product Manager passionate about building thoughtful digital experiences. Content creator exploring tech, life in NYC, and everything in between.
+                </p>
+              </div>
+              {/* Experience section */}
+              <div style={{ marginTop: '16px', padding: '20px', background: '#fff', borderRadius: '8px', marginBottom: '24px' }}>
+                <h2 style={{ fontSize: '20px', fontWeight: '600', margin: '0 0 16px 0', color: '#000' }}>Experience</h2>
+                <div style={{ display: 'flex', gap: '12px' }}>
+                  <div style={{ fontSize: '32px' }}>🏢</div>
+                  <div>
+                    <h3 style={{ fontSize: '16px', fontWeight: '600', margin: '0', color: '#000' }}>Product Manager</h3>
+                    <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>ServiceNow</p>
+                    <p style={{ fontSize: '12px', color: '#999', margin: '4px 0' }}>2020 - Present</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Dock */}
