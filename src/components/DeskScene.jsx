@@ -577,15 +577,16 @@ function DeskLamp() {
           emissiveIntensity={1.2}
         />
       </mesh>
-      {/* Light source */}
+      {/* Light source - centered */}
       <spotLight
-        position={[0, 0.04 + stemHeight - 0.02, 0]}
-        angle={Math.PI / 4}
+        position={[0, 0.04 + stemHeight - 0.04, 0]}
+        angle={Math.PI / 3}
         penumbra={0.5}
-        intensity={0.8}
+        intensity={1}
         color="#fff8e1"
-        distance={4}
-        target-position={[0, 0, 0]}
+        distance={3}
+        target-position={[0, -0.5, 0]}
+        castShadow
       />
     </group>
   )
@@ -734,7 +735,7 @@ function TeddyBear() {
   const darkPinkColor = "#ff9cb0"
   
   return (
-    <group position={[-1.2, -0.05, 5.2]} scale={0.4} rotation={[0.2, Math.PI * 0.75, 0]}>
+    <group position={[-0.9, -0.05, 4.9]} scale={0.4} rotation={[0.2, Math.PI * 0.75, 0]}>
       {/* Body - normal size for plush sitting look */}
       <mesh position={[0, 0.4, 0]} scale={[1, 0.9, 1]}>
         <sphereGeometry args={[0.4, 16, 16]} />
