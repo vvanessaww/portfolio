@@ -1305,13 +1305,27 @@ function PostcardFullscreen({ onClose }) {
         display: 'flex',
         padding: '40px'
       }}>
-        {/* Left side - text */}
+        {/* Left side - photo */}
+        <div style={{
+          flex: 1,
+          background: 'linear-gradient(135deg, #8fa4b8 0%, #6a8a9a 100%)',
+          borderRadius: '4px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '48px',
+          color: 'rgba(255,255,255,0.3)',
+          marginRight: '30px'
+        }}>
+          🏞️
+        </div>
+        
+        {/* Right side - text */}
         <div style={{
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          paddingRight: '30px',
           fontFamily: '"Courier New", monospace'
         }}>
           {/* Message area */}
@@ -1344,7 +1358,7 @@ function PostcardFullscreen({ onClose }) {
           <div style={{
             position: 'absolute',
             top: '40px',
-            left: '40px',
+            right: '40px',
             width: '60px',
             height: '70px',
             background: '#8a3a3a',
@@ -1356,20 +1370,6 @@ function PostcardFullscreen({ onClose }) {
           }}>
             📮
           </div>
-        </div>
-        
-        {/* Right side - photo */}
-        <div style={{
-          flex: 1,
-          background: 'linear-gradient(135deg, #8fa4b8 0%, #6a8a9a 100%)',
-          borderRadius: '4px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '48px',
-          color: 'rgba(255,255,255,0.3)'
-        }}>
-          🏞️
         </div>
         
         {/* Close hint */}
