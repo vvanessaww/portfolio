@@ -1178,6 +1178,136 @@ function Scene({ onObjectClick }) {
   )
 }
 
+// Full-screen Postcard overlay
+function PostcardFullscreen({ onClose }) {
+  const [isVisible, setIsVisible] = useState(false)
+
+  // Trigger animation on mount
+  useState(() => {
+    setTimeout(() => setIsVisible(true), 10)
+  }, [])
+
+  const handleClose = () => {
+    setIsVisible(false)
+    setTimeout(onClose, 300) // Wait for fade-out animation
+  }
+
+  return (
+    <div 
+      onClick={handleClose}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        background: 'rgba(0, 0, 0, 0.8)',
+        zIndex: 1000,
+        cursor: 'pointer',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'scale(1)' : 'scale(0.8)',
+        transition: 'opacity 0.3s ease, transform 0.3s ease',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '40px'
+      }}
+    >
+      {/* Postcard */}
+      <div style={{
+        width: '800px',
+        height: '500px',
+        background: '#e8e4dc',
+        borderRadius: '4px',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+        position: 'relative',
+        display: 'flex',
+        padding: '40px'
+      }}>
+        {/* Left side - text */}
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          paddingRight: '30px',
+          fontFamily: '"Courier New", monospace'
+        }}>
+          {/* Message area */}
+          <div>
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} style={{
+                width: '100%',
+                height: '2px',
+                background: '#2a2a2a',
+                marginBottom: '28px',
+                opacity: 0.3
+              }} />
+            ))}
+          </div>
+          
+          {/* Address area */}
+          <div style={{ marginTop: 'auto' }}>
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} style={{
+                width: '80%',
+                height: '2px',
+                background: '#5a5a5a',
+                marginBottom: '20px',
+                opacity: 0.4
+              }} />
+            ))}
+          </div>
+          
+          {/* Stamp */}
+          <div style={{
+            position: 'absolute',
+            top: '40px',
+            left: '40px',
+            width: '60px',
+            height: '70px',
+            background: '#8a3a3a',
+            border: '2px dashed #fff',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '24px'
+          }}>
+            📮
+          </div>
+        </div>
+        
+        {/* Right side - photo */}
+        <div style={{
+          flex: 1,
+          background: 'linear-gradient(135deg, #8fa4b8 0%, #6a8a9a 100%)',
+          borderRadius: '4px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '48px',
+          color: 'rgba(255,255,255,0.3)'
+        }}>
+          🏞️
+        </div>
+        
+        {/* Close hint */}
+        <div style={{
+          position: 'absolute',
+          bottom: '15px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          color: '#888',
+          fontSize: '13px',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        }}>
+          Click anywhere to close
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // Full-screen Notebook overlay
 function NotebookFullscreen({ onClose }) {
   const [isVisible, setIsVisible] = useState(false)
@@ -1404,12 +1534,15 @@ function MacHomeScreenFullscreen({ onClose }) {
 function DeskScene({ onObjectClick }) {
   const [showMacScreen, setShowMacScreen] = useState(false)
   const [showNotebook, setShowNotebook] = useState(false)
+  const [showPostcard, setShowPostcard] = useState(false)
 
   const handleObjectClick = (name) => {
     if (name === 'laptop') {
       setShowMacScreen(true)
     } else if (name === 'notebook') {
       setShowNotebook(true)
+    } else if (name === 'postcard') {
+      setShowPostcard(true)
     } else if (onObjectClick) {
       onObjectClick(name)
     }
@@ -1452,6 +1585,10 @@ function DeskScene({ onObjectClick }) {
       
       {showNotebook && (
         <NotebookFullscreen onClose={() => setShowNotebook(false)} />
+      )}
+      
+      {showPostcard && (
+        <PostcardFullscreen onClose={() => setShowPostcard(false)} />
       )}
     </>
   )
