@@ -1642,8 +1642,8 @@ function MacHomeScreenFullscreen({ onClose }) {
               {/* Name and title */}
               <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
                 <h1 style={{ fontSize: '20px', fontWeight: '600', margin: '8px 0', color: '#000' }}>Vanessa Wang</h1>
-                <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>Product Manager at ServiceNow</p>
-                <p style={{ fontSize: '12px', color: '#666', margin: '4px 0' }}>New York, NY · 500+ connections</p>
+                <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>Product Manager @ ServiceNow</p>
+                <p style={{ fontSize: '12px', color: '#666', margin: '4px 0' }}>New York, NY · 1000+ connections</p>
               </div>
               
               {/* View Full Profile Button */}
@@ -1676,7 +1676,7 @@ function MacHomeScreenFullscreen({ onClose }) {
               <div style={{ marginTop: '16px', padding: '16px', background: '#fff', borderRadius: '8px' }}>
                 <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 8px 0', color: '#000' }}>About</h2>
                 <p style={{ fontSize: '13px', color: '#000', lineHeight: '1.6' }}>
-                  Product Manager passionate about building thoughtful digital experiences. Content creator exploring tech, life in NYC, and everything in between.
+                Product Manager with an engineering background, currently building enterprise software at ServiceNow. I enjoy solving complex problems & owning ambiguous spaces.
                 </p>
               </div>
               {/* Experience section */}
@@ -1687,7 +1687,7 @@ function MacHomeScreenFullscreen({ onClose }) {
                   <div>
                     <h3 style={{ fontSize: '14px', fontWeight: '600', margin: '0', color: '#000' }}>Product Manager</h3>
                     <p style={{ fontSize: '13px', color: '#666', margin: '4px 0' }}>ServiceNow</p>
-                    <p style={{ fontSize: '11px', color: '#999', margin: '4px 0' }}>2020 - Present</p>
+                    <p style={{ fontSize: '11px', color: '#999', margin: '4px 0' }}>2024 - Present</p>
                   </div>
                 </div>
               </div>
@@ -1742,22 +1742,21 @@ function MacHomeScreenFullscreen({ onClose }) {
               <span style={{ color: '#fff' }}> ~ % </span>
               <span style={{ color: '#00ff00' }}>whoami</span>
             </div>
-            <div>Product Manager | Content Creator</div>
+            <div>product manager at servicenow </div>
             <div style={{ marginTop: '12px' }}>
               <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
               <span style={{ color: '#fff' }}> ~ % </span>
               <span style={{ color: '#00ff00' }}>ls -la ~/projects</span>
             </div>
-            <div>Portfolio Website</div>
-            <div>Thoughtful Journal App</div>
-            <div>Strava Postcard Generator</div>
-            <div>Content Creation</div>
+            <div>* portfolio website</div>
+            <div>* thoughtful: a smart journal</div>
+            <div>* kudos card: digital to analog</div>
             <div style={{ marginTop: '12px' }}>
               <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
               <span style={{ color: '#fff' }}> ~ % </span>
-              <span style={{ color: '#00ff00' }}>echo $PASSIONS</span>
+              <span style={{ color: '#00ff00' }}>echo $PATH</span>
             </div>
-            <div>Building • Writing • Creating</div>
+            <div>pushing my limits, learning new things, and creating more than i consume.</div>
             <div style={{ marginTop: '12px' }}>
               <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
               <span style={{ color: '#fff' }}> ~ % </span>
