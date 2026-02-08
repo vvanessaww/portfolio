@@ -728,13 +728,13 @@ function AbstractArt({ position, colors, pattern = 'geometric' }) {
   )
 }
 
-// Pink teddy bear - sitting in corner
+// Pink teddy bear - sitting on couch cushion
 function TeddyBear() {
   const pinkColor = "#ffb6c1"
   const darkPinkColor = "#ff9cb0"
   
   return (
-    <group position={[-1.3, 0.05, 4.4]} scale={0.4} rotation={[0.2, Math.PI * 0.75, 0]}>
+    <group position={[-0.9, 0.15, 4.9]} scale={0.4} rotation={[0.2, Math.PI * 0.75, 0]}>
       {/* Body - squashed and wider for plush sitting look */}
       <mesh position={[0, 0.4, 0]} scale={[1.1, 0.8, 1.1]}>
         <sphereGeometry args={[0.45, 16, 16]} />
@@ -809,9 +809,9 @@ function TeddyBear() {
         <meshStandardMaterial color={darkPinkColor} roughness={0.95} />
       </mesh>
       
-      {/* Belly spot - larger and softer */}
-      <mesh position={[0, 0.45, 0.4]} scale={[1, 0.9, 1]}>
-        <sphereGeometry args={[0.22, 16, 16]} />
+      {/* Belly spot - smaller */}
+      <mesh position={[0, 0.45, 0.4]} scale={[0.8, 0.7, 1]}>
+        <sphereGeometry args={[0.15, 16, 16]} />
         <meshStandardMaterial color="#ffe0e8" roughness={0.95} />
       </mesh>
     </group>
