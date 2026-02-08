@@ -239,35 +239,56 @@ function CurvedMonitor() {
 function PhotoFrame({ imagePath, size = [0.25, 0.18], hovered, frameColor = "#1a1a1a" }) {
   const texture = useLoader(THREE.TextureLoader, imagePath)
   const [width, height] = size
+  const frameThickness = 0.02
+  const frameDepth = 0.02
   
   return (
     <group>
-      {/* Frame border */}
-      <mesh position={[0, 0, -0.005]}>
-        <boxGeometry args={[width + 0.03, height + 0.03, 0.015]} />
+      {/* Frame borders - top, bottom, left, right */}
+      {/* Top border */}
+      <mesh position={[0, height / 2 + frameThickness / 2, 0]}>
+        <boxGeometry args={[width + frameThickness * 2, frameThickness, frameDepth]} />
         <meshStandardMaterial 
           color={frameColor} 
           roughness={0.3} 
           metalness={frameColor === "#ffffff" ? 0.1 : 0.4}
         />
       </mesh>
+      {/* Bottom border */}
+      <mesh position={[0, -height / 2 - frameThickness / 2, 0]}>
+        <boxGeometry args={[width + frameThickness * 2, frameThickness, frameDepth]} />
+        <meshStandardMaterial 
+          color={frameColor} 
+          roughness={0.3} 
+          metalness={frameColor === "#ffffff" ? 0.1 : 0.4}
+        />
+      </mesh>
+      {/* Left border */}
+      <mesh position={[-width / 2 - frameThickness / 2, 0, 0]}>
+        <boxGeometry args={[frameThickness, height, frameDepth]} />
+        <meshStandardMaterial 
+          color={frameColor} 
+          roughness={0.3} 
+          metalness={frameColor === "#ffffff" ? 0.1 : 0.4}
+        />
+      </mesh>
+      {/* Right border */}
+      <mesh position={[width / 2 + frameThickness / 2, 0, 0]}>
+        <boxGeometry args={[frameThickness, height, frameDepth]} />
+        <meshStandardMaterial 
+          color={frameColor} 
+          roughness={0.3} 
+          metalness={frameColor === "#ffffff" ? 0.1 : 0.4}
+        />
+      </mesh>
+      
       {/* Photo with texture */}
-      <mesh>
+      <mesh position={[0, 0, -frameDepth / 2 + 0.001]}>
         <planeGeometry args={[width, height]} />
         <meshStandardMaterial 
           map={texture} 
           emissive={hovered ? "#ffffff" : "#000000"}
           emissiveIntensity={hovered ? 0.1 : 0}
-        />
-      </mesh>
-      {/* Glass effect overlay */}
-      <mesh position={[0, 0, 0.001]}>
-        <planeGeometry args={[width, height]} />
-        <meshStandardMaterial 
-          transparent
-          opacity={0.05}
-          roughness={0.1}
-          metalness={0.1}
         />
       </mesh>
     </group>
@@ -365,7 +386,7 @@ function Mug() {
 // Pen holder with pens
 function PenHolder() {
   return (
-    <group position={[-1.5, 0.35, -0.6]}>
+    <group position={[0, 0.35, 0]}>
       {/* Cup */}
       <mesh>
         <cylinderGeometry args={[0.05, 0.04, 0.1, 8]} />
@@ -517,32 +538,33 @@ function FloorToCeilingWindow() {
 
 // Desk lamp with functional light
 function DeskLamp() {
+  const stemHeight = 0.4
   return (
-    <group position={[1.6, 0.3, -0.7]} scale={1.8}>
+    <group position={[1.6, 0.3, -0.7]}>
       {/* Base */}
       <mesh position={[0, 0.02, 0]}>
         <cylinderGeometry args={[0.08, 0.1, 0.04, 16]} />
         <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
       </mesh>
-      {/* Arm */}
-      <mesh position={[0, 0.15, 0]} rotation={[Math.PI / 12, Math.PI / 3, -Math.PI / 4]}>
-        <cylinderGeometry args={[0.015, 0.015, 0.3, 8]} />
+      {/* Upright stem */}
+      <mesh position={[0, 0.04 + stemHeight / 2, 0]}>
+        <cylinderGeometry args={[0.015, 0.015, stemHeight, 8]} />
         <meshStandardMaterial color="#2a2a2a" roughness={0.5} metalness={0.5} />
       </mesh>
-      {/* Shade */}
-      <mesh position={[0.05, 0.25, 0.08]} rotation={[-Math.PI / 3, Math.PI / 3, -Math.PI / 8]}>
-        <coneGeometry args={[0.08, 0.12, 16, 1, true]} />
+      {/* Shade at top of stem */}
+      <mesh position={[0, 0.04 + stemHeight, 0]} rotation={[Math.PI, 0, 0]}>
+        <coneGeometry args={[0.08, 0.12, 16, 1, false]} />
         <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} side={THREE.DoubleSide} />
       </mesh>
       {/* Light source */}
       <spotLight
-        position={[0.05, 0.22, 0.08]}
-        angle={Math.PI / 5}
+        position={[0, 0.04 + stemHeight - 0.02, 0]}
+        angle={Math.PI / 4}
         penumbra={0.5}
         intensity={0.8}
         color="#fff8e1"
         distance={4}
-        target-position={[-0.9, 0, 0.4]}
+        target-position={[0, 0, 0]}
       />
     </group>
   )
@@ -1026,26 +1048,10 @@ function Scene({ onObjectClick }) {
         <Notebook hovered={hoveredObject === 'notebook'} />
       </InteractiveObject>
 
-      {/* Photo frames on desk */}
-      <group position={[-1.2, 0.32, -0.4]} rotation={[0, 0.3, 0]}>
-        <PhotoFrame 
-          imagePath="/photo-nyc.jpg" 
-          size={[0.3, 0.2]}
-          hovered={hoveredObject === 'photo-nyc'}
-        />
-      </group>
-      
-      <group position={[1.3, 0.32, 0.1]} rotation={[0, -0.4, 0]}>
-        <PhotoFrame 
-          imagePath="/photo-bears.jpg" 
-          size={[0.25, 0.25]}
-          hovered={hoveredObject === 'photo-bears'}
-        />
-      </group>
-
       {/* Ambient objects (non-interactive) */}
-      <Mug />
-      <PenHolder />
+      <group position={[0.6, 0, 0.3]}>
+        <PenHolder />
+      </group>
       <PalmTree position={[2.5, -1.2, -1.5]} scale={3} />
       <PalmTree position={[2.5, -1.2, -0.5]} scale={2.7} />
       <PalmTree position={[2.5, -1.2, 0.5]} scale={3.3} />
