@@ -734,7 +734,7 @@ function TeddyBear() {
   const darkPinkColor = "#ff9cb0"
   
   return (
-    <group position={[-1.2, -0.55, 5]} scale={0.35} rotation={[0, Math.PI, 0]}>
+    <group position={[-1.2, 0.2, 5]} scale={0.35} rotation={[0, Math.PI, 0]}>
       {/* Body */}
       <mesh position={[0, 0.6, 0]}>
         <sphereGeometry args={[0.4, 16, 16]} />
