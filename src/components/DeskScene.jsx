@@ -1422,7 +1422,7 @@ function NotebookFullscreen({ onClose }) {
         left: 0,
         width: '100vw',
         height: '100vh',
-        background: '#2c4a6a',
+        background: 'rgba(0, 0, 0, 0.8)',
         zIndex: 1000,
         cursor: 'pointer',
         opacity: isVisible ? 1 : 0,
