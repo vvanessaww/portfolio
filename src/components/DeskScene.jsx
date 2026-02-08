@@ -728,81 +728,91 @@ function AbstractArt({ position, colors, pattern = 'geometric' }) {
   )
 }
 
-// Pink teddy bear
+// Pink teddy bear - sitting in corner
 function TeddyBear() {
   const pinkColor = "#ffb6c1"
   const darkPinkColor = "#ff9cb0"
   
   return (
-    <group position={[-1.2, 0.2, 5]} scale={0.35} rotation={[0, Math.PI, 0]}>
-      {/* Body */}
-      <mesh position={[0, 0.6, 0]}>
-        <sphereGeometry args={[0.4, 16, 16]} />
-        <meshStandardMaterial color={pinkColor} roughness={0.9} />
+    <group position={[-1.3, 0.05, 4.4]} scale={0.4} rotation={[0.2, Math.PI * 0.75, 0]}>
+      {/* Body - squashed and wider for plush sitting look */}
+      <mesh position={[0, 0.4, 0]} scale={[1.1, 0.8, 1.1]}>
+        <sphereGeometry args={[0.45, 16, 16]} />
+        <meshStandardMaterial color={pinkColor} roughness={0.95} />
       </mesh>
       
-      {/* Head */}
-      <mesh position={[0, 1.1, 0]}>
+      {/* Head - slightly tilted */}
+      <mesh position={[0, 0.95, -0.05]} rotation={[0.1, 0, 0]}>
         <sphereGeometry args={[0.35, 16, 16]} />
-        <meshStandardMaterial color={pinkColor} roughness={0.9} />
+        <meshStandardMaterial color={pinkColor} roughness={0.95} />
       </mesh>
       
       {/* Ears */}
-      <mesh position={[-0.2, 1.3, 0]}>
+      <mesh position={[-0.2, 1.15, -0.05]}>
         <sphereGeometry args={[0.12, 16, 16]} />
-        <meshStandardMaterial color={darkPinkColor} roughness={0.9} />
+        <meshStandardMaterial color={darkPinkColor} roughness={0.95} />
       </mesh>
-      <mesh position={[0.2, 1.3, 0]}>
+      <mesh position={[0.2, 1.15, -0.05]}>
         <sphereGeometry args={[0.12, 16, 16]} />
-        <meshStandardMaterial color={darkPinkColor} roughness={0.9} />
+        <meshStandardMaterial color={darkPinkColor} roughness={0.95} />
       </mesh>
       
       {/* Snout */}
-      <mesh position={[0, 1.05, 0.25]}>
+      <mesh position={[0, 0.9, 0.25]}>
         <sphereGeometry args={[0.15, 16, 16]} />
-        <meshStandardMaterial color={darkPinkColor} roughness={0.9} />
+        <meshStandardMaterial color={darkPinkColor} roughness={0.95} />
       </mesh>
       
       {/* Nose */}
-      <mesh position={[0, 1.1, 0.35]}>
+      <mesh position={[0, 0.95, 0.35]}>
         <sphereGeometry args={[0.05, 16, 16]} />
         <meshStandardMaterial color="#3d2f1f" roughness={0.5} />
       </mesh>
       
       {/* Eyes */}
-      <mesh position={[-0.1, 1.15, 0.3]}>
+      <mesh position={[-0.1, 1.0, 0.3]}>
         <sphereGeometry args={[0.04, 16, 16]} />
         <meshStandardMaterial color="#1a1a1a" />
       </mesh>
-      <mesh position={[0.1, 1.15, 0.3]}>
+      <mesh position={[0.1, 1.0, 0.3]}>
         <sphereGeometry args={[0.04, 16, 16]} />
         <meshStandardMaterial color="#1a1a1a" />
       </mesh>
       
-      {/* Arms */}
-      <mesh position={[-0.35, 0.7, 0.15]} rotation={[0, 0, -0.5]}>
-        <capsuleGeometry args={[0.1, 0.3, 8, 16]} />
-        <meshStandardMaterial color={pinkColor} roughness={0.9} />
+      {/* Arms - relaxed at sides */}
+      <mesh position={[-0.4, 0.5, 0.1]} rotation={[0.3, 0, -0.8]}>
+        <capsuleGeometry args={[0.1, 0.35, 8, 16]} />
+        <meshStandardMaterial color={pinkColor} roughness={0.95} />
       </mesh>
-      <mesh position={[0.35, 0.7, 0.15]} rotation={[0, 0, 0.5]}>
-        <capsuleGeometry args={[0.1, 0.3, 8, 16]} />
-        <meshStandardMaterial color={pinkColor} roughness={0.9} />
-      </mesh>
-      
-      {/* Legs */}
-      <mesh position={[-0.15, 0.25, 0.1]} rotation={[0.3, 0, 0]}>
-        <capsuleGeometry args={[0.12, 0.25, 8, 16]} />
-        <meshStandardMaterial color={pinkColor} roughness={0.9} />
-      </mesh>
-      <mesh position={[0.15, 0.25, 0.1]} rotation={[0.3, 0, 0]}>
-        <capsuleGeometry args={[0.12, 0.25, 8, 16]} />
-        <meshStandardMaterial color={pinkColor} roughness={0.9} />
+      <mesh position={[0.4, 0.5, 0.1]} rotation={[0.3, 0, 0.8]}>
+        <capsuleGeometry args={[0.1, 0.35, 8, 16]} />
+        <meshStandardMaterial color={pinkColor} roughness={0.95} />
       </mesh>
       
-      {/* Belly spot */}
-      <mesh position={[0, 0.6, 0.35]}>
-        <sphereGeometry args={[0.2, 16, 16]} />
-        <meshStandardMaterial color="#ffe0e8" roughness={0.9} />
+      {/* Legs - sitting position, extended forward */}
+      <mesh position={[-0.15, 0.15, 0.3]} rotation={[1.3, 0, 0]} scale={[1, 1, 1.2]}>
+        <capsuleGeometry args={[0.13, 0.3, 8, 16]} />
+        <meshStandardMaterial color={pinkColor} roughness={0.95} />
+      </mesh>
+      <mesh position={[0.15, 0.15, 0.3]} rotation={[1.3, 0, 0]} scale={[1, 1, 1.2]}>
+        <capsuleGeometry args={[0.13, 0.3, 8, 16]} />
+        <meshStandardMaterial color={pinkColor} roughness={0.95} />
+      </mesh>
+      
+      {/* Feet pads */}
+      <mesh position={[-0.15, 0.08, 0.6]} rotation={[1.3, 0, 0]}>
+        <sphereGeometry args={[0.1, 16, 16]} />
+        <meshStandardMaterial color={darkPinkColor} roughness={0.95} />
+      </mesh>
+      <mesh position={[0.15, 0.08, 0.6]} rotation={[1.3, 0, 0]}>
+        <sphereGeometry args={[0.1, 16, 16]} />
+        <meshStandardMaterial color={darkPinkColor} roughness={0.95} />
+      </mesh>
+      
+      {/* Belly spot - larger and softer */}
+      <mesh position={[0, 0.45, 0.4]} scale={[1, 0.9, 1]}>
+        <sphereGeometry args={[0.22, 16, 16]} />
+        <meshStandardMaterial color="#ffe0e8" roughness={0.95} />
       </mesh>
     </group>
   )
