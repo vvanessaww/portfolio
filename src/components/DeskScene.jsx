@@ -1116,10 +1116,10 @@ function Scene({ onObjectClick }) {
         </mesh>
       ))}
 
-      {/* Background wall - sage green */}
+      {/* Background wall */}
       <mesh position={[0, 1, -3]}>
         <planeGeometry args={[15, 8]} />
-        <meshStandardMaterial color="#9CAF88" roughness={0.95} />
+        <meshStandardMaterial color="#252525" roughness={0.95} />
       </mesh>
 
       {/* Desk */}
@@ -1329,7 +1329,7 @@ function DeskScene({ onObjectClick }) {
         width: '100%', 
         height: '100%', 
         minHeight: '500px',
-        background: 'linear-gradient(180deg, #5a6f52 0%, #485a40 50%, #2a3524 100%)'
+        background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%)'
       }}>
         <Canvas
           shadows
