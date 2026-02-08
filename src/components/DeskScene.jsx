@@ -734,7 +734,7 @@ function TeddyBear() {
   const darkPinkColor = "#ff9cb0"
   
   return (
-    <group position={[-0.9, -0.05, 4.9]} scale={0.4} rotation={[0.2, Math.PI * 0.75, 0]}>
+    <group position={[-1.2, -0.05, 5.2]} scale={0.4} rotation={[0.2, Math.PI * 0.75, 0]}>
       {/* Body - normal size for plush sitting look */}
       <mesh position={[0, 0.4, 0]} scale={[1, 0.9, 1]}>
         <sphereGeometry args={[0.4, 16, 16]} />
@@ -971,6 +971,65 @@ function CoffeeTable() {
           decay={2}
         />
       </group>
+    </group>
+  )
+}
+
+// Ceiling light fixture
+function CeilingLight() {
+  return (
+    <group position={[0, 2.5, 2]}>
+      {/* Ceiling mount */}
+      <mesh position={[0, 0, 0]}>
+        <cylinderGeometry args={[0.08, 0.08, 0.05, 16]} />
+        <meshStandardMaterial color="#f5f5f0" roughness={0.3} metalness={0.7} />
+      </mesh>
+      
+      {/* Wire/rod */}
+      <mesh position={[0, -0.3, 0]}>
+        <cylinderGeometry args={[0.01, 0.01, 0.6, 8]} />
+        <meshStandardMaterial color="#2a2a2a" roughness={0.4} metalness={0.8} />
+      </mesh>
+      
+      {/* Light fixture - modern dome shade */}
+      <mesh position={[0, -0.6, 0]}>
+        <sphereGeometry args={[0.35, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        <meshStandardMaterial 
+          color="#f8f8f8" 
+          roughness={0.2}
+          metalness={0.1}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+      
+      {/* Light bulb glow inside */}
+      <mesh position={[0, -0.5, 0]}>
+        <sphereGeometry args={[0.12, 16, 16]} />
+        <meshStandardMaterial 
+          color="#fff8e1" 
+          emissive="#fff8e1"
+          emissiveIntensity={1.5}
+        />
+      </mesh>
+      
+      {/* Main light source */}
+      <pointLight
+        position={[0, -0.5, 0]}
+        color="#fff8e1"
+        intensity={2.5}
+        distance={12}
+        decay={1.5}
+        castShadow
+      />
+      
+      {/* Additional fill light for softer illumination */}
+      <pointLight
+        position={[0, -0.5, 0]}
+        color="#ffffff"
+        intensity={1}
+        distance={8}
+        decay={2}
+      />
     </group>
   )
 }
@@ -1256,6 +1315,7 @@ function Scene({ onObjectClick }) {
       <TeddyBear />
       <CoffeeTable />
       <FloorLamp />
+      <CeilingLight />
       <Carpet />
       <StripedRug />
       <BarCart />
