@@ -1177,6 +1177,136 @@ function BarCart() {
   )
 }
 
+// Lily bouquet on bar cart
+function LilyBouquet() {
+  return (
+    <group position={[-2.5, 0.13, 5]}>
+      {/* Chrome vase */}
+      <mesh position={[0, 0.15, 0]}>
+        <cylinderGeometry args={[0.08, 0.06, 0.3, 16]} />
+        <meshStandardMaterial 
+          color="#d0d0d0" 
+          roughness={0.1} 
+          metalness={0.9}
+          envMapIntensity={1.5}
+        />
+      </mesh>
+      
+      {/* Vase neck */}
+      <mesh position={[0, 0.3, 0]}>
+        <cylinderGeometry args={[0.06, 0.08, 0.05, 16]} />
+        <meshStandardMaterial 
+          color="#d0d0d0" 
+          roughness={0.1} 
+          metalness={0.9}
+        />
+      </mesh>
+      
+      {/* Lily stems (green) */}
+      {[-0.03, 0, 0.03].map((x, i) => (
+        <mesh key={`stem-${i}`} position={[x, 0.45, x * 0.5]}>
+          <cylinderGeometry args={[0.005, 0.005, 0.4, 8]} />
+          <meshStandardMaterial color="#4a7c4a" roughness={0.7} />
+        </mesh>
+      ))}
+      
+      {/* Lily flowers - light pink */}
+      {/* Center lily */}
+      <group position={[0, 0.65, 0]}>
+        {/* Petals */}
+        {[0, 60, 120, 180, 240, 300].map((angle, i) => {
+          const rad = (angle * Math.PI) / 180
+          return (
+            <mesh 
+              key={`petal-center-${i}`} 
+              position={[Math.sin(rad) * 0.02, 0, Math.cos(rad) * 0.02]}
+              rotation={[Math.PI / 3, rad, 0]}
+            >
+              <boxGeometry args={[0.04, 0.08, 0.001]} />
+              <meshStandardMaterial 
+                color="#ffc0cb" 
+                roughness={0.6}
+                side={THREE.DoubleSide}
+              />
+            </mesh>
+          )
+        })}
+        {/* Center */}
+        <mesh position={[0, 0, 0]}>
+          <sphereGeometry args={[0.015, 8, 8]} />
+          <meshStandardMaterial color="#f4a460" roughness={0.7} />
+        </mesh>
+      </group>
+      
+      {/* Left lily */}
+      <group position={[-0.04, 0.62, -0.02]} rotation={[0.3, -0.5, 0]}>
+        {[0, 60, 120, 180, 240, 300].map((angle, i) => {
+          const rad = (angle * Math.PI) / 180
+          return (
+            <mesh 
+              key={`petal-left-${i}`} 
+              position={[Math.sin(rad) * 0.018, 0, Math.cos(rad) * 0.018]}
+              rotation={[Math.PI / 3, rad, 0]}
+            >
+              <boxGeometry args={[0.035, 0.07, 0.001]} />
+              <meshStandardMaterial 
+                color="#ffb6c1" 
+                roughness={0.6}
+                side={THREE.DoubleSide}
+              />
+            </mesh>
+          )
+        })}
+        <mesh position={[0, 0, 0]}>
+          <sphereGeometry args={[0.012, 8, 8]} />
+          <meshStandardMaterial color="#f4a460" roughness={0.7} />
+        </mesh>
+      </group>
+      
+      {/* Right lily */}
+      <group position={[0.04, 0.6, 0.02]} rotation={[-0.2, 0.4, 0]}>
+        {[0, 60, 120, 180, 240, 300].map((angle, i) => {
+          const rad = (angle * Math.PI) / 180
+          return (
+            <mesh 
+              key={`petal-right-${i}`} 
+              position={[Math.sin(rad) * 0.018, 0, Math.cos(rad) * 0.018]}
+              rotation={[Math.PI / 3, rad, 0]}
+            >
+              <boxGeometry args={[0.035, 0.07, 0.001]} />
+              <meshStandardMaterial 
+                color="#ffb6c1" 
+                roughness={0.6}
+                side={THREE.DoubleSide}
+              />
+            </mesh>
+          )
+        })}
+        <mesh position={[0, 0, 0]}>
+          <sphereGeometry args={[0.012, 8, 8]} />
+          <meshStandardMaterial color="#f4a460" roughness={0.7} />
+        </mesh>
+      </group>
+      
+      {/* Leaves */}
+      {[-0.02, 0.02].map((x, i) => (
+        <mesh 
+          key={`leaf-${i}`} 
+          position={[x, 0.45, x * 0.3]} 
+          rotation={[0, i * Math.PI, Math.PI / 6]}
+        >
+          <boxGeometry args={[0.015, 0.06, 0.001]} />
+          <meshStandardMaterial 
+            color="#3a6a3a" 
+            roughness={0.7}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+      ))}
+    </group>
+  )
+}
+
 // Desk chair
 function DeskChair() {
   return (
@@ -1319,6 +1449,7 @@ function Scene({ onObjectClick }) {
       <Carpet />
       <StripedRug />
       <BarCart />
+      <LilyBouquet />
     </>
   )
 }
