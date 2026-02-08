@@ -32,11 +32,8 @@ body {
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  transition: color 0.2s;
-}
-
-.nav a:hover {
-  color: #fff;
+  pointer-events: none;
+  cursor: default;
 }
 
 .main {
