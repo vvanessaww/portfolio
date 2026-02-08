@@ -307,8 +307,8 @@ function Postcard({ hovered }) {
           roughness={0.9} 
         />
       </mesh>
-      {/* Photo area on left side */}
-      <mesh position={[-0.08, -0.02, 0.001]}>
+      {/* Photo area on right side */}
+      <mesh position={[0.08, -0.02, 0.001]}>
         <planeGeometry args={[0.14, 0.16]} />
         <meshStandardMaterial 
           color="#8fa4b8"
@@ -316,22 +316,22 @@ function Postcard({ hovered }) {
           emissiveIntensity={hovered ? 0.3 : 0}
         />
       </mesh>
-      {/* Text lines on right side */}
+      {/* Text lines on left side */}
       {[0.03, 0.06, 0.09].map((y, i) => (
-        <mesh key={i} position={[0.08, y, 0.001]}>
+        <mesh key={i} position={[-0.08, y, 0.001]}>
           <planeGeometry args={[0.14, 0.01]} />
           <meshStandardMaterial color="#2a2a2a" />
         </mesh>
       ))}
-      {/* Address lines on right side (bottom) */}
+      {/* Address lines on left side (bottom) */}
       {[-0.03, -0.06].map((y, i) => (
-        <mesh key={`addr-${i}`} position={[0.08, y, 0.001]}>
+        <mesh key={`addr-${i}`} position={[-0.08, y, 0.001]}>
           <planeGeometry args={[0.14, 0.008]} />
           <meshStandardMaterial color="#5a5a5a" />
         </mesh>
       ))}
-      {/* Stamp in top right corner */}
-      <mesh position={[0.13, 0.08, 0.001]}>
+      {/* Stamp in top left corner */}
+      <mesh position={[-0.13, 0.08, 0.001]}>
         <planeGeometry args={[0.03, 0.035]} />
         <meshStandardMaterial color="#8a3a3a" />
       </mesh>
@@ -978,6 +978,11 @@ function BarCart() {
   return (
     <group position={[-2.5, -1.25, 5]} scale={1.5}>
       {/* Frame - dark brown */}
+      {/* Top panel (closed top) */}
+      <mesh position={[0, 0.92, 0]}>
+        <boxGeometry args={[0.64, 0.02, 0.44]} />
+        <meshStandardMaterial color="#3d2f1f" roughness={0.7} metalness={0.2} />
+      </mesh>
       {/* Top shelf */}
       <mesh position={[0, 0.6, 0]}>
         <boxGeometry args={[0.6, 0.03, 0.4]} />
@@ -1334,7 +1339,7 @@ function DeskScene({ onObjectClick }) {
         <Canvas
           shadows
           camera={{ 
-            position: [0, 2.5, 4], 
+            position: [0, 2.5, -4], 
             fov: 45,
             near: 0.1,
             far: 100
