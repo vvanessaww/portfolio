@@ -734,7 +734,7 @@ function TeddyBear() {
   const darkPinkColor = "#ff9cb0"
   
   return (
-    <group position={[-0.6, -1.25, 5]} scale={0.25} rotation={[0, Math.PI, 0]}>
+    <group position={[-1.2, -0.55, 5]} scale={0.35} rotation={[0, Math.PI, 0]}>
       {/* Body */}
       <mesh position={[0, 0.6, 0]}>
         <sphereGeometry args={[0.4, 16, 16]} />
@@ -1455,6 +1455,49 @@ function NotebookFullscreen({ onClose }) {
           background: '#ff8888',
           opacity: 0.3
         }} />
+        
+        {/* Handwritten content */}
+        <div style={{
+          position: 'absolute',
+          top: '70px',
+          left: '100px',
+          right: '80px',
+          fontFamily: '"Caveat", cursive',
+          fontSize: '24px',
+          lineHeight: '34px',
+          color: '#2a2a2a',
+          pointerEvents: 'none'
+        }}>
+          <div style={{ marginBottom: '24px', fontSize: '18px', color: '#666' }}>
+            02/07/2026
+          </div>
+          <div style={{ marginBottom: '16px' }}>
+            Writing is one of many ways I love to express myself - I enjoy thinking
+          </div>
+          <div style={{ marginBottom: '16px' }}>
+            deeply about a variety of topics, and writing gives me a medium to
+          </div>
+          <div style={{ marginBottom: '16px' }}>
+            translate that into a tangible, shareable artifact. Most of my musings
+          </div>
+          <div style={{ marginBottom: '16px' }}>
+            on life in New York and the digital world can be found here:
+          </div>
+          <div style={{ 
+            marginTop: '24px',
+            fontSize: '20px',
+            color: '#2a5a8a',
+            textDecoration: 'underline',
+            cursor: 'pointer',
+            pointerEvents: 'auto'
+          }}
+          onClick={(e) => {
+            e.stopPropagation()
+            window.open('https://vanessawang.substack.com', '_blank')
+          }}>
+            vanessawang.substack.com
+          </div>
+        </div>
         
         {/* Close hint */}
         <div style={{
