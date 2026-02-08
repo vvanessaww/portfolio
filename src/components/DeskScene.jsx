@@ -1520,9 +1520,185 @@ function NotebookFullscreen({ onClose }) {
   )
 }
 
+// Draggable window component
+function DraggableWindow({ title, children, initialPosition, initialSize, onClose: onWindowClose, zIndex }) {
+  const [position, setPosition] = useState(initialPosition)
+  const [size, setSize] = useState(initialSize)
+  const [isDragging, setIsDragging] = useState(false)
+  const [isMinimized, setIsMinimized] = useState(false)
+  const [isMaximized, setIsMaximized] = useState(false)
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
+  const [previousSize, setPreviousSize] = useState(initialSize)
+  const [previousPosition, setPreviousPosition] = useState(initialPosition)
+
+  const handleMouseDown = (e) => {
+    if (e.target.closest('.window-button')) return
+    setIsDragging(true)
+    setDragOffset({
+      x: e.clientX - position.x,
+      y: e.clientY - position.y
+    })
+  }
+
+  const handleMouseMove = (e) => {
+    if (isDragging && !isMaximized) {
+      setPosition({
+        x: e.clientX - dragOffset.x,
+        y: e.clientY - dragOffset.y
+      })
+    }
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+  }
+
+  useState(() => {
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove)
+      window.addEventListener('mouseup', handleMouseUp)
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove)
+        window.removeEventListener('mouseup', handleMouseUp)
+      }
+    }
+  }, [isDragging, dragOffset])
+
+  const handleMinimize = (e) => {
+    e.stopPropagation()
+    setIsMinimized(!isMinimized)
+  }
+
+  const handleMaximize = (e) => {
+    e.stopPropagation()
+    if (isMaximized) {
+      setPosition(previousPosition)
+      setSize(previousSize)
+    } else {
+      setPreviousPosition(position)
+      setPreviousSize(size)
+      setPosition({ x: 20, y: 50 })
+      setSize({ width: window.innerWidth - 40, height: window.innerHeight - 120 })
+    }
+    setIsMaximized(!isMaximized)
+  }
+
+  const handleClose = (e) => {
+    e.stopPropagation()
+    onWindowClose()
+  }
+
+  if (isMinimized) {
+    return null
+  }
+
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: position.x,
+        top: position.y,
+        width: size.width,
+        height: size.height,
+        background: '#fff',
+        borderRadius: '8px',
+        boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        zIndex,
+        cursor: isDragging ? 'grabbing' : 'default'
+      }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Window title bar */}
+      <div
+        style={{
+          height: '40px',
+          background: '#f6f6f6',
+          borderBottom: '1px solid #ddd',
+          display: 'flex',
+          alignItems: 'center',
+          padding: '0 16px',
+          gap: '8px',
+          cursor: isDragging ? 'grabbing' : 'grab',
+          userSelect: 'none'
+        }}
+        onMouseDown={handleMouseDown}
+      >
+        <div 
+          className="window-button"
+          onClick={handleClose}
+          style={{ 
+            width: '12px', 
+            height: '12px', 
+            borderRadius: '50%', 
+            background: '#ff5f56',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '8px',
+            color: '#8b0000',
+            fontWeight: 'bold'
+          }}
+          onMouseEnter={(e) => e.currentTarget.textContent = '×'}
+          onMouseLeave={(e) => e.currentTarget.textContent = ''}
+        />
+        <div 
+          className="window-button"
+          onClick={handleMinimize}
+          style={{ 
+            width: '12px', 
+            height: '12px', 
+            borderRadius: '50%', 
+            background: '#ffbd2e',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '8px',
+            color: '#8b6914',
+            fontWeight: 'bold'
+          }}
+          onMouseEnter={(e) => e.currentTarget.textContent = '−'}
+          onMouseLeave={(e) => e.currentTarget.textContent = ''}
+        />
+        <div 
+          className="window-button"
+          onClick={handleMaximize}
+          style={{ 
+            width: '12px', 
+            height: '12px', 
+            borderRadius: '50%', 
+            background: '#27c93f',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '10px',
+            color: '#0a6b1f',
+            fontWeight: 'bold'
+          }}
+          onMouseEnter={(e) => e.currentTarget.textContent = '+'}
+          onMouseLeave={(e) => e.currentTarget.textContent = ''}
+        />
+        <div style={{ flex: 1, textAlign: 'center', fontSize: '13px', color: '#666' }}>{title}</div>
+      </div>
+      
+      {/* Window content */}
+      <div style={{ flex: 1, overflow: 'auto' }}>
+        {children}
+      </div>
+    </div>
+  )
+}
+
 // Full-screen Mac Home Screen overlay
 function MacHomeScreenFullscreen({ onClose }) {
   const [isVisible, setIsVisible] = useState(false)
+  const [linkedinClosed, setLinkedinClosed] = useState(false)
+  const [terminalClosed, setTerminalClosed] = useState(false)
 
   // Trigger animation on mount
   useState(() => {
@@ -1584,186 +1760,142 @@ function MacHomeScreenFullscreen({ onClose }) {
       {/* Windows area */}
       <div style={{
         flex: 1,
-        position: 'relative',
-        padding: '20px',
-        display: 'flex',
-        gap: '20px'
+        position: 'relative'
       }}>
-        {/* Left window - LinkedIn mockup */}
-        <div 
-          style={{
-            flex: 1,
-            borderRadius: '8px',
-            background: '#fff',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column'
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Window title bar */}
-          <div style={{
-            height: '40px',
-            background: '#f6f6f6',
-            borderBottom: '1px solid #ddd',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 16px',
-            gap: '8px'
-          }}>
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }} />
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }} />
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }} />
-            <div style={{ flex: 1, textAlign: 'center', fontSize: '13px', color: '#666' }}>LinkedIn - Vanessa Wang</div>
-          </div>
-          
-          {/* LinkedIn content */}
-          <div style={{ flex: 1, overflow: 'auto', background: '#f3f2ef' }}>
-            {/* LinkedIn header */}
-            <div style={{ background: '#0a66c2', height: '120px' }} />
-            <div style={{ padding: '0 24px' }}>
-              {/* Profile photo */}
-              <div style={{
-                width: '120px',
-                height: '120px',
-                borderRadius: '50%',
-                background: '#fff',
-                border: '4px solid #fff',
-                marginTop: '-60px',
-                marginBottom: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '40px'
-              }}>
-                👩‍💻
-              </div>
-              {/* Name and title */}
-              <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
-                <h1 style={{ fontSize: '20px', fontWeight: '600', margin: '8px 0', color: '#000' }}>Vanessa Wang</h1>
-                <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>Product Manager @ ServiceNow</p>
-                <p style={{ fontSize: '12px', color: '#666', margin: '4px 0' }}>New York, NY · 1000+ connections</p>
-              </div>
-              
-              {/* View Full Profile Button */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  window.open('https://www.linkedin.com/in/vvanessaww', '_blank')
-                }}
-                style={{
-                  marginTop: '12px',
-                  padding: '8px 20px',
-                  background: '#0a66c2',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '24px',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                  transition: 'background 0.2s ease',
-                  boxShadow: '0 2px 8px rgba(10,102,194,0.3)'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.background = '#004182'}
-                onMouseLeave={(e) => e.currentTarget.style.background = '#0a66c2'}
-              >
-                View Full Profile →
-              </button>
-              
-              {/* About section */}
-              <div style={{ marginTop: '16px', padding: '16px', background: '#fff', borderRadius: '8px' }}>
-                <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 8px 0', color: '#000' }}>About</h2>
-                <p style={{ fontSize: '13px', color: '#000', lineHeight: '1.6' }}>
-                Product Manager with an engineering background, currently building enterprise software at ServiceNow. I enjoy solving complex problems & owning ambiguous spaces.
-                </p>
-              </div>
-              {/* Experience section */}
-              <div style={{ marginTop: '12px', padding: '16px', background: '#fff', borderRadius: '8px', marginBottom: '20px' }}>
-                <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 12px 0', color: '#000' }}>Experience</h2>
-                <div style={{ display: 'flex', gap: '12px' }}>
-                  <div style={{ fontSize: '28px' }}>🏢</div>
-                  <div>
-                    <h3 style={{ fontSize: '14px', fontWeight: '600', margin: '0', color: '#000' }}>Product Manager</h3>
-                    <p style={{ fontSize: '13px', color: '#666', margin: '4px 0' }}>ServiceNow</p>
-                    <p style={{ fontSize: '11px', color: '#999', margin: '4px 0' }}>2024 - Present</p>
+        {/* LinkedIn window */}
+        {!linkedinClosed && (
+          <DraggableWindow
+            title="LinkedIn - Vanessa Wang"
+            initialPosition={{ x: 60, y: 80 }}
+            initialSize={{ width: 600, height: 700 }}
+            onClose={() => setLinkedinClosed(true)}
+            zIndex={1001}
+          >
+            <div style={{ background: '#f3f2ef', height: '100%', overflow: 'auto' }}>
+              {/* LinkedIn header */}
+              <div style={{ background: '#0a66c2', height: '120px' }} />
+              <div style={{ padding: '0 24px' }}>
+                {/* Profile photo */}
+                <div style={{
+                  width: '120px',
+                  height: '120px',
+                  borderRadius: '50%',
+                  background: '#fff',
+                  border: '4px solid #fff',
+                  marginTop: '-60px',
+                  marginBottom: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '40px'
+                }}>
+                  👩‍💻
+                </div>
+                {/* Name and title */}
+                <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
+                  <h1 style={{ fontSize: '20px', fontWeight: '600', margin: '8px 0', color: '#000' }}>Vanessa Wang</h1>
+                  <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>Product Manager @ ServiceNow</p>
+                  <p style={{ fontSize: '12px', color: '#666', margin: '4px 0' }}>New York, NY · 1000+ connections</p>
+                </div>
+                
+                {/* View Full Profile Button */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    window.open('https://www.linkedin.com/in/vvanessaww', '_blank')
+                  }}
+                  style={{
+                    marginTop: '12px',
+                    padding: '8px 20px',
+                    background: '#0a66c2',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '24px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                    transition: 'background 0.2s ease',
+                    boxShadow: '0 2px 8px rgba(10,102,194,0.3)'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#004182'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = '#0a66c2'}
+                >
+                  View Full Profile →
+                </button>
+                
+                {/* About section */}
+                <div style={{ marginTop: '16px', padding: '16px', background: '#fff', borderRadius: '8px' }}>
+                  <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 8px 0', color: '#000' }}>About</h2>
+                  <p style={{ fontSize: '13px', color: '#000', lineHeight: '1.6' }}>
+                  Product Manager with an engineering background, currently building enterprise software at ServiceNow. I enjoy solving complex problems & owning ambiguous spaces.
+                  </p>
+                </div>
+                {/* Experience section */}
+                <div style={{ marginTop: '12px', padding: '16px', background: '#fff', borderRadius: '8px', marginBottom: '20px' }}>
+                  <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 12px 0', color: '#000' }}>Experience</h2>
+                  <div style={{ display: 'flex', gap: '12px' }}>
+                    <div style={{ fontSize: '28px' }}>🏢</div>
+                    <div>
+                      <h3 style={{ fontSize: '14px', fontWeight: '600', margin: '0', color: '#000' }}>Product Manager</h3>
+                      <p style={{ fontSize: '13px', color: '#666', margin: '4px 0' }}>ServiceNow</p>
+                      <p style={{ fontSize: '11px', color: '#999', margin: '4px 0' }}>2024 - Present</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </DraggableWindow>
+        )}
 
-        {/* Right window - Terminal */}
-        <div 
-          style={{
-            width: '45%',
-            marginTop: '40px',
-            borderRadius: '8px',
-            background: '#1e1e1e',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.4)',
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column',
-            maxHeight: 'calc(100% - 40px)'
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Terminal title bar */}
-          <div style={{
-            height: '40px',
-            background: '#2d2d2d',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 16px',
-            gap: '8px',
-            borderBottom: '1px solid #1a1a1a'
-          }}>
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }} />
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }} />
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }} />
-            <div style={{ flex: 1, textAlign: 'center', fontSize: '13px', color: '#999' }}>Terminal</div>
-          </div>
-          
-          {/* Terminal content */}
-          <div style={{ 
-            flex: 1, 
-            padding: '16px', 
-            fontFamily: '"SF Mono", Monaco, "Courier New", monospace',
-            fontSize: '13px',
-            color: '#00ff00',
-            overflow: 'auto',
-            lineHeight: '1.6'
-          }}>
-            <div style={{ color: '#fff' }}>Last login: {new Date().toDateString()}</div>
-            <div style={{ marginTop: '8px' }}>
-              <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
-              <span style={{ color: '#fff' }}> ~ % </span>
-              <span style={{ color: '#00ff00' }}>whoami</span>
+        {/* Terminal window */}
+        {!terminalClosed && (
+          <DraggableWindow
+            title="Terminal"
+            initialPosition={{ x: 450, y: 120 }}
+            initialSize={{ width: 550, height: 500 }}
+            onClose={() => setTerminalClosed(true)}
+            zIndex={1002}
+          >
+            <div style={{ 
+              background: '#1e1e1e',
+              height: '100%',
+              padding: '16px', 
+              fontFamily: '"SF Mono", Monaco, "Courier New", monospace',
+              fontSize: '13px',
+              color: '#00ff00',
+              overflow: 'auto',
+              lineHeight: '1.6'
+            }}>
+              <div style={{ color: '#fff' }}>Last login: {new Date().toDateString()}</div>
+              <div style={{ marginTop: '8px' }}>
+                <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
+                <span style={{ color: '#fff' }}> ~ % </span>
+                <span style={{ color: '#00ff00' }}>whoami</span>
+              </div>
+              <div>product manager at servicenow </div>
+              <div style={{ marginTop: '12px' }}>
+                <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
+                <span style={{ color: '#fff' }}> ~ % </span>
+                <span style={{ color: '#00ff00' }}>ls -la ~/projects</span>
+              </div>
+              <div>* portfolio website</div>
+              <div>* thoughtful: a smart journal</div>
+              <div>* kudos card: digital to analog</div>
+              <div style={{ marginTop: '12px' }}>
+                <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
+                <span style={{ color: '#fff' }}> ~ % </span>
+                <span style={{ color: '#00ff00' }}>echo $PATH</span>
+              </div>
+              <div>pushing my limits, learning new things, and creating more than i consume.</div>
+              <div style={{ marginTop: '12px' }}>
+                <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
+                <span style={{ color: '#fff' }}> ~ % </span>
+                <span style={{ animation: 'blink 1s infinite' }}>▊</span>
+              </div>
             </div>
-            <div>product manager at servicenow </div>
-            <div style={{ marginTop: '12px' }}>
-              <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
-              <span style={{ color: '#fff' }}> ~ % </span>
-              <span style={{ color: '#00ff00' }}>ls -la ~/projects</span>
-            </div>
-            <div>* portfolio website</div>
-            <div>* thoughtful: a smart journal</div>
-            <div>* kudos card: digital to analog</div>
-            <div style={{ marginTop: '12px' }}>
-              <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
-              <span style={{ color: '#fff' }}> ~ % </span>
-              <span style={{ color: '#00ff00' }}>echo $PATH</span>
-            </div>
-            <div>pushing my limits, learning new things, and creating more than i consume.</div>
-            <div style={{ marginTop: '12px' }}>
-              <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
-              <span style={{ color: '#fff' }}> ~ % </span>
-              <span style={{ animation: 'blink 1s infinite' }}>▊</span>
-            </div>
-          </div>
-        </div>
+          </DraggableWindow>
+        )}
       </div>
 
       {/* Dock */}
