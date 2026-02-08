@@ -298,31 +298,43 @@ function PhotoFrame({ imagePath, size = [0.25, 0.18], hovered, frameColor = "#1a
 // Postcard/photo frame
 function Postcard({ hovered }) {
   return (
-    <group>
-      {/* Card base */}
+    <group rotation={[-Math.PI / 2, 0, 0]}>
+      {/* Card base - horizontal postcard */}
       <mesh>
-        <boxGeometry args={[0.25, 0.35, 0.01]} />
+        <planeGeometry args={[0.35, 0.22]} />
         <meshStandardMaterial 
           color={hovered ? "#f5f5f0" : "#e8e4dc"} 
           roughness={0.9} 
         />
       </mesh>
-      {/* Photo area */}
-      <mesh position={[0, 0.03, 0.006]}>
-        <boxGeometry args={[0.2, 0.2, 0.001]} />
+      {/* Photo area on left side */}
+      <mesh position={[-0.08, -0.02, 0.001]}>
+        <planeGeometry args={[0.14, 0.16]} />
         <meshStandardMaterial 
           color="#8fa4b8"
           emissive={hovered ? "#2a4a6a" : "#000000"}
           emissiveIntensity={hovered ? 0.3 : 0}
         />
       </mesh>
-      {/* Text lines */}
-      {[-0.08, -0.12].map((y, i) => (
-        <mesh key={i} position={[0, y, 0.006]}>
-          <boxGeometry args={[0.18, 0.015, 0.001]} />
-          <meshStandardMaterial color="#aaa" />
+      {/* Text lines on right side */}
+      {[0.03, 0.06, 0.09].map((y, i) => (
+        <mesh key={i} position={[0.08, y, 0.001]}>
+          <planeGeometry args={[0.14, 0.01]} />
+          <meshStandardMaterial color="#2a2a2a" />
         </mesh>
       ))}
+      {/* Address lines on right side (bottom) */}
+      {[-0.03, -0.06].map((y, i) => (
+        <mesh key={`addr-${i}`} position={[0.08, y, 0.001]}>
+          <planeGeometry args={[0.14, 0.008]} />
+          <meshStandardMaterial color="#5a5a5a" />
+        </mesh>
+      ))}
+      {/* Stamp in top right corner */}
+      <mesh position={[0.13, 0.08, 0.001]}>
+        <planeGeometry args={[0.03, 0.035]} />
+        <meshStandardMaterial color="#8a3a3a" />
+      </mesh>
     </group>
   )
 }
@@ -1124,8 +1136,8 @@ function Scene({ onObjectClick }) {
 
       <InteractiveObject 
         name="postcard" 
-        position={[-0.8, 0.47, 0.2]}
-        rotation={[-Math.PI / 12, 0.1, 0]}
+        position={[-0.8, 0.3, 0.2]}
+        rotation={[0, 0, 0]}
         onClick={onObjectClick}
       >
         <Postcard hovered={hoveredObject === 'postcard'} />
