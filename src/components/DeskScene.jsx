@@ -1587,40 +1587,28 @@ function MacHomeScreenFullscreen({ onClose }) {
         </div>
       </div>
 
-      {/* Desktop area */}
+      {/* LinkedIn iframe */}
       <div style={{
         flex: 1,
         position: 'relative',
-        padding: '20px'
+        padding: '20px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
       }}>
-        {/* Desktop icons */}
-        {['Documents', 'Downloads', 'Projects'].map((name, i) => (
-          <div key={i} style={{
-            position: 'absolute',
-            top: 20 + (i * 90),
-            right: 20,
-            width: '70px',
-            textAlign: 'center',
-            color: '#fff',
-            fontSize: '12px',
-            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-          }}>
-            <div style={{
-              width: '60px',
-              height: '60px',
-              background: 'rgba(255, 255, 255, 0.1)',
-              borderRadius: '8px',
-              margin: '0 auto 4px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '32px'
-            }}>
-              📁
-            </div>
-            {name}
-          </div>
-        ))}
+        <iframe
+          src="https://www.linkedin.com/in/vvanessaww"
+          style={{
+            width: '100%',
+            height: '100%',
+            border: 'none',
+            borderRadius: '8px',
+            background: '#fff',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.3)'
+          }}
+          title="LinkedIn Profile"
+          onClick={(e) => e.stopPropagation()}
+        />
       </div>
 
       {/* Dock */}
