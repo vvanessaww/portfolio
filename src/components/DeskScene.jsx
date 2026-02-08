@@ -1091,16 +1091,23 @@ function Scene({ onObjectClick }) {
       {/* Environment for reflections */}
       <Environment preset="city" />
 
-      {/* Floor */}
+      {/* Floor - dark wood panels */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.25, 0]} receiveShadow>
         <planeGeometry args={[20, 20]} />
-        <meshStandardMaterial color="#1a1a1a" roughness={0.9} />
+        <meshStandardMaterial color="#2a1f14" roughness={0.7} />
       </mesh>
+      {/* Wood panel lines */}
+      {Array.from({ length: 15 }).map((_, i) => (
+        <mesh key={i} rotation={[-Math.PI / 2, 0, 0]} position={[-10 + i * 1.4, -1.249, 0]}>
+          <planeGeometry args={[0.02, 20]} />
+          <meshStandardMaterial color="#1a1408" roughness={0.8} />
+        </mesh>
+      ))}
 
-      {/* Background wall */}
+      {/* Background wall - sage green */}
       <mesh position={[0, 1, -3]}>
         <planeGeometry args={[15, 8]} />
-        <meshStandardMaterial color="#252525" roughness={0.95} />
+        <meshStandardMaterial color="#9CAF88" roughness={0.95} />
       </mesh>
 
       {/* Desk */}
@@ -1310,7 +1317,7 @@ function DeskScene({ onObjectClick }) {
         width: '100%', 
         height: '100%', 
         minHeight: '500px',
-        background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%)'
+        background: 'linear-gradient(180deg, #5a6f52 0%, #485a40 50%, #2a3524 100%)'
       }}>
         <Canvas
           shadows
