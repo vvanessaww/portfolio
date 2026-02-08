@@ -1587,52 +1587,69 @@ function MacHomeScreenFullscreen({ onClose }) {
         </div>
       </div>
 
-      {/* LinkedIn mockup */}
+      {/* Windows area */}
       <div style={{
         flex: 1,
         position: 'relative',
         padding: '20px',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
+        gap: '20px'
       }}>
+        {/* Left window - LinkedIn mockup */}
         <div 
           style={{
-            width: '100%',
-            height: '100%',
+            flex: 1,
             borderRadius: '8px',
             background: '#fff',
             boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-            overflow: 'auto'
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column'
           }}
           onClick={(e) => e.stopPropagation()}
         >
+          {/* Window title bar */}
+          <div style={{
+            height: '40px',
+            background: '#f6f6f6',
+            borderBottom: '1px solid #ddd',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '0 16px',
+            gap: '8px'
+          }}>
+            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }} />
+            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }} />
+            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }} />
+            <div style={{ flex: 1, textAlign: 'center', fontSize: '13px', color: '#666' }}>LinkedIn - Vanessa Wang</div>
+          </div>
+          
           {/* LinkedIn content */}
-          <div style={{ background: '#f3f2ef', minHeight: '100%' }}>
+          <div style={{ flex: 1, overflow: 'auto', background: '#f3f2ef' }}>
             {/* LinkedIn header */}
             <div style={{ background: '#0a66c2', height: '120px' }} />
             <div style={{ padding: '0 24px' }}>
               {/* Profile photo */}
               <div style={{
-                width: '150px',
-                height: '150px',
+                width: '120px',
+                height: '120px',
                 borderRadius: '50%',
                 background: '#fff',
                 border: '4px solid #fff',
-                marginTop: '-75px',
-                marginBottom: '16px',
+                marginTop: '-60px',
+                marginBottom: '12px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '48px'
+                fontSize: '40px'
               }}>
                 👩‍💻
               </div>
               {/* Name and title */}
               <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
-                <h1 style={{ fontSize: '24px', fontWeight: '600', margin: '8px 0', color: '#000' }}>Vanessa Wang</h1>
-                <p style={{ fontSize: '16px', color: '#666', margin: '4px 0' }}>Product Manager at ServiceNow</p>
-                <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>New York, NY · 500+ connections</p>
+                <h1 style={{ fontSize: '20px', fontWeight: '600', margin: '8px 0', color: '#000' }}>Vanessa Wang</h1>
+                <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>Product Manager at ServiceNow</p>
+                <p style={{ fontSize: '12px', color: '#666', margin: '4px 0' }}>New York, NY · 500+ connections</p>
               </div>
               
               {/* View Full Profile Button */}
@@ -1642,13 +1659,13 @@ function MacHomeScreenFullscreen({ onClose }) {
                   window.open('https://www.linkedin.com/in/vvanessaww', '_blank')
                 }}
                 style={{
-                  marginTop: '16px',
-                  padding: '10px 24px',
+                  marginTop: '12px',
+                  padding: '8px 20px',
                   background: '#0a66c2',
                   color: '#fff',
                   border: 'none',
                   borderRadius: '24px',
-                  fontSize: '16px',
+                  fontSize: '14px',
                   fontWeight: '600',
                   cursor: 'pointer',
                   fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
@@ -1658,28 +1675,99 @@ function MacHomeScreenFullscreen({ onClose }) {
                 onMouseEnter={(e) => e.currentTarget.style.background = '#004182'}
                 onMouseLeave={(e) => e.currentTarget.style.background = '#0a66c2'}
               >
-                View Full LinkedIn Profile →
+                View Full Profile →
               </button>
               
               {/* About section */}
-              <div style={{ marginTop: '24px', padding: '20px', background: '#fff', borderRadius: '8px' }}>
-                <h2 style={{ fontSize: '20px', fontWeight: '600', margin: '0 0 12px 0', color: '#000' }}>About</h2>
-                <p style={{ fontSize: '14px', color: '#000', lineHeight: '1.6' }}>
+              <div style={{ marginTop: '16px', padding: '16px', background: '#fff', borderRadius: '8px' }}>
+                <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 8px 0', color: '#000' }}>About</h2>
+                <p style={{ fontSize: '13px', color: '#000', lineHeight: '1.6' }}>
                   Product Manager passionate about building thoughtful digital experiences. Content creator exploring tech, life in NYC, and everything in between.
                 </p>
               </div>
               {/* Experience section */}
-              <div style={{ marginTop: '16px', padding: '20px', background: '#fff', borderRadius: '8px', marginBottom: '24px' }}>
-                <h2 style={{ fontSize: '20px', fontWeight: '600', margin: '0 0 16px 0', color: '#000' }}>Experience</h2>
+              <div style={{ marginTop: '12px', padding: '16px', background: '#fff', borderRadius: '8px', marginBottom: '20px' }}>
+                <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 12px 0', color: '#000' }}>Experience</h2>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                  <div style={{ fontSize: '32px' }}>🏢</div>
+                  <div style={{ fontSize: '28px' }}>🏢</div>
                   <div>
-                    <h3 style={{ fontSize: '16px', fontWeight: '600', margin: '0', color: '#000' }}>Product Manager</h3>
-                    <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>ServiceNow</p>
-                    <p style={{ fontSize: '12px', color: '#999', margin: '4px 0' }}>2020 - Present</p>
+                    <h3 style={{ fontSize: '14px', fontWeight: '600', margin: '0', color: '#000' }}>Product Manager</h3>
+                    <p style={{ fontSize: '13px', color: '#666', margin: '4px 0' }}>ServiceNow</p>
+                    <p style={{ fontSize: '11px', color: '#999', margin: '4px 0' }}>2020 - Present</p>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right window - Terminal */}
+        <div 
+          style={{
+            width: '45%',
+            marginTop: '40px',
+            borderRadius: '8px',
+            background: '#1e1e1e',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.4)',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            maxHeight: 'calc(100% - 40px)'
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Terminal title bar */}
+          <div style={{
+            height: '40px',
+            background: '#2d2d2d',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '0 16px',
+            gap: '8px',
+            borderBottom: '1px solid #1a1a1a'
+          }}>
+            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }} />
+            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }} />
+            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }} />
+            <div style={{ flex: 1, textAlign: 'center', fontSize: '13px', color: '#999' }}>Terminal</div>
+          </div>
+          
+          {/* Terminal content */}
+          <div style={{ 
+            flex: 1, 
+            padding: '16px', 
+            fontFamily: '"SF Mono", Monaco, "Courier New", monospace',
+            fontSize: '13px',
+            color: '#00ff00',
+            overflow: 'auto',
+            lineHeight: '1.6'
+          }}>
+            <div style={{ color: '#fff' }}>Last login: {new Date().toDateString()}</div>
+            <div style={{ marginTop: '8px' }}>
+              <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
+              <span style={{ color: '#fff' }}> ~ % </span>
+              <span style={{ color: '#00ff00' }}>whoami</span>
+            </div>
+            <div>Product Manager | Content Creator</div>
+            <div style={{ marginTop: '12px' }}>
+              <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
+              <span style={{ color: '#fff' }}> ~ % </span>
+              <span style={{ color: '#00ff00' }}>ls -la ~/projects</span>
+            </div>
+            <div>Portfolio Website</div>
+            <div>Thoughtful Journal App</div>
+            <div>Strava Postcard Generator</div>
+            <div>Content Creation</div>
+            <div style={{ marginTop: '12px' }}>
+              <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
+              <span style={{ color: '#fff' }}> ~ % </span>
+              <span style={{ color: '#00ff00' }}>echo $PASSIONS</span>
+            </div>
+            <div>Building • Writing • Creating</div>
+            <div style={{ marginTop: '12px' }}>
+              <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
+              <span style={{ color: '#fff' }}> ~ % </span>
+              <span style={{ animation: 'blink 1s infinite' }}>▊</span>
             </div>
           </div>
         </div>
