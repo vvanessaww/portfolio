@@ -1587,149 +1587,77 @@ function MacHomeScreenFullscreen({ onClose }) {
         </div>
       </div>
 
-      {/* Windows area */}
+      {/* Desktop area */}
       <div style={{
         flex: 1,
-        display: 'flex',
-        gap: '20px',
-        padding: '20px',
-        overflow: 'hidden'
+        position: 'relative',
+        padding: '20px'
       }}>
-        {/* Left window - LinkedIn */}
-        <div style={{
-          flex: 1,
-          background: '#fff',
-          borderRadius: '8px',
-          boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column'
-        }} onClick={(e) => e.stopPropagation()}>
-          {/* Window title bar */}
-          <div style={{
-            height: '40px',
-            background: '#f6f6f6',
-            borderBottom: '1px solid #ddd',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 16px',
-            gap: '8px'
+        {/* Desktop icons */}
+        {['Documents', 'Downloads', 'Projects'].map((name, i) => (
+          <div key={i} style={{
+            position: 'absolute',
+            top: 20 + (i * 90),
+            right: 20,
+            width: '70px',
+            textAlign: 'center',
+            color: '#fff',
+            fontSize: '12px',
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
           }}>
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }} />
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }} />
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }} />
-            <div style={{ flex: 1, textAlign: 'center', fontSize: '13px', color: '#666' }}>LinkedIn - Vanessa Wang</div>
-          </div>
-          {/* LinkedIn mockup */}
-          <div style={{ flex: 1, overflow: 'auto', background: '#f3f2ef' }}>
-            {/* LinkedIn header */}
-            <div style={{ background: '#0a66c2', height: '120px' }} />
-            <div style={{ padding: '0 24px' }}>
-              {/* Profile photo */}
-              <div style={{
-                width: '150px',
-                height: '150px',
-                borderRadius: '50%',
-                background: '#fff',
-                border: '4px solid #fff',
-                marginTop: '-75px',
-                marginBottom: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '48px'
-              }}>
-                👩‍💻
-              </div>
-              {/* Name and title */}
-              <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
-                <h1 style={{ fontSize: '24px', fontWeight: '600', margin: '8px 0', color: '#000' }}>Vanessa Wang</h1>
-                <p style={{ fontSize: '16px', color: '#666', margin: '4px 0' }}>Product Manager at ServiceNow</p>
-                <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>New York, NY · 500+ connections</p>
-              </div>
-              {/* About section */}
-              <div style={{ marginTop: '24px', padding: '20px', background: '#fff', borderRadius: '8px' }}>
-                <h2 style={{ fontSize: '20px', fontWeight: '600', margin: '0 0 12px 0', color: '#000' }}>About</h2>
-                <p style={{ fontSize: '14px', color: '#000', lineHeight: '1.6' }}>
-                  Product Manager passionate about building thoughtful digital experiences. Content creator exploring tech, life in NYC, and everything in between.
-                </p>
-              </div>
-              {/* Experience section */}
-              <div style={{ marginTop: '16px', padding: '20px', background: '#fff', borderRadius: '8px' }}>
-                <h2 style={{ fontSize: '20px', fontWeight: '600', margin: '0 0 16px 0', color: '#000' }}>Experience</h2>
-                <div style={{ display: 'flex', gap: '12px' }}>
-                  <div style={{ fontSize: '32px' }}>🏢</div>
-                  <div>
-                    <h3 style={{ fontSize: '16px', fontWeight: '600', margin: '0', color: '#000' }}>Product Manager</h3>
-                    <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>ServiceNow</p>
-                    <p style={{ fontSize: '12px', color: '#999', margin: '4px 0' }}>2020 - Present</p>
-                  </div>
-                </div>
-              </div>
+            <div style={{
+              width: '60px',
+              height: '60px',
+              background: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '8px',
+              margin: '0 auto 4px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '32px'
+            }}>
+              📁
             </div>
+            {name}
           </div>
-        </div>
+        ))}
+      </div>
 
-        {/* Right window - Resume */}
+      {/* Dock */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        paddingBottom: '8px'
+      }}>
         <div style={{
-          flex: 1,
-          background: '#fff',
-          borderRadius: '8px',
-          boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-          overflow: 'hidden',
+          background: 'rgba(255, 255, 255, 0.2)',
+          backdropFilter: 'blur(40px)',
+          borderRadius: '16px',
+          padding: '8px 16px',
           display: 'flex',
-          flexDirection: 'column'
-        }} onClick={(e) => e.stopPropagation()}>
-          {/* Window title bar */}
-          <div style={{
-            height: '40px',
-            background: '#f6f6f6',
-            borderBottom: '1px solid #ddd',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 16px',
-            gap: '8px'
-          }}>
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }} />
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }} />
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }} />
-            <div style={{ flex: 1, textAlign: 'center', fontSize: '13px', color: '#666' }}>Resume.pdf</div>
-          </div>
-          {/* Resume content */}
-          <div style={{ flex: 1, overflow: 'auto', padding: '40px', background: '#fafafa' }}>
-            <div style={{ maxWidth: '600px', margin: '0 auto', background: '#fff', padding: '60px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
-              {/* Header */}
-              <div style={{ textAlign: 'center', marginBottom: '32px', borderBottom: '2px solid #000', paddingBottom: '24px' }}>
-                <h1 style={{ fontSize: '32px', fontWeight: '700', margin: '0 0 8px 0', color: '#000' }}>VANESSA WANG</h1>
-                <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>Product Manager | Content Creator</p>
-                <p style={{ fontSize: '12px', color: '#666', margin: '8px 0' }}>New York, NY | vanessawang.substack.com</p>
-              </div>
-              
-              {/* Experience */}
-              <div style={{ marginBottom: '28px' }}>
-                <h2 style={{ fontSize: '18px', fontWeight: '700', margin: '0 0 16px 0', color: '#000', borderBottom: '1px solid #ddd', paddingBottom: '8px' }}>EXPERIENCE</h2>
-                <div style={{ marginBottom: '16px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                    <h3 style={{ fontSize: '14px', fontWeight: '600', margin: '0', color: '#000' }}>Product Manager</h3>
-                    <span style={{ fontSize: '12px', color: '#666' }}>2020 - Present</span>
-                  </div>
-                  <p style={{ fontSize: '13px', fontStyle: 'italic', color: '#666', margin: '2px 0 8px 0' }}>ServiceNow</p>
-                  <ul style={{ fontSize: '12px', color: '#333', lineHeight: '1.6', margin: '0', paddingLeft: '20px' }}>
-                    <li>Led product strategy and development for enterprise solutions</li>
-                    <li>Collaborated with cross-functional teams to deliver customer value</li>
-                  </ul>
-                </div>
-              </div>
-              
-              {/* Skills */}
-              <div>
-                <h2 style={{ fontSize: '18px', fontWeight: '700', margin: '0 0 16px 0', color: '#000', borderBottom: '1px solid #ddd', paddingBottom: '8px' }}>SKILLS</h2>
-                <p style={{ fontSize: '12px', color: '#333', lineHeight: '1.6' }}>
-                  Product Management • Strategy • Content Creation • Writing • React • iOS Development
-                </p>
-              </div>
+          gap: '12px',
+          border: '1px solid rgba(255, 255, 255, 0.1)'
+        }}>
+          {['📁', '🌐', '✉️', '📅', '🎵', '📸', '⚙️'].map((icon, i) => (
+            <div key={i} style={{
+              width: '60px',
+              height: '60px',
+              background: `linear-gradient(135deg, ${['#5EA3F7', '#FF5E5E', '#FFD93D', '#6BCF7F', '#FF8C69', '#A78BFA', '#94A3B8'][i]}, ${['#2D7DD2', '#D93A3A', '#F4C430', '#48A760', '#E56B50', '#845EC2', '#64748B'][i]})`,
+              borderRadius: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '32px',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-8px) scale(1.1)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}
+            >
+              {icon}
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
