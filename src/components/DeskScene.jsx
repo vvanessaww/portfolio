@@ -734,10 +734,10 @@ function TeddyBear() {
   const darkPinkColor = "#ff9cb0"
   
   return (
-    <group position={[-0.9, 0.15, 4.9]} scale={0.4} rotation={[0.2, Math.PI * 0.75, 0]}>
-      {/* Body - squashed and wider for plush sitting look */}
-      <mesh position={[0, 0.4, 0]} scale={[1.1, 0.8, 1.1]}>
-        <sphereGeometry args={[0.45, 16, 16]} />
+    <group position={[-0.9, -0.05, 4.9]} scale={0.4} rotation={[0.2, Math.PI * 0.75, 0]}>
+      {/* Body - normal size for plush sitting look */}
+      <mesh position={[0, 0.4, 0]} scale={[1, 0.9, 1]}>
+        <sphereGeometry args={[0.4, 16, 16]} />
         <meshStandardMaterial color={pinkColor} roughness={0.95} />
       </mesh>
       
@@ -807,12 +807,6 @@ function TeddyBear() {
       <mesh position={[0.15, 0.08, 0.6]} rotation={[1.3, 0, 0]}>
         <sphereGeometry args={[0.1, 16, 16]} />
         <meshStandardMaterial color={darkPinkColor} roughness={0.95} />
-      </mesh>
-      
-      {/* Belly spot - smaller */}
-      <mesh position={[0, 0.45, 0.4]} scale={[0.8, 0.7, 1]}>
-        <sphereGeometry args={[0.15, 16, 16]} />
-        <meshStandardMaterial color="#ffe0e8" roughness={0.95} />
       </mesh>
     </group>
   )
