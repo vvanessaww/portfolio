@@ -1979,12 +1979,16 @@ function MacHomeScreenFullscreen({ onClose }) {
         </div>
       </div>
 
-      {/* Dock */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        paddingBottom: '8px'
-      }}>
+      {/* Dock - non-clickable, doesn't close the view */}
+      <div 
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          paddingBottom: '8px',
+          cursor: 'default'
+        }}
+      >
         <div style={{
           background: 'rgba(255, 255, 255, 0.2)',
           backdropFilter: 'blur(40px)',
@@ -2004,12 +2008,10 @@ function MacHomeScreenFullscreen({ onClose }) {
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '32px',
-              cursor: 'pointer',
+              cursor: 'default',
               transition: 'transform 0.2s ease',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
             }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-8px) scale(1.1)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}
             >
               {icon}
             </div>
