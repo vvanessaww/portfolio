@@ -31,7 +31,7 @@ function Home() {
           <p className="hero-subtitle">(click objects to explore my work)</p>
         </div>
       </div>
-      <AudioPlayer src="https://cdn.pixabay.com/audio/2022/05/13/audio_1808fbf07a.mp3" />
+      <AudioPlayer src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" />
     </div>
   )
 }

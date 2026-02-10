@@ -1756,7 +1756,9 @@ function MacHomeScreenFullscreen({ onClose }) {
         flexDirection: 'column',
         justifyContent: 'space-between',
         padding: 0,
-        overflow: 'hidden'
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch'
       }}
     >
       {/* Menu bar */}
@@ -1790,18 +1792,25 @@ function MacHomeScreenFullscreen({ onClose }) {
         position: 'relative',
         padding: '20px',
         display: 'flex',
-        gap: '20px'
+        gap: '20px',
+        flexWrap: 'wrap',
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        minHeight: 0
       }}>
         {/* Left window - LinkedIn mockup */}
         <div 
           style={{
-            flex: 1,
+            flex: '1 1 300px',
+            minWidth: '280px',
+            maxWidth: '100%',
             borderRadius: '8px',
             background: '#fff',
             boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
             overflow: 'hidden',
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            minHeight: '400px'
           }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -1901,15 +1910,16 @@ function MacHomeScreenFullscreen({ onClose }) {
         {/* Right window - Terminal */}
         <div 
           style={{
-            width: '45%',
-            marginTop: '40px',
+            flex: '1 1 280px',
+            minWidth: '280px',
+            maxWidth: '100%',
             borderRadius: '8px',
             background: '#1e1e1e',
             boxShadow: '0 10px 40px rgba(0,0,0,0.4)',
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
-            maxHeight: 'calc(100% - 40px)'
+            minHeight: '300px'
           }}
           onClick={(e) => e.stopPropagation()}
         >
