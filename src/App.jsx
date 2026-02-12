@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
+import AudioPlayer from './components/AudioPlayer'
 
 function App() {
   const [hasEnteredSite, setHasEnteredSite] = useState(false)
@@ -38,12 +39,16 @@ function App() {
               hasEntered={hasEnteredSite}
               activeView={activeView}
               onCloseView={closeView}
-              isMuted={isMuted}
-              onToggleMute={toggleMute}
             />
           } />
         </Routes>
       </main>
+      {/* Audio player at app level so it never unmounts */}
+      <AudioPlayer 
+        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        isMuted={isMuted}
+        onToggleMute={toggleMute}
+      />
     </div>
   )
 }
