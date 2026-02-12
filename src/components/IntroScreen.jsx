@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 function IntroScreen({ onEnter }) {
   const [displayedText, setDisplayedText] = useState('')
   const [showButton, setShowButton] = useState(false)
+  const [isExiting, setIsExiting] = useState(false)
   const line1 = 'from the desk of'
   const line2 = 'Vanessa Wang'
   const fullText = line1 + '\n' + line2
@@ -26,6 +27,14 @@ function IntroScreen({ onEnter }) {
     setTimeout(typeText, 800)
   }, [])
 
+  const handleEnterClick = () => {
+    setIsExiting(true)
+    // Wait for fade-out animation before calling onEnter
+    setTimeout(() => {
+      onEnter()
+    }, 600)
+  }
+
   return (
     <div style={{
       width: '100vw',
@@ -37,7 +46,9 @@ function IntroScreen({ onEnter }) {
       justifyContent: 'center',
       fontFamily: '"Georgia", "Times New Roman", serif',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      opacity: isExiting ? 0 : 1,
+      transition: 'opacity 0.6s ease'
     }}>
       {/* Typing text - centered */}
       <div style={{
@@ -76,9 +87,9 @@ function IntroScreen({ onEnter }) {
       {/* Enter button - fixed position */}
       {showButton && (
         <button
-          onClick={onEnter}
+          onClick={handleEnterClick}
           style={{
-            position: 'absolute',
+            position: 'fixed',
             bottom: '80px',
             left: '50%',
             transform: 'translateX(-50%)',
@@ -90,9 +101,10 @@ function IntroScreen({ onEnter }) {
             fontFamily: '"Georgia", "Times New Roman", serif',
             letterSpacing: '1px',
             cursor: 'pointer',
-            transition: 'all 0.3s ease',
+            transition: 'background 0.3s ease, color 0.3s ease',
             opacity: 0,
-            animation: 'fadeIn 0.6s ease forwards'
+            animation: 'fadeIn 0.6s ease forwards',
+            whiteSpace: 'nowrap'
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = '#2a2a2a'
