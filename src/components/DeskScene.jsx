@@ -29,6 +29,14 @@ function InteractiveObject({ children, name, position, rotation, onClick }) {
       }}
       scale={hovered ? 1.05 : 1}
     >
+      {/* Subtle white glow for interactive objects */}
+      <pointLight
+        position={[0, 0.1, 0]}
+        color="#ffffff"
+        intensity={hovered ? 0.8 : 0.3}
+        distance={0.8}
+        decay={2}
+      />
       {children}
     </group>
   )
