@@ -374,9 +374,9 @@ function Notebook({ hovered }) {
 }
 
 // Coffee mug (bonus ambient object)
-function Mug() {
+function Mug({ position = [1.4, 0.35, -0.5] }) {
   return (
-    <group position={[1.4, 0.35, -0.5]}>
+    <group position={position}>
       <mesh>
         <cylinderGeometry args={[0.06, 0.05, 0.12, 16]} />
         <meshStandardMaterial color="#f0f0e8" roughness={0.3} />
@@ -411,69 +411,6 @@ function PenHolder() {
           <meshStandardMaterial color={['#2a4a7a', '#7a2a2a', '#2a2a2a'][i]} />
         </mesh>
       ))}
-    </group>
-  )
-}
-
-// AirPods Max headphones
-function AirPodsMax() {
-  const blueColor = "#2d5ba8"
-  const darkBlue = "#1a3a6a"
-  const metalColor = "#d0d0d0"
-  
-  return (
-    <group position={[-1.2, 0.3, 0.4]} rotation={[0, 0.3, 0]}>
-      {/* Left ear cup */}
-      <mesh position={[-0.08, 0.08, 0]}>
-        <cylinderGeometry args={[0.05, 0.055, 0.04, 24]} />
-        <meshStandardMaterial color={blueColor} roughness={0.4} metalness={0.3} />
-      </mesh>
-      {/* Left ear cup mesh/grille */}
-      <mesh position={[-0.08, 0.08, 0.021]}>
-        <cylinderGeometry args={[0.045, 0.045, 0.002, 24]} />
-        <meshStandardMaterial color={darkBlue} roughness={0.6} metalness={0.1} />
-      </mesh>
-      
-      {/* Right ear cup */}
-      <mesh position={[0.08, 0.08, 0]}>
-        <cylinderGeometry args={[0.05, 0.055, 0.04, 24]} />
-        <meshStandardMaterial color={blueColor} roughness={0.4} metalness={0.3} />
-      </mesh>
-      {/* Right ear cup mesh/grille */}
-      <mesh position={[0.08, 0.08, 0.021]}>
-        <cylinderGeometry args={[0.045, 0.045, 0.002, 24]} />
-        <meshStandardMaterial color={darkBlue} roughness={0.6} metalness={0.1} />
-      </mesh>
-      
-      {/* Headband - curved */}
-      <mesh position={[0, 0.14, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[0.09, 0.012, 12, 32, Math.PI]} />
-        <meshStandardMaterial color={metalColor} roughness={0.2} metalness={0.8} />
-      </mesh>
-      
-      {/* Headband canopy (fabric part) */}
-      <mesh position={[0, 0.135, 0]} rotation={[0, 0, 0]}>
-        <boxGeometry args={[0.14, 0.015, 0.06]} />
-        <meshStandardMaterial color="#e0e0e0" roughness={0.8} metalness={0.1} />
-      </mesh>
-      
-      {/* Left telescoping arm */}
-      <mesh position={[-0.08, 0.11, 0]} rotation={[0, 0, 0]}>
-        <cylinderGeometry args={[0.008, 0.008, 0.03, 12]} />
-        <meshStandardMaterial color={metalColor} roughness={0.2} metalness={0.8} />
-      </mesh>
-      
-      {/* Right telescoping arm */}
-      <mesh position={[0.08, 0.11, 0]} rotation={[0, 0, 0]}>
-        <cylinderGeometry args={[0.008, 0.008, 0.03, 12]} />
-        <meshStandardMaterial color={metalColor} roughness={0.2} metalness={0.8} />
-      </mesh>
-      
-      {/* Digital crown detail on right cup */}
-      <mesh position={[0.08, 0.11, 0.01]}>
-        <cylinderGeometry args={[0.008, 0.008, 0.01, 16]} />
-        <meshStandardMaterial color={metalColor} roughness={0.2} metalness={0.9} />
-      </mesh>
     </group>
   )
 }
@@ -1439,7 +1376,7 @@ function Scene({ onObjectClick }) {
       <PalmTree position={[2.5, -1.2, 0.5]} scale={3.3} />
       <FloorToCeilingWindow />
       <DeskLamp />
-      <AirPodsMax />
+      <Mug position={[-1.2, 0.3, 0.4]} />
       <DeskChair />
       <Bookshelf />
       <CloudCouch />
