@@ -1389,8 +1389,8 @@ function Scene({ onObjectClick }) {
       <DeskChair />
       <Bookshelf />
       <CloudCouch />
-      <ThrowPillow position={[-0.7, 0.05, 4.9]} rotation={[0, 0.3, 0]} />
-      <ThrowPillow position={[0.7, 0.05, 4.9]} rotation={[0, -0.2, 0]} />
+      <ThrowPillow position={[-0.7, 0.35, 5.25]} rotation={[Math.PI / 8, 0, 0]} />
+      <ThrowPillow position={[0.7, 0.35, 5.25]} rotation={[Math.PI / 8, 0, 0]} />
       <CoffeeTable />
       <FloorLamp />
       <CeilingLight />
