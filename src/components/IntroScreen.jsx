@@ -41,31 +41,47 @@ function IntroScreen({ onEnter }) {
     }}>
       {/* Typing text - centered */}
       <div style={{
-        fontSize: '32px',
-        lineHeight: '1.6',
-        color: '#2a2a2a',
-        letterSpacing: '0.5px',
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
         textAlign: 'center',
-        whiteSpace: 'pre-wrap',
-        marginBottom: '60px'
+        whiteSpace: 'pre-wrap'
       }}>
-        {displayedText}
-        {displayedText.length < fullText.length && (
-          <span style={{
-            borderRight: '2px solid #2a2a2a',
-            animation: 'blink 1s step-end infinite',
-            marginLeft: '2px'
-          }}>
-            &nbsp;
-          </span>
-        )}
+        <div style={{
+          fontSize: '32px',
+          lineHeight: '1.6',
+          color: '#2a2a2a',
+          letterSpacing: '0.5px'
+        }}>
+          {displayedText.split('\n')[0]}
+          {displayedText.includes('\n') && <br />}
+          {displayedText.split('\n')[1] && (
+            <span style={{ fontSize: '48px', fontWeight: '500' }}>
+              {displayedText.split('\n')[1]}
+            </span>
+          )}
+          {displayedText.length < fullText.length && (
+            <span style={{
+              borderRight: '2px solid #2a2a2a',
+              animation: 'blink 1s step-end infinite',
+              marginLeft: '2px'
+            }}>
+              &nbsp;
+            </span>
+          )}
+        </div>
       </div>
 
-      {/* Enter button */}
+      {/* Enter button - fixed position */}
       {showButton && (
         <button
           onClick={onEnter}
           style={{
+            position: 'absolute',
+            bottom: '80px',
+            left: '50%',
+            transform: 'translateX(-50%)',
             padding: '16px 48px',
             background: 'transparent',
             border: '2px solid #2a2a2a',

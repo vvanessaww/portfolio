@@ -40,7 +40,7 @@ function Home({ onEnter, hasEntered }) {
         <DeskScene onObjectClick={handleObjectClick} />
         <div className="hero-overlay">
           <h1>Vanessa's Desk</h1>
-          <p className="hero-subtitle">(click objects to explore my work)</p>
+          <p className="hero-subtitle">(click objects on desk to explore my work)</p>
         </div>
       </div>
       <AudioPlayer src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" />
