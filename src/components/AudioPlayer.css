@@ -6,9 +6,8 @@
 }
 
 .sound-button {
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  border: 2px solid #000000;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -18,13 +17,13 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .sound-button:hover {
-  background: rgba(0, 0, 0, 0.85);
+  background: #f5f5f5;
   transform: scale(1.05);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
 }
 
 .sound-button:active {
