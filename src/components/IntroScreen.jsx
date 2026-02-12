@@ -1,13 +1,45 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 function IntroScreen({ onEnter }) {
   const [displayedText, setDisplayedText] = useState('')
   const [showButton, setShowButton] = useState(false)
   const [isExiting, setIsExiting] = useState(false)
+  const audioContextRef = useRef(null)
   const line1 = 'from the desk of'
   const line2 = 'Vanessa Wang'
   const fullText = line1 + '\n' + line2
   const typingSpeed = 64 // milliseconds per character (20% faster)
+
+  // Initialize audio context
+  useEffect(() => {
+    audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)()
+    return () => {
+      if (audioContextRef.current) {
+        audioContextRef.current.close()
+      }
+    }
+  }, [])
+
+  // Play typing sound
+  const playTypingSound = () => {
+    if (!audioContextRef.current) return
+    
+    const audioContext = audioContextRef.current
+    const oscillator = audioContext.createOscillator()
+    const gainNode = audioContext.createGain()
+    
+    oscillator.connect(gainNode)
+    gainNode.connect(audioContext.destination)
+    
+    oscillator.frequency.value = 800 // Higher frequency for crisp click
+    oscillator.type = 'sine'
+    
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime)
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.02)
+    
+    oscillator.start(audioContext.currentTime)
+    oscillator.stop(audioContext.currentTime + 0.02)
+  }
 
   useEffect(() => {
     let currentIndex = 0
@@ -15,6 +47,10 @@ function IntroScreen({ onEnter }) {
     const typeText = () => {
       if (currentIndex <= fullText.length) {
         setDisplayedText(fullText.slice(0, currentIndex))
+        // Play sound for each character (skip spaces and newlines)
+        if (currentIndex > 0 && fullText[currentIndex - 1] !== ' ' && fullText[currentIndex - 1] !== '\n') {
+          playTypingSound()
+        }
         currentIndex++
         setTimeout(typeText, typingSpeed)
       } else {
@@ -25,6 +61,7 @@ function IntroScreen({ onEnter }) {
 
     // Start typing after a brief delay
     setTimeout(typeText, 800)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleEnterClick = () => {
