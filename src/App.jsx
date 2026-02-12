@@ -5,6 +5,7 @@ import Home from './pages/Home'
 function App() {
   const [hasEnteredSite, setHasEnteredSite] = useState(false)
   const [activeView, setActiveView] = useState(null)
+  const [isMuted, setIsMuted] = useState(true) // Default to muted
 
   const handleNavClick = (view, e) => {
     e.preventDefault()
@@ -13,6 +14,10 @@ function App() {
 
   const closeView = () => {
     setActiveView(null)
+  }
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted)
   }
 
   return (
@@ -33,6 +38,8 @@ function App() {
               hasEntered={hasEnteredSite}
               activeView={activeView}
               onCloseView={closeView}
+              isMuted={isMuted}
+              onToggleMute={toggleMute}
             />
           } />
         </Routes>

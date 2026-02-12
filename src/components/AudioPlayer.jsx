@@ -1,51 +1,26 @@
-import { useState, useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import './AudioPlayer.css'
 
-function AudioPlayer({ src }) {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [volume, setVolume] = useState(0.3)
+function AudioPlayer({ src, isMuted, onToggleMute }) {
   const audioRef = useRef(null)
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = volume
-    }
-  }, [volume])
-
-  // Auto-play on mount
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.play()
-        .then(() => {
-          setIsPlaying(true)
-        })
-        .catch(err => {
-          console.log('Autoplay prevented:', err)
-          // If autoplay is blocked, user will need to click play button
-        })
+      audioRef.current.volume = 0.3
     }
   }, [])
 
-  const togglePlay = () => {
+  useEffect(() => {
     if (audioRef.current) {
-      if (isPlaying) {
+      if (isMuted) {
         audioRef.current.pause()
       } else {
         audioRef.current.play().catch(err => {
           console.log('Autoplay prevented:', err)
         })
       }
-      setIsPlaying(!isPlaying)
     }
-  }
-
-  const handleVolumeChange = (e) => {
-    const newVolume = parseFloat(e.target.value)
-    setVolume(newVolume)
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume
-    }
-  }
+  }, [isMuted])
 
   return (
     <div className="audio-player">
@@ -54,25 +29,12 @@ function AudioPlayer({ src }) {
       </audio>
       
       <button 
-        className="play-button" 
-        onClick={togglePlay}
-        title={isPlaying ? 'Pause' : 'Play'}
+        className="sound-button" 
+        onClick={onToggleMute}
+        title={isMuted ? 'Unmute' : 'Mute'}
       >
-        {isPlaying ? '⏸' : '▶'}
+        {isMuted ? '🔇' : '🔊'}
       </button>
-      
-      <div className="volume-control">
-        <span className="volume-icon">🔊</span>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          value={volume}
-          onChange={handleVolumeChange}
-          className="volume-slider"
-        />
-      </div>
     </div>
   )
 }

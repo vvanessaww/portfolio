@@ -2,95 +2,44 @@
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50px;
-  padding: 0.8rem 1.2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  z-index: 10000;
 }
 
-.play-button {
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.2rem;
+.sound-button {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
   cursor: pointer;
-  padding: 0;
-  width: 30px;
-  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s, transform 0.1s;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-.play-button:hover {
-  color: rgba(255, 255, 255, 1);
-  transform: scale(1.1);
+.sound-button:hover {
+  background: rgba(0, 0, 0, 0.85);
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
 }
 
-.volume-control {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.volume-icon {
-  font-size: 1rem;
-  opacity: 0.6;
-}
-
-.volume-slider {
-  width: 80px;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
-  outline: none;
-  cursor: pointer;
-  -webkit-appearance: none;
-}
-
-.volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 12px;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform 0.1s;
-}
-
-.volume-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-}
-
-.volume-slider::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform 0.1s;
-}
-
-.volume-slider::-moz-range-thumb:hover {
-  transform: scale(1.2);
+.sound-button:active {
+  transform: scale(0.95);
 }
 
 @media (max-width: 768px) {
   .audio-player {
     bottom: 1rem;
     right: 1rem;
-    padding: 0.6rem 1rem;
   }
 
-  .volume-slider {
-    width: 60px;
+  .sound-button {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
   }
 }
