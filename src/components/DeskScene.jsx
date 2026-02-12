@@ -2043,7 +2043,7 @@ function MacHomeScreenFullscreen({ onClose }) {
         pointerEvents: 'none',
         zIndex: 10
       }}>
-        click anywhere outside the windows to close
+        Click outside the windows to close
       </div>
     </div>
   )
