@@ -1504,16 +1504,22 @@ function PostcardFullscreen({ onClose }) {
         {/* Left side - photo */}
         <div style={{
           flex: 1,
-          background: 'linear-gradient(135deg, #8fa4b8 0%, #6a8a9a 100%)',
           borderRadius: '4px',
+          marginRight: '30px',
+          overflow: 'hidden',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '48px',
-          color: 'rgba(255,255,255,0.3)',
-          marginRight: '30px'
+          justifyContent: 'center'
         }}>
-          🏞️
+          <img 
+            src="/postcard-image.jpg" 
+            alt="Central Park, NYC" 
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
+          />
         </div>
         
         {/* Right side - text */}
@@ -1844,12 +1850,17 @@ function MacHomeScreenFullscreen({ onClose }) {
                 border: '4px solid #fff',
                 marginTop: '-60px',
                 marginBottom: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '40px'
+                overflow: 'hidden'
               }}>
-                👩‍💻
+                <img 
+                  src="/profile-photo.jpg" 
+                  alt="Vanessa Wang" 
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
               </div>
               {/* Name and title */}
               <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
