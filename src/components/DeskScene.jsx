@@ -2105,6 +2105,7 @@ function DeskScene({ activeView, onCloseView }) {
   const [showPostcard, setShowPostcard] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [fadeOut, setFadeOut] = useState(false)
+  const [sceneVisible, setSceneVisible] = useState(false)
 
   const handleObjectClick = (name) => {
     if (name === 'laptop') {
@@ -2116,17 +2117,23 @@ function DeskScene({ activeView, onCloseView }) {
     }
   }
 
+  // Fade in scene on mount
+  useEffect(() => {
+    const timer = setTimeout(() => setSceneVisible(true), 50)
+    return () => clearTimeout(timer)
+  }, [])
+
   // Hide loader after scene mounts with smooth fade
   useEffect(() => {
     // Start fade out after minimum display time
     const fadeTimer = setTimeout(() => {
       setFadeOut(true)
-    }, 1500)
+    }, 800)
     
     // Remove from DOM after fade completes
     const removeTimer = setTimeout(() => {
       setIsLoading(false)
-    }, 2500)
+    }, 1600)
     
     return () => {
       clearTimeout(fadeTimer)
@@ -2155,7 +2162,9 @@ function DeskScene({ activeView, onCloseView }) {
         height: '100%', 
         minHeight: '500px',
         background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%)',
-        position: 'relative'
+        position: 'relative',
+        opacity: sceneVisible ? 1 : 0,
+        transition: 'opacity 0.8s ease-in'
       }}>
         {/* Loading spinner overlay */}
         {isLoading && (

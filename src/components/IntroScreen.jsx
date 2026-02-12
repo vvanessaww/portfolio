@@ -32,7 +32,7 @@ function IntroScreen({ onEnter }) {
     // Wait for fade-out animation before calling onEnter
     setTimeout(() => {
       onEnter()
-    }, 300)
+    }, 600)
   }
 
   return (
@@ -50,8 +50,8 @@ function IntroScreen({ onEnter }) {
       fontFamily: '"Georgia", "Times New Roman", serif',
       overflow: 'hidden',
       opacity: isExiting ? 0 : 1,
-      transform: isExiting ? 'scale(0.8)' : 'scale(1)',
-      transition: 'opacity 0.3s ease, transform 0.3s ease',
+      transform: isExiting ? 'scale(0.95)' : 'scale(1)',
+      transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
       zIndex: 9999,
       margin: 0,
       padding: 0
@@ -90,12 +90,12 @@ function IntroScreen({ onEnter }) {
         </div>
       </div>
 
-      {/* Enter button - fixed position */}
+      {/* Enter button - positioned below text */}
       <div style={{
         position: 'absolute',
-        bottom: '80px',
-        left: 0,
-        right: 0,
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, calc(-50% + 120px))',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
