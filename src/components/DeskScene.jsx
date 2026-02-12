@@ -2033,13 +2033,14 @@ function MacHomeScreenFullscreen({ onClose }) {
       {/* Close hint */}
       <div style={{
         position: 'absolute',
-        bottom: '100px',
+        bottom: '20px',
         left: '50%',
         transform: 'translateX(-50%)',
-        color: 'rgba(255, 255, 255, 0.6)',
+        color: 'rgba(255, 255, 255, 0.8)',
         fontSize: '14px',
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        zIndex: 10
       }}>
         Click anywhere to close
       </div>
