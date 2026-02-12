@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react'
 function IntroScreen({ onEnter }) {
   const [displayedText, setDisplayedText] = useState('')
   const [showButton, setShowButton] = useState(false)
-  const fullText = 'from the desk of Vanessa Wang'
+  const line1 = 'from the desk of'
+  const line2 = 'Vanessa Wang'
+  const fullText = line1 + '\n' + line2
   const typingSpeed = 80 // milliseconds per character
 
   useEffect(() => {
@@ -52,7 +54,9 @@ function IntroScreen({ onEnter }) {
           lineHeight: '1.6',
           color: '#2a2a2a',
           letterSpacing: '0.5px',
-          minHeight: '60px'
+          minHeight: '120px',
+          textAlign: 'center',
+          whiteSpace: 'pre-wrap'
         }}>
           {displayedText}
           {displayedText.length < fullText.length && (
