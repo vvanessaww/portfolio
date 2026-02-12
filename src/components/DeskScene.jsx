@@ -2104,6 +2104,7 @@ function DeskScene({ activeView, onCloseView }) {
   const [showNotebook, setShowNotebook] = useState(false)
   const [showPostcard, setShowPostcard] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [fadeOut, setFadeOut] = useState(false)
 
   const handleObjectClick = (name) => {
     if (name === 'laptop') {
@@ -2115,10 +2116,22 @@ function DeskScene({ activeView, onCloseView }) {
     }
   }
 
-  // Hide loader after scene mounts
+  // Hide loader after scene mounts with smooth fade
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000)
-    return () => clearTimeout(timer)
+    // Start fade out after minimum display time
+    const fadeTimer = setTimeout(() => {
+      setFadeOut(true)
+    }, 1500)
+    
+    // Remove from DOM after fade completes
+    const removeTimer = setTimeout(() => {
+      setIsLoading(false)
+    }, 2500)
+    
+    return () => {
+      clearTimeout(fadeTimer)
+      clearTimeout(removeTimer)
+    }
   }, [])
 
   // Determine what to show based on activeView prop or internal state
@@ -2157,19 +2170,19 @@ function DeskScene({ activeView, onCloseView }) {
               fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
               zIndex: 10,
               pointerEvents: 'none',
-              transition: 'opacity 0.5s ease',
-              opacity: isLoading ? 1 : 0
+              transition: 'opacity 1s ease-out',
+              opacity: fadeOut ? 0 : 1
             }}>
               <div style={{
-                width: '40px',
-                height: '40px',
-                border: '3px solid rgba(255, 255, 255, 0.3)',
-                borderTop: '3px solid #fff',
+                width: '48px',
+                height: '48px',
+                border: '4px solid rgba(255, 255, 255, 0.2)',
+                borderTop: '4px solid #fff',
                 borderRadius: '50%',
-                animation: 'spin 1s linear infinite',
-                margin: '0 auto 12px'
+                animation: 'spin 0.8s linear infinite',
+                margin: '0 auto 16px'
               }} />
-              <div style={{ fontSize: '14px', opacity: 0.8 }}>
+              <div style={{ fontSize: '15px', opacity: 0.9, fontWeight: '400' }}>
                 Loading scene...
               </div>
             </div>
