@@ -7,7 +7,7 @@ function IntroScreen({ onEnter }) {
   const line1 = 'from the desk of'
   const line2 = 'Vanessa Wang'
   const fullText = line1 + '\n' + line2
-  const typingSpeed = 80 // milliseconds per character
+  const typingSpeed = 64 // milliseconds per character (20% faster)
 
   useEffect(() => {
     let currentIndex = 0
@@ -32,7 +32,7 @@ function IntroScreen({ onEnter }) {
     // Wait for fade-out animation before calling onEnter
     setTimeout(() => {
       onEnter()
-    }, 600)
+    }, 300)
   }
 
   return (
@@ -48,7 +48,8 @@ function IntroScreen({ onEnter }) {
       position: 'relative',
       overflow: 'hidden',
       opacity: isExiting ? 0 : 1,
-      transition: 'opacity 0.6s ease'
+      transform: isExiting ? 'scale(0.8)' : 'scale(1)',
+      transition: 'opacity 0.3s ease, transform 0.3s ease'
     }}>
       {/* Typing text - centered */}
       <div style={{
@@ -85,39 +86,45 @@ function IntroScreen({ onEnter }) {
       </div>
 
       {/* Enter button - fixed position */}
-      {showButton && (
-        <button
-          onClick={handleEnterClick}
-          style={{
-            position: 'fixed',
-            bottom: '80px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            padding: '16px 48px',
-            background: 'transparent',
-            border: '2px solid #2a2a2a',
-            color: '#2a2a2a',
-            fontSize: '16px',
-            fontFamily: '"Georgia", "Times New Roman", serif',
-            letterSpacing: '1px',
-            cursor: 'pointer',
-            transition: 'background 0.3s ease, color 0.3s ease',
-            opacity: 0,
-            animation: 'fadeIn 0.6s ease forwards',
-            whiteSpace: 'nowrap'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#2a2a2a'
-            e.currentTarget.style.color = '#ffffff'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'transparent'
-            e.currentTarget.style.color = '#2a2a2a'
-          }}
-        >
-          click to enter
-        </button>
-      )}
+      <div style={{
+        position: 'absolute',
+        bottom: '80px',
+        left: 0,
+        right: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        {showButton && (
+          <button
+            onClick={handleEnterClick}
+            style={{
+              padding: '16px 48px',
+              background: 'transparent',
+              border: '2px solid #2a2a2a',
+              color: '#2a2a2a',
+              fontSize: '16px',
+              fontFamily: '"Georgia", "Times New Roman", serif',
+              letterSpacing: '1px',
+              cursor: 'pointer',
+              transition: 'background 0.3s ease, color 0.3s ease',
+              opacity: 0,
+              animation: 'fadeIn 0.6s ease forwards',
+              whiteSpace: 'nowrap'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#2a2a2a'
+              e.currentTarget.style.color = '#ffffff'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.color = '#2a2a2a'
+            }}
+          >
+            click to enter
+          </button>
+        )}
+      </div>
 
       {/* CSS animations */}
       <style>{`

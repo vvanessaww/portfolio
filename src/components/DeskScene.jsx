@@ -7,6 +7,7 @@ import * as THREE from 'three'
 function InteractiveObject({ children, name, position, rotation, onClick }) {
   const [hovered, setHovered] = useState(false)
   const meshRef = useRef()
+  const glowRef = useRef()
 
   return (
     <group
@@ -29,14 +30,16 @@ function InteractiveObject({ children, name, position, rotation, onClick }) {
       }}
       scale={hovered ? 1.05 : 1}
     >
-      {/* Subtle white glow for interactive objects */}
-      <pointLight
-        position={[0, 0.1, 0]}
-        color="#ffffff"
-        intensity={hovered ? 0.8 : 0.3}
-        distance={0.8}
-        decay={2}
-      />
+      {/* Subtle white outline glow for interactive objects */}
+      <mesh ref={glowRef} position={[0, 0, 0]} scale={1.15}>
+        <sphereGeometry args={[0.4, 16, 16]} />
+        <meshBasicMaterial
+          color="#ffffff"
+          transparent
+          opacity={hovered ? 0.25 : 0.12}
+          depthWrite={false}
+        />
+      </mesh>
       {children}
     </group>
   )
