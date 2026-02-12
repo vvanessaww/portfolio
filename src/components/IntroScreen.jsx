@@ -37,6 +37,9 @@ function IntroScreen({ onEnter }) {
 
   return (
     <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
       width: '100vw',
       height: '100vh',
       background: '#ffffff',
@@ -45,11 +48,13 @@ function IntroScreen({ onEnter }) {
       alignItems: 'center',
       justifyContent: 'center',
       fontFamily: '"Georgia", "Times New Roman", serif',
-      position: 'relative',
       overflow: 'hidden',
       opacity: isExiting ? 0 : 1,
       transform: isExiting ? 'scale(0.8)' : 'scale(1)',
-      transition: 'opacity 0.3s ease, transform 0.3s ease'
+      transition: 'opacity 0.3s ease, transform 0.3s ease',
+      zIndex: 9999,
+      margin: 0,
+      padding: 0
     }}>
       {/* Typing text - centered */}
       <div style={{
