@@ -4,9 +4,9 @@ import IntroScreen from '../components/IntroScreen'
 import DeskScene from '../components/DeskScene'
 import AudioPlayer from '../components/AudioPlayer'
 
-function Home() {
+function Home({ onEnter, hasEntered }) {
   const navigate = useNavigate()
-  const [showIntro, setShowIntro] = useState(true)
+  const [showIntro, setShowIntro] = useState(!hasEntered)
 
   const handleObjectClick = (objectName) => {
     // Navigate based on clicked object
@@ -27,6 +27,7 @@ function Home() {
 
   const handleEnter = () => {
     setShowIntro(false)
+    if (onEnter) onEnter()
   }
 
   if (showIntro) {
