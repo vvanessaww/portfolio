@@ -2030,10 +2030,10 @@ function MacHomeScreenFullscreen({ onClose }) {
         </div>
       </div>
 
-      {/* Close hint */}
+      {/* Close hint - positioned above dock */}
       <div style={{
         position: 'absolute',
-        bottom: '20px',
+        bottom: '92px',
         left: '50%',
         transform: 'translateX(-50%)',
         color: '#cccccc',
