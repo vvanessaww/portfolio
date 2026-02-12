@@ -389,16 +389,16 @@ function Mug({ position = [1.4, 0.35, -0.5] }) {
         <meshStandardMaterial color="#3d2314" roughness={0.4} side={THREE.BackSide} />
       </mesh>
       
-      {/* Handle - curved */}
-      <mesh position={[0.095, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <torusGeometry args={[0.04, 0.012, 12, 20, Math.PI]} />
+      {/* Handle - curved, positioned further out */}
+      <mesh position={[0.11, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <torusGeometry args={[0.045, 0.013, 12, 20, Math.PI]} />
         <meshStandardMaterial color="#f0f0e8" roughness={0.3} />
       </mesh>
       
-      {/* Coffee surface on top */}
-      <mesh position={[0, 0.065, 0]}>
-        <cylinderGeometry args={[0.07, 0.07, 0.01, 24]} />
-        <meshStandardMaterial color="#2d1a0f" roughness={0.2} />
+      {/* Coffee surface on top - positioned at rim level */}
+      <mesh position={[0, 0.075, 0]} rotation={[0, 0, 0]}>
+        <cylinderGeometry args={[0.075, 0.075, 0.005, 24]} />
+        <meshStandardMaterial color="#2d1a0f" roughness={0.2} emissive="#1a0f08" emissiveIntensity={0.2} />
       </mesh>
     </group>
   )
