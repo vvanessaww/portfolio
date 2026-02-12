@@ -1,29 +1,40 @@
 import { useState } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import Strava from './pages/Strava'
-import Projects from './pages/Projects'
-import Writing from './pages/Writing'
 
 function App() {
   const [hasEnteredSite, setHasEnteredSite] = useState(false)
+  const [activeView, setActiveView] = useState(null)
+
+  const handleNavClick = (view, e) => {
+    e.preventDefault()
+    setActiveView(view)
+  }
+
+  const closeView = () => {
+    setActiveView(null)
+  }
 
   return (
     <div className="app">
       {hasEnteredSite && (
         <nav className="nav">
-          <Link to="/">Home</Link>
-          <Link to="/strava">Strava</Link>
-          <Link to="/projects">Projects</Link>
-          <Link to="/writing">Writing</Link>
+          <a href="/" onClick={(e) => { e.preventDefault(); setActiveView(null) }}>Home</a>
+          <a href="#" onClick={(e) => handleNavClick('writing', e)}>Writing</a>
+          <a href="#" onClick={(e) => handleNavClick('about', e)}>About Me</a>
+          <a href="#" onClick={(e) => handleNavClick('project', e)}>Project</a>
         </nav>
       )}
       <main className="main">
         <Routes>
-          <Route path="/" element={<Home onEnter={() => setHasEnteredSite(true)} hasEntered={hasEnteredSite} />} />
-          <Route path="/strava" element={<Strava />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/writing" element={<Writing />} />
+          <Route path="/" element={
+            <Home 
+              onEnter={() => setHasEnteredSite(true)} 
+              hasEntered={hasEnteredSite}
+              activeView={activeView}
+              onCloseView={closeView}
+            />
+          } />
         </Routes>
       </main>
     </div>

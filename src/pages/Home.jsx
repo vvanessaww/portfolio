@@ -1,29 +1,10 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import IntroScreen from '../components/IntroScreen'
 import DeskScene from '../components/DeskScene'
 import AudioPlayer from '../components/AudioPlayer'
 
-function Home({ onEnter, hasEntered }) {
-  const navigate = useNavigate()
+function Home({ onEnter, hasEntered, activeView, onCloseView }) {
   const [showIntro, setShowIntro] = useState(!hasEntered)
-
-  const handleObjectClick = (objectName) => {
-    // Navigate based on clicked object
-    switch(objectName) {
-      case 'laptop':
-        navigate('/projects')
-        break
-      case 'postcard':
-        navigate('/strava')
-        break
-      case 'notebook':
-        navigate('/writing')
-        break
-      default:
-        console.log(`Clicked: ${objectName}`)
-    }
-  }
 
   const handleEnter = () => {
     setShowIntro(false)
@@ -37,7 +18,10 @@ function Home({ onEnter, hasEntered }) {
   return (
     <div className="page home-page">
       <div className="hero-section">
-        <DeskScene onObjectClick={handleObjectClick} />
+        <DeskScene 
+          activeView={activeView}
+          onCloseView={onCloseView}
+        />
         <div className="hero-overlay">
           <h1>Vanessa's Desk</h1>
           <p className="hero-subtitle">(click objects on desk to explore my work)</p>

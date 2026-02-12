@@ -7,7 +7,22 @@ import * as THREE from 'three'
 function InteractiveObject({ children, name, position, rotation, onClick }) {
   const [hovered, setHovered] = useState(false)
   const meshRef = useRef()
-  const glowRef = useRef()
+
+  // Define bounding box dimensions for each object type
+  const getBoundingBox = (name) => {
+    switch(name) {
+      case 'laptop':
+        return { size: [0.85, 0.6, 0.5], offset: [0, 0.3, 0] }
+      case 'notebook':
+        return { size: [0.35, 0.05, 0.45], offset: [0, 0.02, 0] }
+      case 'postcard':
+        return { size: [0.38, 0.02, 0.25], offset: [0, 0.01, 0] }
+      default:
+        return { size: [0.5, 0.5, 0.5], offset: [0, 0, 0] }
+    }
+  }
+
+  const boundingBox = getBoundingBox(name)
 
   return (
     <group
@@ -30,14 +45,19 @@ function InteractiveObject({ children, name, position, rotation, onClick }) {
       }}
       scale={hovered ? 1.05 : 1}
     >
-      {/* Subtle white outline glow for interactive objects */}
-      <mesh ref={glowRef} position={[0, 0, 0]} scale={1.15}>
-        <sphereGeometry args={[0.4, 16, 16]} />
+      {/* Subtle white outline glow matching object shape */}
+      <mesh position={boundingBox.offset}>
+        <boxGeometry args={[
+          boundingBox.size[0] * 1.15,
+          boundingBox.size[1] * 1.15,
+          boundingBox.size[2] * 1.15
+        ]} />
         <meshBasicMaterial
           color="#ffffff"
           transparent
           opacity={hovered ? 0.25 : 0.12}
           depthWrite={false}
+          side={THREE.BackSide}
         />
       </mesh>
       {children}
@@ -2045,7 +2065,7 @@ function MacHomeScreenFullscreen({ onClose }) {
 }
 
 // Main exported component
-function DeskScene({ onObjectClick }) {
+function DeskScene({ activeView, onCloseView }) {
   const [showMacScreen, setShowMacScreen] = useState(false)
   const [showNotebook, setShowNotebook] = useState(false)
   const [showPostcard, setShowPostcard] = useState(false)
@@ -2057,9 +2077,21 @@ function DeskScene({ onObjectClick }) {
       setShowNotebook(true)
     } else if (name === 'postcard') {
       setShowPostcard(true)
-    } else if (onObjectClick) {
-      onObjectClick(name)
     }
+  }
+
+  // Determine what to show based on activeView prop or internal state
+  const shouldShowMacScreen = activeView === 'about' || showMacScreen
+  const shouldShowNotebook = activeView === 'writing' || showNotebook
+  const shouldShowPostcard = activeView === 'project' || showPostcard
+
+  const handleClose = (type) => {
+    if (onCloseView) {
+      onCloseView()
+    }
+    if (type === 'mac') setShowMacScreen(false)
+    if (type === 'notebook') setShowNotebook(false)
+    if (type === 'postcard') setShowPostcard(false)
   }
 
   return (
@@ -2093,16 +2125,16 @@ function DeskScene({ onObjectClick }) {
         </Canvas>
       </div>
       
-      {showMacScreen && (
-        <MacHomeScreenFullscreen onClose={() => setShowMacScreen(false)} />
+      {shouldShowMacScreen && (
+        <MacHomeScreenFullscreen onClose={() => handleClose('mac')} />
       )}
       
-      {showNotebook && (
-        <NotebookFullscreen onClose={() => setShowNotebook(false)} />
+      {shouldShowNotebook && (
+        <NotebookFullscreen onClose={() => handleClose('notebook')} />
       )}
       
-      {showPostcard && (
-        <PostcardFullscreen onClose={() => setShowPostcard(false)} />
+      {shouldShowPostcard && (
+        <PostcardFullscreen onClose={() => handleClose('postcard')} />
       )}
     </>
   )
