@@ -1,6 +1,6 @@
 import { Canvas, useLoader } from '@react-three/fiber'
-import { OrbitControls, Environment } from '@react-three/drei'
-import { useState, useRef } from 'react'
+import { OrbitControls, Environment, useProgress } from '@react-three/drei'
+import { useState, useRef, Suspense, useEffect } from 'react'
 import * as THREE from 'three'
 
 // Interactive object wrapper with hover/click states
@@ -2048,11 +2048,62 @@ function MacHomeScreenFullscreen({ onClose }) {
   )
 }
 
+// Loader component for 3D scene (shown while loading)
+function CanvasLoader() {
+  const { progress } = useProgress()
+  return (
+    <mesh position={[0, 0, 0]}>
+      <boxGeometry args={[0, 0, 0]} />
+    </mesh>
+  )
+}
+
+// HTML Loader overlay
+function LoaderOverlay() {
+  const { progress, active } = useProgress()
+  
+  if (!active) return null
+  
+  return (
+    <div style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      textAlign: 'center',
+      color: '#fff',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      zIndex: 100,
+      pointerEvents: 'none'
+    }}>
+      <div style={{
+        width: '40px',
+        height: '40px',
+        border: '3px solid rgba(255, 255, 255, 0.3)',
+        borderTop: '3px solid #fff',
+        borderRadius: '50%',
+        animation: 'spin 1s linear infinite',
+        margin: '0 auto 12px'
+      }} />
+      <div style={{ fontSize: '14px', opacity: 0.8 }}>
+        Loading scene... {progress.toFixed(0)}%
+      </div>
+      <style>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
+    </div>
+  )
+}
+
 // Main exported component
 function DeskScene({ activeView, onCloseView }) {
   const [showMacScreen, setShowMacScreen] = useState(false)
   const [showNotebook, setShowNotebook] = useState(false)
   const [showPostcard, setShowPostcard] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const handleObjectClick = (name) => {
     if (name === 'laptop') {
@@ -2063,6 +2114,12 @@ function DeskScene({ activeView, onCloseView }) {
       setShowPostcard(true)
     }
   }
+
+  // Hide loader after scene mounts
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000)
+    return () => clearTimeout(timer)
+  }, [])
 
   // Determine what to show based on activeView prop or internal state
   const shouldShowMacScreen = activeView === 'about' || showMacScreen
@@ -2084,8 +2141,47 @@ function DeskScene({ activeView, onCloseView }) {
         width: '100%', 
         height: '100%', 
         minHeight: '500px',
-        background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%)'
+        background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%)',
+        position: 'relative'
       }}>
+        {/* Loading spinner overlay */}
+        {isLoading && (
+          <>
+            <div style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              textAlign: 'center',
+              color: '#fff',
+              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+              zIndex: 10,
+              pointerEvents: 'none',
+              transition: 'opacity 0.5s ease',
+              opacity: isLoading ? 1 : 0
+            }}>
+              <div style={{
+                width: '40px',
+                height: '40px',
+                border: '3px solid rgba(255, 255, 255, 0.3)',
+                borderTop: '3px solid #fff',
+                borderRadius: '50%',
+                animation: 'spin 1s linear infinite',
+                margin: '0 auto 12px'
+              }} />
+              <div style={{ fontSize: '14px', opacity: 0.8 }}>
+                Loading scene...
+              </div>
+            </div>
+            <style>{`
+              @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+              }
+            `}</style>
+          </>
+        )}
+        
         <Canvas
           shadows
           camera={{ 
@@ -2096,16 +2192,18 @@ function DeskScene({ activeView, onCloseView }) {
           }}
           style={{ width: '100%', height: '100%' }}
         >
-          <Scene onObjectClick={handleObjectClick} />
-          <OrbitControls 
-            enablePan={false}
-            enableZoom={true}
-            minDistance={2}
-            maxDistance={8}
-            minPolarAngle={Math.PI / 6}
-            maxPolarAngle={Math.PI / 2.2}
-            target={[0, 0.2, 0]}
-          />
+          <Suspense fallback={<CanvasLoader />}>
+            <Scene onObjectClick={handleObjectClick} />
+            <OrbitControls 
+              enablePan={false}
+              enableZoom={true}
+              minDistance={2}
+              maxDistance={8}
+              minPolarAngle={Math.PI / 6}
+              maxPolarAngle={Math.PI / 2.2}
+              target={[0, 0.2, 0]}
+            />
+          </Suspense>
         </Canvas>
       </div>
       
