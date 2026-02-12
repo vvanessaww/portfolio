@@ -107,7 +107,7 @@ body {
 
 .hero-subtitle {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.5) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
   letter-spacing: 0.1em;
   font-family: "Georgia", "Times New Roman", serif;
 }
