@@ -1,9 +1,12 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import IntroScreen from '../components/IntroScreen'
 import DeskScene from '../components/DeskScene'
 import AudioPlayer from '../components/AudioPlayer'
 
 function Home() {
   const navigate = useNavigate()
+  const [showIntro, setShowIntro] = useState(true)
 
   const handleObjectClick = (objectName) => {
     // Navigate based on clicked object
@@ -20,6 +23,14 @@ function Home() {
       default:
         console.log(`Clicked: ${objectName}`)
     }
+  }
+
+  const handleEnter = () => {
+    setShowIntro(false)
+  }
+
+  if (showIntro) {
+    return <IntroScreen onEnter={handleEnter} />
   }
 
   return (
