@@ -12,6 +12,20 @@ function AudioPlayer({ src }) {
     }
   }, [volume])
 
+  // Auto-play on mount
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.play()
+        .then(() => {
+          setIsPlaying(true)
+        })
+        .catch(err => {
+          console.log('Autoplay prevented:', err)
+          // If autoplay is blocked, user will need to click play button
+        })
+    }
+  }, [])
+
   const togglePlay = () => {
     if (audioRef.current) {
       if (isPlaying) {
