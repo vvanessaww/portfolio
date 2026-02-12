@@ -377,19 +377,28 @@ function Notebook({ hovered }) {
 function Mug({ position = [1.4, 0.35, -0.5] }) {
   return (
     <group position={position}>
+      {/* Outer mug body */}
       <mesh>
-        <cylinderGeometry args={[0.06, 0.05, 0.12, 16]} />
+        <cylinderGeometry args={[0.08, 0.07, 0.16, 24]} />
         <meshStandardMaterial color="#f0f0e8" roughness={0.3} />
       </mesh>
-      {/* Handle */}
-      <mesh position={[0.07, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <torusGeometry args={[0.03, 0.01, 8, 16, Math.PI]} />
+      
+      {/* Inner mug (brown interior to show coffee) */}
+      <mesh position={[0, 0.005, 0]}>
+        <cylinderGeometry args={[0.075, 0.065, 0.15, 24]} />
+        <meshStandardMaterial color="#3d2314" roughness={0.4} side={THREE.BackSide} />
+      </mesh>
+      
+      {/* Handle - curved */}
+      <mesh position={[0.095, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <torusGeometry args={[0.04, 0.012, 12, 20, Math.PI]} />
         <meshStandardMaterial color="#f0f0e8" roughness={0.3} />
       </mesh>
-      {/* Coffee */}
-      <mesh position={[0, 0.04, 0]}>
-        <cylinderGeometry args={[0.05, 0.05, 0.02, 16]} />
-        <meshStandardMaterial color="#3d2314" roughness={0.1} />
+      
+      {/* Coffee surface on top */}
+      <mesh position={[0, 0.065, 0]}>
+        <cylinderGeometry args={[0.07, 0.07, 0.01, 24]} />
+        <meshStandardMaterial color="#2d1a0f" roughness={0.2} />
       </mesh>
     </group>
   )
