@@ -729,85 +729,21 @@ function AbstractArt({ position, colors, pattern = 'geometric' }) {
   )
 }
 
-// Pink teddy bear - sitting on couch cushion
-function TeddyBear() {
-  const pinkColor = "#ffb6c1"
-  const darkPinkColor = "#ff9cb0"
+// Throw pillows for couch
+function ThrowPillow({ position, rotation = [0, 0, 0] }) {
+  const grayColor = "#8a8a8a"
   
   return (
-    <group position={[-0.9, -0.05, 4.9]} scale={0.4} rotation={[0.2, Math.PI * 0.75, 0]}>
-      {/* Body - normal size for plush sitting look */}
-      <mesh position={[0, 0.4, 0]} scale={[1, 0.9, 1]}>
-        <sphereGeometry args={[0.4, 16, 16]} />
-        <meshStandardMaterial color={pinkColor} roughness={0.95} />
+    <group position={position} rotation={rotation}>
+      {/* Main pillow body */}
+      <mesh>
+        <boxGeometry args={[0.35, 0.35, 0.15]} />
+        <meshStandardMaterial color={grayColor} roughness={0.85} />
       </mesh>
-      
-      {/* Head - slightly tilted */}
-      <mesh position={[0, 0.95, -0.05]} rotation={[0.1, 0, 0]}>
-        <sphereGeometry args={[0.35, 16, 16]} />
-        <meshStandardMaterial color={pinkColor} roughness={0.95} />
-      </mesh>
-      
-      {/* Ears */}
-      <mesh position={[-0.2, 1.15, -0.05]}>
-        <sphereGeometry args={[0.12, 16, 16]} />
-        <meshStandardMaterial color={darkPinkColor} roughness={0.95} />
-      </mesh>
-      <mesh position={[0.2, 1.15, -0.05]}>
-        <sphereGeometry args={[0.12, 16, 16]} />
-        <meshStandardMaterial color={darkPinkColor} roughness={0.95} />
-      </mesh>
-      
-      {/* Snout */}
-      <mesh position={[0, 0.9, 0.25]}>
-        <sphereGeometry args={[0.15, 16, 16]} />
-        <meshStandardMaterial color={darkPinkColor} roughness={0.95} />
-      </mesh>
-      
-      {/* Nose */}
-      <mesh position={[0, 0.95, 0.35]}>
-        <sphereGeometry args={[0.05, 16, 16]} />
-        <meshStandardMaterial color="#3d2f1f" roughness={0.5} />
-      </mesh>
-      
-      {/* Eyes */}
-      <mesh position={[-0.1, 1.0, 0.3]}>
-        <sphereGeometry args={[0.04, 16, 16]} />
-        <meshStandardMaterial color="#1a1a1a" />
-      </mesh>
-      <mesh position={[0.1, 1.0, 0.3]}>
-        <sphereGeometry args={[0.04, 16, 16]} />
-        <meshStandardMaterial color="#1a1a1a" />
-      </mesh>
-      
-      {/* Arms - relaxed at sides */}
-      <mesh position={[-0.4, 0.5, 0.1]} rotation={[0.3, 0, -0.8]}>
-        <capsuleGeometry args={[0.1, 0.35, 8, 16]} />
-        <meshStandardMaterial color={pinkColor} roughness={0.95} />
-      </mesh>
-      <mesh position={[0.4, 0.5, 0.1]} rotation={[0.3, 0, 0.8]}>
-        <capsuleGeometry args={[0.1, 0.35, 8, 16]} />
-        <meshStandardMaterial color={pinkColor} roughness={0.95} />
-      </mesh>
-      
-      {/* Legs - sitting position, extended forward */}
-      <mesh position={[-0.15, 0.15, 0.3]} rotation={[1.3, 0, 0]} scale={[1, 1, 1.2]}>
-        <capsuleGeometry args={[0.13, 0.3, 8, 16]} />
-        <meshStandardMaterial color={pinkColor} roughness={0.95} />
-      </mesh>
-      <mesh position={[0.15, 0.15, 0.3]} rotation={[1.3, 0, 0]} scale={[1, 1, 1.2]}>
-        <capsuleGeometry args={[0.13, 0.3, 8, 16]} />
-        <meshStandardMaterial color={pinkColor} roughness={0.95} />
-      </mesh>
-      
-      {/* Feet pads */}
-      <mesh position={[-0.15, 0.08, 0.6]} rotation={[1.3, 0, 0]}>
-        <sphereGeometry args={[0.1, 16, 16]} />
-        <meshStandardMaterial color={darkPinkColor} roughness={0.95} />
-      </mesh>
-      <mesh position={[0.15, 0.08, 0.6]} rotation={[1.3, 0, 0]}>
-        <sphereGeometry args={[0.1, 16, 16]} />
-        <meshStandardMaterial color={darkPinkColor} roughness={0.95} />
+      {/* Slight puff detail */}
+      <mesh position={[0, 0, 0.08]}>
+        <boxGeometry args={[0.32, 0.32, 0.08]} />
+        <meshStandardMaterial color={grayColor} roughness={0.9} />
       </mesh>
     </group>
   )
@@ -1443,7 +1379,8 @@ function Scene({ onObjectClick }) {
       <DeskChair />
       <Bookshelf />
       <CloudCouch />
-      <TeddyBear />
+      <ThrowPillow position={[-0.7, 0.05, 4.9]} rotation={[0, 0.3, 0]} />
+      <ThrowPillow position={[0.7, 0.05, 4.9]} rotation={[0, -0.2, 0]} />
       <CoffeeTable />
       <FloorLamp />
       <CeilingLight />
