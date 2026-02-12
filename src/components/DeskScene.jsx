@@ -800,12 +800,12 @@ function ThrowPillow({ position, rotation = [0, 0, 0] }) {
     <group position={position} rotation={rotation}>
       {/* Main pillow body */}
       <mesh>
-        <boxGeometry args={[0.35, 0.35, 0.15]} />
+        <boxGeometry args={[0.45, 0.45, 0.18]} />
         <meshStandardMaterial color={grayColor} roughness={0.85} />
       </mesh>
       {/* Slight puff detail */}
-      <mesh position={[0, 0, 0.08]}>
-        <boxGeometry args={[0.32, 0.32, 0.08]} />
+      <mesh position={[0, 0, 0.1]}>
+        <boxGeometry args={[0.42, 0.42, 0.1]} />
         <meshStandardMaterial color={grayColor} roughness={0.9} />
       </mesh>
     </group>
