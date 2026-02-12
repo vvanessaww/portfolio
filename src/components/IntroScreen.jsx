@@ -36,39 +36,29 @@ function IntroScreen({ onEnter }) {
       alignItems: 'center',
       justifyContent: 'center',
       fontFamily: '"Georgia", "Times New Roman", serif',
-      position: 'relative'
+      position: 'relative',
+      overflow: 'hidden'
     }}>
-      {/* Document "paper" effect */}
+      {/* Typing text - centered */}
       <div style={{
-        maxWidth: '800px',
-        width: '90%',
-        minHeight: '400px',
-        background: '#ffffff',
-        padding: '60px 80px',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-        position: 'relative'
+        fontSize: '32px',
+        lineHeight: '1.6',
+        color: '#2a2a2a',
+        letterSpacing: '0.5px',
+        textAlign: 'center',
+        whiteSpace: 'pre-wrap',
+        marginBottom: '60px'
       }}>
-        {/* Typing text */}
-        <div style={{
-          fontSize: '32px',
-          lineHeight: '1.6',
-          color: '#2a2a2a',
-          letterSpacing: '0.5px',
-          minHeight: '120px',
-          textAlign: 'center',
-          whiteSpace: 'pre-wrap'
-        }}>
-          {displayedText}
-          {displayedText.length < fullText.length && (
-            <span style={{
-              borderRight: '2px solid #2a2a2a',
-              animation: 'blink 1s step-end infinite',
-              marginLeft: '2px'
-            }}>
-              &nbsp;
-            </span>
-          )}
-        </div>
+        {displayedText}
+        {displayedText.length < fullText.length && (
+          <span style={{
+            borderRight: '2px solid #2a2a2a',
+            animation: 'blink 1s step-end infinite',
+            marginLeft: '2px'
+          }}>
+            &nbsp;
+          </span>
+        )}
       </div>
 
       {/* Enter button */}
@@ -76,8 +66,6 @@ function IntroScreen({ onEnter }) {
         <button
           onClick={onEnter}
           style={{
-            position: 'absolute',
-            bottom: '80px',
             padding: '16px 48px',
             background: 'transparent',
             border: '2px solid #2a2a2a',
