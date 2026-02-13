@@ -28,6 +28,9 @@ body {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .nav a {
@@ -164,8 +167,8 @@ body {
   }
 
   .hero-section {
-    height: 100vh;
-    min-height: 100vh;
+    height: calc(100vh - 60px);
+    min-height: calc(100vh - 60px);
     width: 100vw;
     margin: 0;
     padding: 0;
