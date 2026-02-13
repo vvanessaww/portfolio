@@ -211,18 +211,18 @@ body {
   }
 
   .postcard-content [style*="fontSize: '22px'"] {
-    font-size: 4.4% !important;
+    font-size: 2.75vw !important;
     line-height: 1.6 !important;
   }
 
   .postcard-content p {
-    font-size: 4.4% !important;
+    font-size: 2.75vw !important;
     margin-bottom: 3.2% !important;
     line-height: 1.6 !important;
   }
 
   .postcard-content [style*="fontSize: '20px'"] {
-    font-size: 4% !important;
+    font-size: 2.5vw !important;
     margin-top: 6.4% !important;
   }
 
@@ -239,7 +239,7 @@ body {
     right: 5% !important;
     width: 7.5% !important;
     height: 14% !important;
-    font-size: 4.8% !important;
+    font-size: 3vw !important;
     border-width: 2px !important;
   }
 
@@ -331,16 +331,16 @@ body {
   }
 
   .postcard-content [style*="fontSize: '22px'"] {
-    font-size: 4.4% !important;
+    font-size: 2.5vw !important;
   }
 
   .postcard-content p {
-    font-size: 4.4% !important;
+    font-size: 2.5vw !important;
     margin-bottom: 3.2% !important;
   }
 
   .postcard-content [style*="fontSize: '20px'"] {
-    font-size: 4% !important;
+    font-size: 2.25vw !important;
     margin-top: 6.4% !important;
   }
 
@@ -357,7 +357,7 @@ body {
     right: 5% !important;
     width: 7.5% !important;
     height: 14% !important;
-    font-size: 4.8% !important;
+    font-size: 2.7vw !important;
     border-width: 2px !important;
   }
 
