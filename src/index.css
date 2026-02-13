@@ -198,40 +198,40 @@ body {
     width: 100vw !important;
     height: 62.5vw !important; /* Maintain 1.6:1 aspect ratio */
     max-height: 90vh !important;
-    padding: 2.5vw !important;
+    padding: 5% !important;
     border-radius: 0 !important;
   }
 
   .postcard-content > div:first-child {
-    margin-right: 2vw !important;
+    margin-right: 4% !important;
   }
 
   .postcard-content > div:last-child {
-    padding: 1.25vw 0 !important;
+    padding: 2% 0 !important;
   }
 
   .postcard-content [style*="fontSize: '22px'"] {
-    font-size: 2.75vw !important;
+    font-size: 4.4% !important;
     line-height: 1.6 !important;
   }
 
   .postcard-content p {
-    font-size: 2.75vw !important;
-    margin-bottom: 2vw !important;
+    font-size: 4.4% !important;
+    margin-bottom: 3.2% !important;
     line-height: 1.6 !important;
   }
 
   .postcard-content [style*="fontSize: '20px'"] {
-    font-size: 2.5vw !important;
-    margin-top: 4vw !important;
+    font-size: 4% !important;
+    margin-top: 6.4% !important;
   }
 
   .postcard-content [style*="marginBottom: '16px'"] {
-    margin-bottom: 2vw !important;
+    margin-bottom: 3.2% !important;
   }
 
   .postcard-content [style*="marginTop: '32px'"] {
-    margin-top: 4vw !important;
+    margin-top: 6.4% !important;
   }
 
   .postcard-content [style*="position: 'absolute'"][style*="top: '40px'"] {
@@ -239,13 +239,13 @@ body {
     right: 5% !important;
     width: 7.5% !important;
     height: 14% !important;
-    font-size: 3vw !important;
+    font-size: 4.8% !important;
     border-width: 2px !important;
   }
 
   .postcard-content [style*="width: '80%'"] {
-    margin-bottom: 2.5vw !important;
-    height: 0.25vw !important;
+    margin-bottom: 4% !important;
+    height: 0.4% !important;
   }
 
   .notebook-content {
@@ -319,25 +319,37 @@ body {
     width: 90vw !important;
     height: 56.25vw !important; /* Maintain aspect ratio in landscape */
     max-height: 80vh !important;
-    padding: 2.25vw !important;
+    padding: 5% !important;
+  }
+
+  .postcard-content > div:first-child {
+    margin-right: 4% !important;
   }
 
   .postcard-content > div:last-child {
-    padding: 1.1vw 0 !important;
+    padding: 2% 0 !important;
   }
 
   .postcard-content [style*="fontSize: '22px'"] {
-    font-size: 2vw !important;
+    font-size: 4.4% !important;
   }
 
   .postcard-content p {
-    font-size: 2vw !important;
-    margin-bottom: 1.35vw !important;
+    font-size: 4.4% !important;
+    margin-bottom: 3.2% !important;
   }
 
   .postcard-content [style*="fontSize: '20px'"] {
-    font-size: 1.8vw !important;
-    margin-top: 2.7vw !important;
+    font-size: 4% !important;
+    margin-top: 6.4% !important;
+  }
+
+  .postcard-content [style*="marginBottom: '16px'"] {
+    margin-bottom: 3.2% !important;
+  }
+
+  .postcard-content [style*="marginTop: '32px'"] {
+    margin-top: 6.4% !important;
   }
 
   .postcard-content [style*="position: 'absolute'"][style*="top: '40px'"] {
@@ -345,13 +357,13 @@ body {
     right: 5% !important;
     width: 7.5% !important;
     height: 14% !important;
-    font-size: 2.5vw !important;
+    font-size: 4.8% !important;
     border-width: 2px !important;
   }
 
   .postcard-content [style*="width: '80%'"] {
-    margin-bottom: 2.25vw !important;
-    height: 0.22vw !important;
+    margin-bottom: 4% !important;
+    height: 0.4% !important;
   }
 
   .notebook-content {
