@@ -1547,13 +1547,14 @@ function PostcardFullscreen({ onClose }) {
         
         {/* Close hint */}
         <div style={{
-          position: 'absolute',
+          position: 'fixed',
           bottom: '15px',
           left: '50%',
           transform: 'translateX(-50%)',
           color: '#888',
           fontSize: '13px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          zIndex: 10
         }}>
           Click anywhere to close
         </div>
@@ -1674,13 +1675,14 @@ function NotebookFullscreen({ onClose }) {
         
         {/* Close hint */}
         <div style={{
-          position: 'absolute',
+          position: 'fixed',
           bottom: '20px',
           left: '50%',
           transform: 'translateX(-50%)',
           color: '#888',
           fontSize: '14px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          zIndex: 10
         }}>
           Click anywhere to close
         </div>
@@ -1992,7 +1994,7 @@ function MacHomeScreenFullscreen({ onClose }) {
 
       {/* Close hint - positioned above dock */}
       <div style={{
-        position: 'absolute',
+        position: 'fixed',
         bottom: '92px',
         left: '50%',
         transform: 'translateX(-50%)',
