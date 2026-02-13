@@ -194,13 +194,21 @@ body {
 
 /* Mobile responsive overlays */
 @media (max-width: 768px) {
+  /* Allow postcard overlay to scroll if taller than viewport */
+  div[style*="position: fixed"][style*="100vw"][style*="100vh"] {
+    overflow-y: auto !important;
+    align-items: flex-start !important;
+    padding: 0 !important;
+  }
+
   .postcard-content {
     width: 100vw !important;
     height: 62.5vw !important; /* Maintain 1.6:1 aspect ratio */
-    max-height: 90vh !important;
     padding: 5% !important;
     border-radius: 0 !important;
     font-size: 2.75vw !important;
+    overflow: visible !important;
+    margin: 0 !important;
   }
 
   .postcard-content > div:first-child {
@@ -319,9 +327,10 @@ body {
   .postcard-content {
     width: 90vw !important;
     height: 56.25vw !important; /* Maintain aspect ratio in landscape */
-    max-height: 80vh !important;
     padding: 5% !important;
     font-size: 2.5vw !important;
+    overflow: visible !important;
+    margin: 0 !important;
   }
 
   .postcard-content > div:first-child {
