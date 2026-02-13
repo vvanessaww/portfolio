@@ -1554,6 +1554,7 @@ function PostcardFullscreen({ onClose }) {
           color: '#888',
           fontSize: '13px',
           fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          textAlign: 'center',
           zIndex: 10
         }}>
           Click anywhere to close
@@ -1682,6 +1683,7 @@ function NotebookFullscreen({ onClose }) {
           color: '#888',
           fontSize: '14px',
           fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          textAlign: 'center',
           zIndex: 10
         }}>
           Click anywhere to close
@@ -2001,6 +2003,7 @@ function MacHomeScreenFullscreen({ onClose }) {
         color: '#cccccc',
         fontSize: '14px',
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        textAlign: 'center',
         pointerEvents: 'none',
         zIndex: 10
       }}>
