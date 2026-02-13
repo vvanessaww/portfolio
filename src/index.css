@@ -204,11 +204,12 @@ body {
   .postcard-content {
     width: 100vw !important;
     height: 62.5vw !important; /* Maintain 1.6:1 aspect ratio */
-    padding: 5% !important;
+    padding: 4% !important;
     border-radius: 0 !important;
-    font-size: 2.75vw !important;
-    overflow: visible !important;
+    font-size: 2.2vw !important;
+    overflow: hidden !important;
     margin: 0 !important;
+    box-sizing: border-box !important;
   }
 
   .postcard-content > div:first-child {
