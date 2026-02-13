@@ -2141,9 +2141,15 @@ function DeskScene({ activeView, onCloseView }) {
         height: '100%', 
         minHeight: '500px',
         background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%)',
-        position: 'relative',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         opacity: sceneVisible ? 1 : 0,
-        transition: 'opacity 0.8s ease-in'
+        transition: 'opacity 0.8s ease-in',
+        margin: 0,
+        padding: 0
       }}>
         {/* Loading spinner overlay - only shown if loading takes > 150ms */}
         {showSpinner && (
