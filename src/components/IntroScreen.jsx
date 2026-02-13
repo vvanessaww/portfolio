@@ -100,18 +100,14 @@ function IntroScreen({ onEnter }) {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         textAlign: 'center',
-        whiteSpace: 'pre-wrap'
+        whiteSpace: 'pre-wrap',
+        padding: '0 20px'
       }}>
-        <div style={{
-          fontSize: '32px',
-          lineHeight: '1.6',
-          color: '#2a2a2a',
-          letterSpacing: '0.5px'
-        }}>
+        <div className="intro-text">
           {displayedText.split('\n')[0]}
           {displayedText.includes('\n') && <br />}
           {displayedText.split('\n')[1] && (
-            <span style={{ fontSize: '48px', fontWeight: '500' }}>
+            <span className="intro-name">
               {displayedText.split('\n')[1]}
             </span>
           )}
@@ -128,32 +124,11 @@ function IntroScreen({ onEnter }) {
       </div>
 
       {/* Enter button - positioned below text */}
-      <div style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, calc(-50% + 120px))',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
+      <div className="intro-button-container">
         {showButton && (
           <button
             onClick={handleEnterClick}
-            style={{
-              padding: '16px 48px',
-              background: 'transparent',
-              border: '2px solid #2a2a2a',
-              color: '#2a2a2a',
-              fontSize: '16px',
-              fontFamily: '"Georgia", "Times New Roman", serif',
-              letterSpacing: '1px',
-              cursor: 'pointer',
-              transition: 'background 0.3s ease, color 0.3s ease',
-              opacity: 0,
-              animation: 'fadeIn 0.6s ease forwards',
-              whiteSpace: 'nowrap'
-            }}
+            className="intro-button"
             onMouseEnter={(e) => {
               e.currentTarget.style.background = '#2a2a2a'
               e.currentTarget.style.color = '#ffffff'
@@ -183,6 +158,82 @@ function IntroScreen({ onEnter }) {
           to {
             opacity: 1;
             transform: translateY(0);
+          }
+        }
+        
+        .intro-text {
+          font-size: 32px;
+          line-height: 1.6;
+          color: #2a2a2a;
+          letter-spacing: 0.5px;
+        }
+        
+        .intro-name {
+          font-size: 48px;
+          font-weight: 500;
+        }
+        
+        .intro-button-container {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, calc(-50% + 140px));
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 0 20px;
+        }
+        
+        .intro-button {
+          padding: 16px 48px;
+          background: transparent;
+          border: 2px solid #2a2a2a;
+          color: #2a2a2a;
+          font-size: 16px;
+          font-family: "Georgia", "Times New Roman", serif;
+          letter-spacing: 1px;
+          cursor: pointer;
+          transition: background 0.3s ease, color 0.3s ease;
+          opacity: 0;
+          animation: fadeIn 0.6s ease forwards;
+          white-space: nowrap;
+        }
+        
+        @media (max-width: 768px) {
+          .intro-text {
+            font-size: 24px;
+          }
+          
+          .intro-name {
+            font-size: 36px;
+          }
+          
+          .intro-button-container {
+            transform: translate(-50%, calc(-50% + 100px));
+          }
+          
+          .intro-button {
+            padding: 12px 32px;
+            font-size: 14px;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .intro-text {
+            font-size: 20px;
+          }
+          
+          .intro-name {
+            font-size: 28px;
+          }
+          
+          .intro-button-container {
+            transform: translate(-50%, calc(-50% + 90px));
+          }
+          
+          .intro-button {
+            padding: 10px 24px;
+            font-size: 13px;
           }
         }
       `}</style>

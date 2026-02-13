@@ -15,6 +15,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .nav {
@@ -45,6 +47,10 @@ body {
   padding: 2rem;
 }
 
+.home-page .main {
+  padding: 0;
+}
+
 .page {
   max-width: 1200px;
   margin: 0 auto;
@@ -69,10 +75,14 @@ body {
 .home-page {
   max-width: none;
   padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
 .home-page .main {
   padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
 .hero-section {
@@ -80,6 +90,7 @@ body {
   width: 100%;
   height: calc(100vh - 80px);
   min-height: 500px;
+  overflow: hidden;
 }
 
 .hero-overlay {
@@ -120,9 +131,33 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .nav {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .main {
+    padding: 0;
+  }
+
+  .page {
+    padding: 1rem;
+  }
+
+  .home-page .page {
+    padding: 0;
+  }
+
   .hero-section {
-    height: calc(100vh - 60px);
-    min-height: 400px;
+    height: 100vh;
+    min-height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero-overlay {
+    bottom: 1rem;
   }
 
   .hero-overlay h1 {
