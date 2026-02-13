@@ -192,6 +192,71 @@ body {
   }
 }
 
+/* Mobile responsive overlays */
+@media (max-width: 768px) {
+  .postcard-content {
+    width: 100vw !important;
+    height: 62.5vw !important; /* Maintain 1.6:1 aspect ratio */
+    max-height: 90vh !important;
+    padding: 20px !important;
+    border-radius: 0 !important;
+  }
+
+  .postcard-content > div:first-child {
+    margin-right: 15px !important;
+  }
+
+  .postcard-content p {
+    font-size: 18px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .postcard-content [style*="fontSize: '20px'"] {
+    font-size: 16px !important;
+    margin-top: 20px !important;
+  }
+
+  .postcard-content [style*="position: 'absolute'"][style*="top: '40px'"] {
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px !important;
+    height: 50px !important;
+    font-size: 18px !important;
+  }
+
+  .notebook-content {
+    width: 100vw !important;
+    height: 90vh !important;
+    padding: 40px 20px !important;
+    border-radius: 0 !important;
+  }
+
+  .notebook-content [style*="fontSize: '24px'"] {
+    font-size: 18px !important;
+    line-height: 28px !important;
+  }
+
+  .notebook-content [style*="fontSize: '20px'"] {
+    font-size: 16px !important;
+  }
+
+  .notebook-content [style*="fontSize: '18px'"] {
+    font-size: 14px !important;
+  }
+
+  .notebook-content [style*="left: '80px'"][style*="top: '60px'"] {
+    left: 20px !important;
+    top: 40px !important;
+    bottom: 40px !important;
+  }
+
+  .notebook-content [style*="left: '100px'"] {
+    left: 35px !important;
+    right: 20px !important;
+    top: 50px !important;
+  }
+}
+
 /* Mobile landscape - no scrolling, fill screen */
 @media (max-width: 768px) and (orientation: landscape) {
   html, body {
@@ -224,5 +289,16 @@ body {
 
   .hero-subtitle {
     font-size: 0.7rem;
+  }
+
+  .postcard-content {
+    width: 90vw !important;
+    height: 56.25vw !important; /* Maintain aspect ratio in landscape */
+    max-height: 80vh !important;
+  }
+
+  .notebook-content {
+    width: 90vw !important;
+    height: 85vh !important;
   }
 }

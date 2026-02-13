@@ -1451,7 +1451,7 @@ function PostcardFullscreen({ onClose }) {
       }}
     >
       {/* Postcard */}
-      <div style={{
+      <div className="postcard-content" style={{
         width: '800px',
         height: '500px',
         background: '#e8e4dc',
@@ -1599,7 +1599,7 @@ function NotebookFullscreen({ onClose }) {
       }}
     >
       {/* Notebook page */}
-      <div style={{
+      <div className="notebook-content" style={{
         width: '800px',
         height: '90%',
         background: '#f5f5f0',
