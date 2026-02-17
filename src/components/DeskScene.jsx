@@ -456,6 +456,15 @@ function FloorToCeilingWindow({ isNightMode = true }) {
           <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
         </mesh>
       ))}
+      {/* Sky backdrop behind buildings */}
+      <mesh position={[0, 0, -0.8]}>
+        <planeGeometry args={[12, 8]} />
+        <meshStandardMaterial 
+          color={isNightMode ? '#0a1628' : '#6bb3d9'} 
+          emissive={isNightMode ? '#0a1628' : '#6bb3d9'}
+          emissiveIntensity={isNightMode ? 0.15 : 0.3}
+        />
+      </mesh>
       {/* Cityscape silhouette behind glass */}
       <group position={[0, 0, -0.5]}>
         {/* Buildings at different heights - even more buildings for full window */}
