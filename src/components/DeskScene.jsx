@@ -1651,13 +1651,15 @@ function MacHomeScreenFullscreen({ onClose }) {
   const [isVisible, setIsVisible] = useState(false)
 
   // Trigger animation on mount
-  useState(() => {
-    setTimeout(() => setIsVisible(true), 10)
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setIsVisible(true))
+    })
   }, [])
 
   const handleClose = () => {
     setIsVisible(false)
-    setTimeout(onClose, 300) // Wait for fade-out animation
+    setTimeout(onClose, 350)
   }
 
   return (
@@ -1673,8 +1675,8 @@ function MacHomeScreenFullscreen({ onClose }) {
         zIndex: 1000,
         cursor: 'pointer',
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'scale(1)' : 'scale(0.8)',
-        transition: 'opacity 0.3s ease, transform 0.3s ease',
+        transform: isVisible ? 'scale(1)' : 'scale(0.9)',
+        transition: 'opacity 350ms ease-out, transform 350ms ease-out',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -2051,50 +2053,13 @@ function DeskScene({ activeView, onCloseView, isNightMode = true }) {
     }
   }
 
-  // Fade in scene on mount
-  useEffect(() => {
-    const timer = setTimeout(() => setSceneVisible(true), 50)
-    return () => clearTimeout(timer)
-  }, [])
-
-  // Loading spinner logic - only show if still loading after 150ms
-  useEffect(() => {
-    setIsLoading(true)
-    
-    // If still loading after 150ms, show the spinner
-    loadingTimeoutRef.current = setTimeout(() => {
-      setShowSpinner(true)
-    }, 150)
-    
-    // Start fade out after minimum display time
-    fadeTimeoutRef.current = setTimeout(() => {
-      setFadeOut(true)
-      // Remove from DOM after fade completes
-      setTimeout(() => {
-        setIsLoading(false)
-        setShowSpinner(false)
-      }, 800)
-    }, 800)
-    
-    return () => {
-      if (loadingTimeoutRef.current) clearTimeout(loadingTimeoutRef.current)
-      if (fadeTimeoutRef.current) clearTimeout(fadeTimeoutRef.current)
-    }
-  }, [])
-  
-  // Mark as loaded when scene is ready (cancel spinner if it hasn't shown yet)
-  const handleSceneReady = () => {
-    if (loadingTimeoutRef.current) {
-      clearTimeout(loadingTimeoutRef.current)
-      // If we loaded before spinner was scheduled to show, never show it
-      setIsLoading(false)
-    }
-  }
+  const handleLoaded = useRef(() => setSceneReady(true)).current
 
   // Determine what to show based on activeView prop or internal state
   const shouldShowMacScreen = activeView === 'about' || showMacScreen
   const shouldShowNotebook = activeView === 'writing' || showNotebook
   const shouldShowPostcard = activeView === 'project' || showPostcard
+  const hasOverlay = shouldShowMacScreen || shouldShowNotebook || shouldShowPostcard
 
   const handleClose = (type) => {
     if (onCloseView) {
@@ -2121,7 +2086,8 @@ function DeskScene({ activeView, onCloseView, isNightMode = true }) {
         right: 0,
         bottom: 0,
         opacity: sceneVisible ? 1 : 0,
-        transition: 'opacity 0.8s ease-in',
+        filter: hasOverlay ? 'blur(6px)' : 'blur(0px)',
+        transition: 'opacity 0.8s ease-in, filter 350ms ease-out',
         margin: 0,
         padding: 0
       }}>
