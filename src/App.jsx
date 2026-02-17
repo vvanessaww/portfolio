@@ -6,7 +6,7 @@ import AudioPlayer from './components/AudioPlayer'
 function App() {
   const [hasEnteredSite, setHasEnteredSite] = useState(false)
   const [activeView, setActiveView] = useState(null)
-  const [isMuted, setIsMuted] = useState(true) // Default to muted
+  const [isMuted, setIsMuted] = useState(false) // Default to sound on
   const [isNightMode, setIsNightMode] = useState(false) // Default to day
 
   const handleNavClick = (view, e) => {
