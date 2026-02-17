@@ -7,6 +7,14 @@ function AudioPlayer({ src, isMuted, onToggleMute, hidden = false }) {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = 0.3
+      // Fallback loop: restart from beginning when track ends
+      const audio = audioRef.current
+      const handleEnded = () => {
+        audio.currentTime = 0
+        audio.play().catch(() => {})
+      }
+      audio.addEventListener('ended', handleEnded)
+      return () => audio.removeEventListener('ended', handleEnded)
     }
   }, [])
 
