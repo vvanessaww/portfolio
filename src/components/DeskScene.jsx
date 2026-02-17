@@ -1,12 +1,20 @@
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Environment, useProgress } from '@react-three/drei'
 import { useState, useRef, Suspense, useEffect, useMemo } from 'react'
 import * as THREE from 'three'
 
-// Interactive object wrapper with hover/click states
-function InteractiveObject({ children, name, position, rotation, onClick }) {
+// Interactive object wrapper with hover/click states and subtle float animation
+function InteractiveObject({ children, name, position, rotation, onClick, floatSpeed = 1, floatAmount = 0.008 }) {
   const [hovered, setHovered] = useState(false)
   const meshRef = useRef()
+  const initialY = useRef(position ? position[1] : 0)
+  const offset = useRef(Math.random() * Math.PI * 2) // random phase offset per object
+
+  useFrame(({ clock }) => {
+    if (meshRef.current) {
+      meshRef.current.position.y = initialY.current + Math.sin(clock.elapsedTime * floatSpeed + offset.current) * floatAmount
+    }
+  })
 
   return (
     <group
