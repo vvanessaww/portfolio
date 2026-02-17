@@ -25,6 +25,10 @@ function Home({ onEnter, hasEntered, activeView, onCloseView }) {
           <h1>Vanessa's Desk</h1>
           <p className="hero-subtitle">(click objects on desk to explore my work)</p>
         </div>
+        {/* Screen reader fallback */}
+        <div className="sr-only" role="region" aria-label="Portfolio navigation">
+          <p>Interactive 3D desk scene. Use the navigation bar above to explore: Writing, About Me, or Project.</p>
+        </div>
       </div>
     </div>
   )

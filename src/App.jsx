@@ -24,14 +24,14 @@ function App() {
   return (
     <div className="app">
       {hasEnteredSite && (
-        <nav className="nav">
-          <a href="/" onClick={(e) => { e.preventDefault(); setActiveView(null) }}>Home</a>
-          <a href="#" onClick={(e) => handleNavClick('writing', e)}>Writing</a>
-          <a href="#" onClick={(e) => handleNavClick('about', e)}>About Me</a>
-          <a href="#" onClick={(e) => handleNavClick('project', e)}>Project</a>
+        <nav className="nav" role="navigation" aria-label="Main navigation">
+          <a href="/" onClick={(e) => { e.preventDefault(); setActiveView(null) }} aria-label="Home">Home</a>
+          <a href="#" onClick={(e) => handleNavClick('writing', e)} aria-label="Writing">Writing</a>
+          <a href="#" onClick={(e) => handleNavClick('about', e)} aria-label="About Me">About Me</a>
+          <a href="#" onClick={(e) => handleNavClick('project', e)} aria-label="Project">Project</a>
         </nav>
       )}
-      <main className="main">
+      <main className="main" role="main">
         <Routes>
           <Route path="/" element={
             <Home 
