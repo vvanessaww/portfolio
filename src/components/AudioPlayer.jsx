@@ -7,6 +7,10 @@ function AudioPlayer({ src, isMuted, onToggleMute, hidden = false }) {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = 0.3
+      // Auto-play on mount if not muted
+      if (!isMuted) {
+        audioRef.current.play().catch(() => {})
+      }
     }
   }, [])
 
