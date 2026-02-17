@@ -1,13 +1,20 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import AudioPlayer from './components/AudioPlayer'
 
 function App() {
   const [hasEnteredSite, setHasEnteredSite] = useState(false)
   const [activeView, setActiveView] = useState(null)
   const [isMuted, setIsMuted] = useState(false) // Default to sound on
   const [isNightMode, setIsNightMode] = useState(false) // Default to day
+  const audioRef = useRef(null)
+
+  const startAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.3
+      audioRef.current.play().catch(() => {})
+    }
+  }
 
   const handleNavClick = (view, e) => {
     e.preventDefault()
@@ -19,6 +26,13 @@ function App() {
   }
 
   const toggleMute = () => {
+    if (audioRef.current) {
+      if (isMuted) {
+        audioRef.current.play().catch(() => {})
+      } else {
+        audioRef.current.pause()
+      }
+    }
     setIsMuted(!isMuted)
   }
 
@@ -82,7 +96,7 @@ function App() {
         <Routes>
           <Route path="/" element={
             <Home 
-              onEnter={() => setHasEnteredSite(true)} 
+              onEnter={() => { setHasEnteredSite(true); startAudio(); }} 
               hasEntered={hasEnteredSite}
               activeView={activeView}
               onCloseView={closeView}
@@ -91,7 +105,7 @@ function App() {
           } />
           <Route path="*" element={
             <Home 
-              onEnter={() => setHasEnteredSite(true)} 
+              onEnter={() => { setHasEnteredSite(true); startAudio(); }} 
               hasEntered={hasEnteredSite}
               activeView={activeView}
               onCloseView={closeView}
@@ -101,12 +115,7 @@ function App() {
         </Routes>
       </main>
       {/* Hidden audio element - controls are in the nav */}
-      <AudioPlayer 
-        src="/ambient.mp3"
-        isMuted={isMuted}
-        onToggleMute={toggleMute}
-        hidden={true}
-      />
+      <audio ref={audioRef} src="/ambient.mp3" loop />
     </div>
   )
 }
