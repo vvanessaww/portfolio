@@ -41,6 +41,14 @@ function App() {
               onCloseView={closeView}
             />
           } />
+          <Route path="*" element={
+            <Home 
+              onEnter={() => setHasEnteredSite(true)} 
+              hasEntered={hasEnteredSite}
+              activeView={activeView}
+              onCloseView={closeView}
+            />
+          } />
         </Routes>
       </main>
       {/* Audio player at app level so it never unmounts */}
