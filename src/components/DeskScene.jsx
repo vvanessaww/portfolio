@@ -1,4 +1,4 @@
-import { Canvas, useLoader } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment, useProgress } from '@react-three/drei'
 import { useState, useRef, Suspense, useEffect, useMemo } from 'react'
 import * as THREE from 'three'
@@ -230,66 +230,6 @@ function CurvedMonitor() {
       <mesh position={[0, -0.3, 0.02]}>
         <boxGeometry args={[1.02, 0.04, 0.03]} />
         <meshStandardMaterial color="#1a1a1a" roughness={0.4} metalness={0.6} />
-      </mesh>
-    </group>
-  )
-}
-
-// Photo Frame with real image texture
-function PhotoFrame({ imagePath, size = [0.25, 0.18], hovered, frameColor = "#1a1a1a" }) {
-  const texture = useLoader(THREE.TextureLoader, imagePath)
-  const [width, height] = size
-  const frameThickness = 0.02
-  const frameDepth = 0.02
-  
-  return (
-    <group>
-      {/* Frame borders - top, bottom, left, right */}
-      {/* Top border */}
-      <mesh position={[0, height / 2 + frameThickness / 2, 0]}>
-        <boxGeometry args={[width + frameThickness * 2, frameThickness, frameDepth]} />
-        <meshStandardMaterial 
-          color={frameColor} 
-          roughness={0.3} 
-          metalness={frameColor === "#ffffff" ? 0.1 : 0.4}
-        />
-      </mesh>
-      {/* Bottom border */}
-      <mesh position={[0, -height / 2 - frameThickness / 2, 0]}>
-        <boxGeometry args={[width + frameThickness * 2, frameThickness, frameDepth]} />
-        <meshStandardMaterial 
-          color={frameColor} 
-          roughness={0.3} 
-          metalness={frameColor === "#ffffff" ? 0.1 : 0.4}
-        />
-      </mesh>
-      {/* Left border */}
-      <mesh position={[-width / 2 - frameThickness / 2, 0, 0]}>
-        <boxGeometry args={[frameThickness, height, frameDepth]} />
-        <meshStandardMaterial 
-          color={frameColor} 
-          roughness={0.3} 
-          metalness={frameColor === "#ffffff" ? 0.1 : 0.4}
-        />
-      </mesh>
-      {/* Right border */}
-      <mesh position={[width / 2 + frameThickness / 2, 0, 0]}>
-        <boxGeometry args={[frameThickness, height, frameDepth]} />
-        <meshStandardMaterial 
-          color={frameColor} 
-          roughness={0.3} 
-          metalness={frameColor === "#ffffff" ? 0.1 : 0.4}
-        />
-      </mesh>
-      
-      {/* Photo with texture */}
-      <mesh position={[0, 0, -frameDepth / 2 + 0.001]}>
-        <planeGeometry args={[width, height]} />
-        <meshStandardMaterial 
-          map={texture} 
-          emissive={hovered ? "#ffffff" : "#000000"}
-          emissiveIntensity={hovered ? 0.1 : 0}
-        />
       </mesh>
     </group>
   )
