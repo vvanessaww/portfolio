@@ -7,7 +7,7 @@ function App() {
   const [hasEnteredSite, setHasEnteredSite] = useState(false)
   const [activeView, setActiveView] = useState(null)
   const [isMuted, setIsMuted] = useState(true) // Default to muted
-  const [isNightMode, setIsNightMode] = useState(true) // Default to night
+  const [isNightMode, setIsNightMode] = useState(false) // Default to day
 
   const handleNavClick = (view, e) => {
     e.preventDefault()
