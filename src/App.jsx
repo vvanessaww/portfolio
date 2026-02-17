@@ -7,6 +7,7 @@ function App() {
   const [hasEnteredSite, setHasEnteredSite] = useState(false)
   const [activeView, setActiveView] = useState(null)
   const [isMuted, setIsMuted] = useState(true) // Default to muted
+  const [isNightMode, setIsNightMode] = useState(true) // Default to night
 
   const handleNavClick = (view, e) => {
     e.preventDefault()
@@ -29,6 +30,14 @@ function App() {
           <a href="#" onClick={(e) => handleNavClick('writing', e)} aria-label="Writing">Writing</a>
           <a href="#" onClick={(e) => handleNavClick('about', e)} aria-label="About Me">About Me</a>
           <a href="#" onClick={(e) => handleNavClick('project', e)} aria-label="Project">Project</a>
+          <button 
+            className="day-night-toggle"
+            onClick={() => setIsNightMode(!isNightMode)}
+            aria-label={isNightMode ? 'Switch to day mode' : 'Switch to night mode'}
+            title={isNightMode ? 'Day mode' : 'Night mode'}
+          >
+            {isNightMode ? '☀️' : '🌙'}
+          </button>
         </nav>
       )}
       <main className="main" role="main">
@@ -39,6 +48,7 @@ function App() {
               hasEntered={hasEnteredSite}
               activeView={activeView}
               onCloseView={closeView}
+              isNightMode={isNightMode}
             />
           } />
           <Route path="*" element={
@@ -47,6 +57,7 @@ function App() {
               hasEntered={hasEnteredSite}
               activeView={activeView}
               onCloseView={closeView}
+              isNightMode={isNightMode}
             />
           } />
         </Routes>

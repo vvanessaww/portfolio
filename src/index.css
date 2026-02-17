@@ -59,6 +59,22 @@ body {
   color: #fff;
 }
 
+.day-night-toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  margin-left: auto;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+  line-height: 1;
+}
+
+.day-night-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .main {
   flex: 1;
   padding: 2rem;

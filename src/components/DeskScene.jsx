@@ -420,7 +420,7 @@ function PalmTree({ position = [-2.5, -1.2, 1.8], scale = 3 }) {
 }
 
 // Floor-to-ceiling window with cityscape
-function FloorToCeilingWindow() {
+function FloorToCeilingWindow({ isNightMode = true }) {
   return (
     <group position={[4.5, 1.5, 0]} rotation={[0, -Math.PI / 2, 0]}>
       {/* Glass panels - clearer, much wider to reach couch */}
@@ -482,9 +482,9 @@ function FloorToCeilingWindow() {
           <mesh key={`building-${i}`} position={[x, -1.5 + height / 2, 0]}>
             <boxGeometry args={[width, height, 0.1]} />
             <meshStandardMaterial 
-              color="#1a2a3a" 
-              emissive="#2a4a6a"
-              emissiveIntensity={0.3}
+              color={isNightMode ? "#1a2a3a" : "#8a9aaa"} 
+              emissive={isNightMode ? "#2a4a6a" : "#a0b0c0"}
+              emissiveIntensity={isNightMode ? 0.3 : 0.1}
               roughness={0.7}
             />
             {/* Window dots on buildings - static positions */}
@@ -492,9 +492,9 @@ function FloorToCeilingWindow() {
               <mesh key={`window-${wi}`} position={[0, (wi - 1) * height * 0.2, 0.06]}>
                 <boxGeometry args={[width * 0.15, 0.03, 0.01]} />
                 <meshStandardMaterial 
-                  color="#ffdd88" 
-                  emissive="#ffdd88"
-                  emissiveIntensity={0.8}
+                  color={isNightMode ? "#ffdd88" : "#c0e0ff"} 
+                  emissive={isNightMode ? "#ffdd88" : "#a0c0e0"}
+                  emissiveIntensity={isNightMode ? 0.8 : 0.2}
                 />
               </mesh>
             ))}
@@ -1265,46 +1265,47 @@ function DeskChair() {
 }
 
 // Main scene content
-function Scene({ onObjectClick }) {
+function Scene({ onObjectClick, isNightMode = true }) {
   const [hoveredObject, setHoveredObject] = useState(null)
 
   return (
     <>
-      {/* Lighting */}
-      <ambientLight intensity={0.4} />
+      {/* Lighting - varies by day/night */}
+      <ambientLight intensity={isNightMode ? 0.4 : 1.2} color={isNightMode ? '#ffffff' : '#fff8f0'} />
       <directionalLight 
         position={[5, 8, 5]} 
-        intensity={1} 
+        intensity={isNightMode ? 1 : 2.5} 
+        color={isNightMode ? '#ffffff' : '#fff5e6'}
         castShadow
         shadow-mapSize={[1024, 1024]}
       />
       <directionalLight 
         position={[-3, 4, -2]} 
-        intensity={0.3} 
-        color="#a0c0ff"
+        intensity={isNightMode ? 0.3 : 0.8} 
+        color={isNightMode ? '#a0c0ff' : '#ffe0c0'}
       />
-      <pointLight position={[0, 2, 0]} intensity={0.2} color="#fff5e6" />
+      <pointLight position={[0, 2, 0]} intensity={isNightMode ? 0.2 : 0.5} color={isNightMode ? '#fff5e6' : '#ffffff'} />
 
       {/* Environment for reflections */}
-      <Environment preset="city" />
+      <Environment preset={isNightMode ? 'city' : 'apartment'} />
 
       {/* Floor - dark wood panels */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.25, 0]} receiveShadow>
         <planeGeometry args={[20, 20]} />
-        <meshStandardMaterial color="#2a1f14" roughness={0.7} />
+        <meshStandardMaterial color={isNightMode ? '#2a1f14' : '#4a3828'} roughness={0.7} />
       </mesh>
       {/* Wood panel lines */}
       {Array.from({ length: 15 }).map((_, i) => (
         <mesh key={i} rotation={[-Math.PI / 2, 0, 0]} position={[-10 + i * 1.4, -1.249, 0]}>
           <planeGeometry args={[0.02, 20]} />
-          <meshStandardMaterial color="#1a1408" roughness={0.8} />
+          <meshStandardMaterial color={isNightMode ? '#1a1408' : '#3a2a18'} roughness={0.8} />
         </mesh>
       ))}
 
       {/* Background wall */}
       <mesh position={[0, 1, -3]}>
         <planeGeometry args={[15, 8]} />
-        <meshStandardMaterial color="#252525" roughness={0.95} />
+        <meshStandardMaterial color={isNightMode ? '#252525' : '#e8e4dc'} roughness={0.95} />
       </mesh>
 
       {/* Desk */}
@@ -1344,7 +1345,7 @@ function Scene({ onObjectClick }) {
       <PalmTree position={[2.5, -1.2, -1.5]} scale={3} />
       <PalmTree position={[2.5, -1.2, -0.5]} scale={2.7} />
       <PalmTree position={[2.5, -1.2, 0.5]} scale={3.3} />
-      <FloorToCeilingWindow />
+      <FloorToCeilingWindow isNightMode={isNightMode} />
       <DeskLamp />
       <Mug position={[-1.2, 0.3, 0.4]} />
       <DeskChair />
@@ -2012,7 +2013,7 @@ function LoaderOverlay() {
 }
 
 // Main exported component
-function DeskScene({ activeView, onCloseView }) {
+function DeskScene({ activeView, onCloseView, isNightMode = true }) {
   const [showMacScreen, setShowMacScreen] = useState(false)
   const [showNotebook, setShowNotebook] = useState(false)
   const [showPostcard, setShowPostcard] = useState(false)
@@ -2093,7 +2094,10 @@ function DeskScene({ activeView, onCloseView }) {
         width: '100%', 
         height: '100%', 
         minHeight: '500px',
-        background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%)',
+        background: isNightMode 
+          ? 'linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%)'
+          : 'linear-gradient(180deg, #87CEEB 0%, #b8d4e8 50%, #e8e4dc 100%)',
+        transition: 'background 0.8s ease',
         position: 'absolute',
         top: 0,
         left: 0,
@@ -2153,7 +2157,7 @@ function DeskScene({ activeView, onCloseView }) {
           style={{ width: '100%', height: '100%' }}
         >
           <Suspense fallback={<CanvasLoader />}>
-            <Scene onObjectClick={handleObjectClick} />
+            <Scene onObjectClick={handleObjectClick} isNightMode={isNightMode} />
             <OrbitControls 
               enablePan={false}
               enableZoom={true}

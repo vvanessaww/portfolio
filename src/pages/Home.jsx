@@ -2,7 +2,7 @@ import { useState } from 'react'
 import IntroScreen from '../components/IntroScreen'
 import DeskScene from '../components/DeskScene'
 
-function Home({ onEnter, hasEntered, activeView, onCloseView }) {
+function Home({ onEnter, hasEntered, activeView, onCloseView, isNightMode }) {
   const [showIntro, setShowIntro] = useState(!hasEntered)
 
   const handleEnter = () => {
@@ -20,6 +20,7 @@ function Home({ onEnter, hasEntered, activeView, onCloseView }) {
         <DeskScene 
           activeView={activeView}
           onCloseView={onCloseView}
+          isNightMode={isNightMode}
         />
         <div className="hero-overlay">
           <h1>Vanessa's Desk</h1>
