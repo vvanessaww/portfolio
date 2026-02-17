@@ -44,7 +44,7 @@ function Home({ onEnter, hasEntered, activeView, onCloseView, isNightMode }) {
         </div>
         {showHint && (
           <div className={`hint-toast ${hintFading ? 'hint-fade-out' : 'hint-fade-in'}`}>
-            <span>hint: toggle ☀️/🌙 to switch between 9–5 & after hours, or 🔊 to hear the sounds of the workday</span>
+            <span>hint: toggle 🌙 to switch between 9–5 & after hours, or 🔊 to hear the sounds of the workday</span>
           </div>
         )}
         {/* Screen reader fallback */}
