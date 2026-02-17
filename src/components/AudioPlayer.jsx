@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import './AudioPlayer.css'
 
-function AudioPlayer({ src, isMuted, onToggleMute }) {
+function AudioPlayer({ src, isMuted, onToggleMute, hidden = false }) {
   const audioRef = useRef(null)
 
   useEffect(() => {
@@ -21,6 +21,14 @@ function AudioPlayer({ src, isMuted, onToggleMute }) {
       }
     }
   }, [isMuted])
+
+  if (hidden) {
+    return (
+      <audio ref={audioRef} loop>
+        <source src={src} type="audio/mpeg" />
+      </audio>
+    )
+  }
 
   return (
     <div className="audio-player">
