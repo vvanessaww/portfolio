@@ -1469,7 +1469,7 @@ function DeskScene({ activeView, onCloseView, isNightMode = true }) {
   const shouldShowMacScreen = activeView === 'about' || showMacScreen
   const shouldShowNotebook = activeView === 'writing' || showNotebook
   const shouldShowPostcard = activeView === 'project' || showPostcard
-  const hasOverlay = shouldShowMacScreen || shouldShowNotebook || shouldShowPostcard
+  // overlay state removed
 
   const handleClose = (type) => {
     if (onCloseView) {
@@ -1494,8 +1494,7 @@ function DeskScene({ activeView, onCloseView, isNightMode = true }) {
         left: 0,
         right: 0,
         bottom: 0,
-        filter: hasOverlay ? 'blur(6px)' : 'blur(0px)',
-        transition: 'background 0.8s ease, filter 350ms ease-out',
+        transition: 'background 0.8s ease',
         margin: 0,
         padding: 0
       }}>
