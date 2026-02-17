@@ -898,7 +898,7 @@ function CoffeeTable() {
 // Ceiling light fixture
 function CeilingLight() {
   return (
-    <group position={[0, 2.5, 2]}>
+    <group position={[0, 3.5, 2]}>
       {/* Ceiling mount */}
       <mesh position={[0, 0, 0]}>
         <cylinderGeometry args={[0.08, 0.08, 0.05, 16]} />
