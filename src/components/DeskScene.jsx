@@ -1369,13 +1369,15 @@ function PostcardFullscreen({ onClose }) {
   const [isVisible, setIsVisible] = useState(false)
 
   // Trigger animation on mount
-  useState(() => {
-    setTimeout(() => setIsVisible(true), 10)
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setIsVisible(true))
+    })
   }, [])
 
   const handleClose = () => {
     setIsVisible(false)
-    setTimeout(onClose, 300) // Wait for fade-out animation
+    setTimeout(onClose, 350)
   }
 
   return (
@@ -1391,8 +1393,8 @@ function PostcardFullscreen({ onClose }) {
         zIndex: 1000,
         cursor: 'pointer',
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'scale(1)' : 'scale(0.8)',
-        transition: 'opacity 0.3s ease, transform 0.3s ease',
+        transform: isVisible ? 'scale(1)' : 'scale(0.9)',
+        transition: 'opacity 350ms ease-out, transform 350ms ease-out',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -1518,13 +1520,15 @@ function NotebookFullscreen({ onClose }) {
   const [isVisible, setIsVisible] = useState(false)
 
   // Trigger animation on mount
-  useState(() => {
-    setTimeout(() => setIsVisible(true), 10)
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setIsVisible(true))
+    })
   }, [])
 
   const handleClose = () => {
     setIsVisible(false)
-    setTimeout(onClose, 300) // Wait for fade-out animation
+    setTimeout(onClose, 350)
   }
 
   return (
@@ -1540,8 +1544,8 @@ function NotebookFullscreen({ onClose }) {
         zIndex: 1000,
         cursor: 'pointer',
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'scale(1)' : 'scale(0.8)',
-        transition: 'opacity 0.3s ease, transform 0.3s ease',
+        transform: isVisible ? 'scale(1)' : 'scale(0.9)',
+        transition: 'opacity 350ms ease-out, transform 350ms ease-out',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -1962,45 +1966,63 @@ function MacHomeScreenFullscreen({ onClose }) {
   )
 }
 
-// Loader component for 3D scene (shown while loading)
-function CanvasLoader() {
-  const { progress } = useProgress()
-  return (
-    <mesh position={[0, 0, 0]}>
-      <boxGeometry args={[0, 0, 0]} />
-    </mesh>
-  )
-}
-
-// HTML Loader overlay
-function LoaderOverlay() {
+// Loader spinner overlay with progress - renders outside Canvas, uses useProgress
+function LoadingSpinner({ onLoaded }) {
   const { progress, active } = useProgress()
-  
-  if (!active) return null
-  
+  const [visible, setVisible] = useState(true)
+  const [fadeIn, setFadeIn] = useState(false)
+  const [fadeOut, setFadeOut] = useState(false)
+  const hasFinished = useRef(false)
+
+  // Smooth fade-in on mount
+  useEffect(() => {
+    const t = setTimeout(() => setFadeIn(true), 30)
+    return () => clearTimeout(t)
+  }, [])
+
+  // When loading completes, trigger crossfade out
+  useEffect(() => {
+    if (!active && progress >= 100 && !hasFinished.current) {
+      hasFinished.current = true
+      // Small delay to ensure scene has rendered at least one frame
+      const t1 = setTimeout(() => {
+        setFadeOut(true)
+        onLoaded()
+      }, 100)
+      const t2 = setTimeout(() => setVisible(false), 600) // 500ms fade + buffer
+      return () => { clearTimeout(t1); clearTimeout(t2) }
+    }
+  }, [active, progress, onLoaded])
+
+  if (!visible) return null
+
   return (
-    <div style={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      textAlign: 'center',
-      color: '#fff',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      zIndex: 100,
-      pointerEvents: 'none'
-    }}>
+    <>
       <div style={{
-        width: '40px',
-        height: '40px',
-        border: '3px solid rgba(255, 255, 255, 0.3)',
-        borderTop: '3px solid #fff',
-        borderRadius: '50%',
-        animation: 'spin 1s linear infinite',
-        margin: '0 auto 12px'
-      }} />
-      <div style={{ fontSize: '14px', opacity: 0.8 }}>
-        Loading scene... {progress.toFixed(0)}%
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 10,
+        pointerEvents: 'none',
+        opacity: fadeIn && !fadeOut ? 1 : 0,
+        transition: fadeOut ? 'opacity 500ms ease-out' : 'opacity 300ms ease-in',
+      }}>
+        <div style={{ textAlign: 'center', color: '#fff', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
+          <div style={{
+            width: '48px',
+            height: '48px',
+            border: '4px solid rgba(255, 255, 255, 0.2)',
+            borderTop: '4px solid #fff',
+            borderRadius: '50%',
+            animation: 'spin 0.8s linear infinite',
+            margin: '0 auto 16px'
+          }} />
+          <div style={{ fontSize: '15px', opacity: 0.9, fontWeight: '400' }}>
+            {Math.round(progress)}%
+          </div>
+        </div>
       </div>
       <style>{`
         @keyframes spin {
@@ -2008,7 +2030,7 @@ function LoaderOverlay() {
           100% { transform: rotate(360deg); }
         }
       `}</style>
-    </div>
+    </>
   )
 }
 
@@ -2017,12 +2039,7 @@ function DeskScene({ activeView, onCloseView, isNightMode = true }) {
   const [showMacScreen, setShowMacScreen] = useState(false)
   const [showNotebook, setShowNotebook] = useState(false)
   const [showPostcard, setShowPostcard] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [showSpinner, setShowSpinner] = useState(false)
-  const [fadeOut, setFadeOut] = useState(false)
-  const [sceneVisible, setSceneVisible] = useState(false)
-  const loadingTimeoutRef = useRef(null)
-  const fadeTimeoutRef = useRef(null)
+  const [sceneReady, setSceneReady] = useState(false)
 
   const handleObjectClick = (name) => {
     if (name === 'laptop') {
