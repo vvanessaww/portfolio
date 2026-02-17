@@ -102,7 +102,7 @@ function App() {
       </main>
       {/* Hidden audio element - controls are in the nav */}
       <AudioPlayer 
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        src="/ambient.mp3"
         isMuted={isMuted}
         onToggleMute={toggleMute}
         hidden={true}
