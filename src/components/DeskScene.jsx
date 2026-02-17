@@ -1,7 +1,11 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Environment, useProgress } from '@react-three/drei'
-import { useState, useRef, Suspense, useEffect, useMemo } from 'react'
+import { useState, useRef, Suspense, useEffect, useMemo, lazy } from 'react'
 import * as THREE from 'three'
+
+const PostcardFullscreen = lazy(() => import('./PostcardFullscreen'))
+const NotebookFullscreen = lazy(() => import('./NotebookFullscreen'))
+const MacHomeScreenFullscreen = lazy(() => import('./MacHomeScreenFullscreen'))
 
 // Interactive object wrapper with hover/click states and subtle float animation
 function InteractiveObject({ children, name, position, rotation, onClick, floatSpeed = 1, floatAmount = 0.008 }) {
@@ -1364,610 +1368,7 @@ function Scene({ onObjectClick, isNightMode = true }) {
   )
 }
 
-// Full-screen Postcard overlay
-function PostcardFullscreen({ onClose }) {
-  const [isVisible, setIsVisible] = useState(false)
-
-  // Trigger animation on mount
-  useEffect(() => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setIsVisible(true))
-    })
-  }, [])
-
-  const handleClose = () => {
-    setIsVisible(false)
-    setTimeout(onClose, 350)
-  }
-
-  return (
-    <div 
-      onClick={handleClose}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        background: 'rgba(0, 0, 0, 0.8)',
-        zIndex: 1000,
-        cursor: 'pointer',
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'scale(1)' : 'scale(0.9)',
-        transition: 'opacity 350ms ease-out, transform 350ms ease-out',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '40px'
-      }}
-    >
-      {/* Postcard */}
-      <div className="postcard-content" style={{
-        width: '800px',
-        height: '500px',
-        background: '#e8e4dc',
-        borderRadius: '4px',
-        boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-        position: 'relative',
-        display: 'flex',
-        padding: '40px'
-      }}>
-        {/* Left side - photo */}
-        <div style={{
-          flex: 1,
-          borderRadius: '4px',
-          marginRight: '30px',
-          overflow: 'hidden',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <img 
-            src="/postcard-image.jpg" 
-            alt="Central Park, NYC" 
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover'
-            }}
-          />
-        </div>
-        
-        {/* Right side - text */}
-        <div style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'flex-start',
-          fontFamily: '"Caveat", cursive',
-          padding: '10px 0'
-        }}>
-          {/* Message area */}
-          <div style={{
-            fontSize: '22px',
-            lineHeight: '1.8',
-            color: '#2a2a2a'
-          }}>
-            <p style={{ marginBottom: '16px' }}>
-              I'm constantly thinking through
-            </p>
-            <p style={{ marginBottom: '16px' }}>
-              the next idea in my head. Now
-            </p>
-            <p style={{ marginBottom: '16px' }}>
-              I'm trying to replace that with
-            </p>
-            <p style={{ marginBottom: '16px' }}>
-              building.
-            </p>
-            <p style={{ marginTop: '32px', fontStyle: 'italic', fontSize: '20px', color: '#666' }}>
-              Coming soon...
-            </p>
-          </div>
-          
-          {/* Address area */}
-          <div style={{ marginTop: 'auto' }}>
-            {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} style={{
-                width: '80%',
-                height: '2px',
-                background: '#5a5a5a',
-                marginBottom: '20px',
-                opacity: 0.4
-              }} />
-            ))}
-          </div>
-          
-          {/* Stamp */}
-          <div style={{
-            position: 'absolute',
-            top: '40px',
-            right: '40px',
-            width: '60px',
-            height: '70px',
-            background: '#8a3a3a',
-            border: '2px dashed #fff',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '24px'
-          }}>
-            📮
-          </div>
-        </div>
-        
-        {/* Close hint */}
-        <div style={{
-          position: 'fixed',
-          bottom: '15px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          color: '#888',
-          fontSize: '13px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-          textAlign: 'center',
-          zIndex: 10
-        }}>
-          Click anywhere to close
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// Full-screen Notebook overlay
-function NotebookFullscreen({ onClose }) {
-  const [isVisible, setIsVisible] = useState(false)
-
-  // Trigger animation on mount
-  useEffect(() => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setIsVisible(true))
-    })
-  }, [])
-
-  const handleClose = () => {
-    setIsVisible(false)
-    setTimeout(onClose, 350)
-  }
-
-  return (
-    <div 
-      onClick={handleClose}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        background: 'rgba(0, 0, 0, 0.8)',
-        zIndex: 1000,
-        cursor: 'pointer',
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'scale(1)' : 'scale(0.9)',
-        transition: 'opacity 350ms ease-out, transform 350ms ease-out',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '40px'
-      }}
-    >
-      {/* Notebook page */}
-      <div className="notebook-content" style={{
-        width: '800px',
-        height: '90%',
-        background: '#f5f5f0',
-        borderRadius: '8px',
-        boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-        position: 'relative',
-        padding: '60px 80px',
-        overflow: 'auto'
-      }}>
-        {/* Ruled lines */}
-        {Array.from({ length: 25 }).map((_, i) => (
-          <div key={i} style={{
-            width: '100%',
-            height: '32px',
-            borderBottom: '1px solid #d0d0d0',
-            marginBottom: '0px'
-          }} />
-        ))}
-        
-        {/* Left margin line */}
-        <div style={{
-          position: 'absolute',
-          left: '80px',
-          top: '60px',
-          bottom: '60px',
-          width: '2px',
-          background: '#ff8888',
-          opacity: 0.3
-        }} />
-        
-        {/* Handwritten content */}
-        <div style={{
-          position: 'absolute',
-          top: '70px',
-          left: '100px',
-          right: '80px',
-          fontFamily: '"Caveat", cursive',
-          fontSize: '24px',
-          lineHeight: '34px',
-          color: '#2a2a2a',
-          pointerEvents: 'none'
-        }}>
-          <div style={{ marginBottom: '24px', fontSize: '18px', color: '#666' }}>
-            02/07/2026
-          </div>
-          <div style={{ marginBottom: '16px' }}>
-            Writing is one of many ways I love to express myself - I enjoy thinking
-          </div>
-          <div style={{ marginBottom: '16px' }}>
-            deeply about a variety of topics, and writing gives me a medium to
-          </div>
-          <div style={{ marginBottom: '16px' }}>
-            translate that into a tangible, shareable artifact. Most of my musings
-          </div>
-          <div style={{ marginBottom: '16px' }}>
-            on life in New York and the digital world can be found here:
-          </div>
-          <div style={{ 
-            marginTop: '24px',
-            fontSize: '20px',
-            color: '#2a5a8a',
-            textDecoration: 'underline',
-            cursor: 'pointer',
-            pointerEvents: 'auto'
-          }}
-          onClick={(e) => {
-            e.stopPropagation()
-            window.open('https://vanessawang.substack.com', '_blank')
-          }}>
-            vanessawang.substack.com
-          </div>
-        </div>
-        
-        {/* Close hint */}
-        <div style={{
-          position: 'fixed',
-          bottom: '20px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          color: '#888',
-          fontSize: '14px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-          textAlign: 'center',
-          zIndex: 10
-        }}>
-          Click anywhere to close
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// Full-screen Mac Home Screen overlay
-function MacHomeScreenFullscreen({ onClose }) {
-  const [isVisible, setIsVisible] = useState(false)
-
-  // Trigger animation on mount
-  useEffect(() => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setIsVisible(true))
-    })
-  }, [])
-
-  const handleClose = () => {
-    setIsVisible(false)
-    setTimeout(onClose, 350)
-  }
-
-  return (
-    <div 
-      onClick={handleClose}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        background: '#1e3a5f',
-        zIndex: 1000,
-        cursor: 'pointer',
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'scale(1)' : 'scale(0.9)',
-        transition: 'opacity 350ms ease-out, transform 350ms ease-out',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: 0,
-        overflowX: 'hidden',
-        overflowY: 'auto',
-        WebkitOverflowScrolling: 'touch'
-      }}
-    >
-      {/* Menu bar */}
-      <div style={{
-        width: '100%',
-        height: '28px',
-        background: 'rgba(0, 0, 0, 0.3)',
-        backdropFilter: 'blur(20px)',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 16px',
-        fontSize: '13px',
-        color: '#fff',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-      }}>
-        <span style={{ fontWeight: 600, marginRight: '20px' }}>🍎</span>
-        <span style={{ marginRight: '16px' }}>Finder</span>
-        <span style={{ marginRight: '16px' }}>File</span>
-        <span style={{ marginRight: '16px' }}>Edit</span>
-        <span style={{ marginRight: '16px' }}>View</span>
-        <div style={{ marginLeft: 'auto', display: 'flex', gap: '16px' }}>
-          <span>🔋</span>
-          <span>📶</span>
-          <span>{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
-        </div>
-      </div>
-
-      {/* Windows area */}
-      <div style={{
-        flex: 1,
-        position: 'relative',
-        padding: '20px',
-        display: 'flex',
-        gap: '20px',
-        flexWrap: 'wrap',
-        overflowY: 'auto',
-        WebkitOverflowScrolling: 'touch',
-        minHeight: 0
-      }}>
-        {/* Left window - LinkedIn mockup */}
-        <div 
-          style={{
-            flex: '1 1 300px',
-            minWidth: '280px',
-            maxWidth: '100%',
-            borderRadius: '8px',
-            background: '#fff',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column',
-            minHeight: '400px'
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Window title bar */}
-          <div style={{
-            height: '40px',
-            background: '#f6f6f6',
-            borderBottom: '1px solid #ddd',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 16px',
-            gap: '8px'
-          }}>
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }} />
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }} />
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }} />
-            <div style={{ flex: 1, textAlign: 'center', fontSize: '13px', color: '#666' }}>LinkedIn - Vanessa Wang</div>
-          </div>
-          
-          {/* LinkedIn content */}
-          <div style={{ flex: 1, overflow: 'auto', background: '#f3f2ef' }}>
-            {/* LinkedIn header */}
-            <div style={{ background: '#0a66c2', height: '120px' }} />
-            <div style={{ padding: '0 24px' }}>
-              {/* Profile photo */}
-              <div style={{
-                width: '120px',
-                height: '120px',
-                borderRadius: '50%',
-                background: '#fff',
-                border: '4px solid #fff',
-                marginTop: '-60px',
-                marginBottom: '12px',
-                overflow: 'hidden'
-              }}>
-                <img 
-                  src="/profile-photo.jpg" 
-                  alt="Vanessa Wang" 
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
-                  }}
-                />
-              </div>
-              {/* Name and title */}
-              <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
-                <h1 style={{ fontSize: '20px', fontWeight: '600', margin: '8px 0', color: '#000' }}>Vanessa Wang</h1>
-                <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>Product Manager @ ServiceNow</p>
-                <p style={{ fontSize: '12px', color: '#666', margin: '4px 0' }}>New York, NY · 1000+ connections</p>
-              </div>
-              
-              {/* View Full Profile Button */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  window.open('https://www.linkedin.com/in/vvanessaww', '_blank')
-                }}
-                style={{
-                  marginTop: '12px',
-                  padding: '8px 20px',
-                  background: '#0a66c2',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '24px',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                  transition: 'background 0.2s ease',
-                  boxShadow: '0 2px 8px rgba(10,102,194,0.3)'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.background = '#004182'}
-                onMouseLeave={(e) => e.currentTarget.style.background = '#0a66c2'}
-              >
-                View Full Profile →
-              </button>
-              
-              {/* About section */}
-              <div style={{ marginTop: '16px', padding: '16px', background: '#fff', borderRadius: '8px' }}>
-                <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 8px 0', color: '#000' }}>About</h2>
-                <p style={{ fontSize: '13px', color: '#000', lineHeight: '1.6' }}>
-                Product Manager with an engineering background, currently building enterprise software at ServiceNow. I enjoy solving complex problems & owning ambiguous spaces.
-                </p>
-              </div>
-              {/* Experience section */}
-              <div style={{ marginTop: '12px', padding: '16px', background: '#fff', borderRadius: '8px', marginBottom: '20px' }}>
-                <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 12px 0', color: '#000' }}>Experience</h2>
-                <div style={{ display: 'flex', gap: '12px' }}>
-                  <div style={{ fontSize: '28px' }}>🏢</div>
-                  <div>
-                    <h3 style={{ fontSize: '14px', fontWeight: '600', margin: '0', color: '#000' }}>Product Manager</h3>
-                    <p style={{ fontSize: '13px', color: '#666', margin: '4px 0' }}>ServiceNow</p>
-                    <p style={{ fontSize: '11px', color: '#999', margin: '4px 0' }}>2024 - Present</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right window - Terminal */}
-        <div 
-          style={{
-            flex: '1 1 280px',
-            minWidth: '280px',
-            maxWidth: '100%',
-            borderRadius: '8px',
-            background: '#1e1e1e',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.4)',
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column',
-            minHeight: '300px'
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Terminal title bar */}
-          <div style={{
-            height: '40px',
-            background: '#2d2d2d',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 16px',
-            gap: '8px',
-            borderBottom: '1px solid #1a1a1a'
-          }}>
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }} />
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }} />
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }} />
-            <div style={{ flex: 1, textAlign: 'center', fontSize: '13px', color: '#999' }}>Terminal</div>
-          </div>
-          
-          {/* Terminal content */}
-          <div style={{ 
-            flex: 1, 
-            padding: '16px', 
-            fontFamily: '"SF Mono", Monaco, "Courier New", monospace',
-            fontSize: '13px',
-            color: '#00ff00',
-            overflow: 'auto',
-            lineHeight: '1.6'
-          }}>
-            <div style={{ color: '#fff' }}>Last login: {new Date().toDateString()}</div>
-            <div style={{ marginTop: '8px' }}>
-              <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
-              <span style={{ color: '#fff' }}> ~ % </span>
-              <span style={{ color: '#00ff00' }}>whoami</span>
-            </div>
-            <div>product manager at servicenow </div>
-            <div style={{ marginTop: '12px' }}>
-              <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
-              <span style={{ color: '#fff' }}> ~ % </span>
-              <span style={{ color: '#00ff00' }}>ls -la ~/projects</span>
-            </div>
-            <div>* portfolio website</div>
-            <div>* thoughtful: a smart journal</div>
-            <div>* kudos card: digital to analog</div>
-            <div style={{ marginTop: '12px' }}>
-              <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
-              <span style={{ color: '#fff' }}> ~ % </span>
-              <span style={{ color: '#00ff00' }}>echo $PATH</span>
-            </div>
-            <div>pushing my limits, learning new things, and creating more than i consume.</div>
-            <div style={{ marginTop: '12px' }}>
-              <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
-              <span style={{ color: '#fff' }}> ~ % </span>
-              <span style={{ animation: 'blink 1s infinite' }}>▊</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Dock - non-clickable, doesn't close the view */}
-      <div 
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          paddingBottom: '8px',
-          cursor: 'default'
-        }}
-      >
-        <div style={{
-          background: 'rgba(255, 255, 255, 0.2)',
-          backdropFilter: 'blur(40px)',
-          borderRadius: '16px',
-          padding: '8px 16px',
-          display: 'flex',
-          gap: '12px',
-          border: '1px solid rgba(255, 255, 255, 0.1)'
-        }}>
-          {['📁', '🌐', '✉️', '📅', '🎵', '📸', '⚙️'].map((icon, i) => (
-            <div key={i} style={{
-              width: '60px',
-              height: '60px',
-              background: `linear-gradient(135deg, ${['#5EA3F7', '#FF5E5E', '#FFD93D', '#6BCF7F', '#FF8C69', '#A78BFA', '#94A3B8'][i]}, ${['#2D7DD2', '#D93A3A', '#F4C430', '#48A760', '#E56B50', '#845EC2', '#64748B'][i]})`,
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '32px',
-              cursor: 'default',
-              transition: 'transform 0.2s ease',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
-            }}
-            >
-              {icon}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Close hint - positioned above dock */}
-      <div style={{
-        position: 'fixed',
-        bottom: '92px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        color: '#cccccc',
-        fontSize: '14px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        textAlign: 'center',
-        pointerEvents: 'none',
-        zIndex: 10
-      }}>
-        Click outside the windows to close
-      </div>
-    </div>
-  )
-}
-
+// Fullscreen overlays are lazy-loaded from separate files
 // Loader spinner overlay with progress - renders outside Canvas, uses useProgress
 function LoadingSpinner({ onLoaded }) {
   const { progress, active } = useProgress()
@@ -2079,55 +1480,18 @@ function DeskScene({ activeView, onCloseView, isNightMode = true }) {
         background: isNightMode 
           ? 'linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%)'
           : 'linear-gradient(180deg, #87CEEB 0%, #b8d4e8 50%, #e8e4dc 100%)',
-        transition: 'background 0.8s ease',
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        opacity: sceneVisible ? 1 : 0,
         filter: hasOverlay ? 'blur(6px)' : 'blur(0px)',
-        transition: 'opacity 0.8s ease-in, filter 350ms ease-out',
+        transition: 'background 0.8s ease, filter 350ms ease-out',
         margin: 0,
         padding: 0
       }}>
-        {/* Loading spinner overlay - only shown if loading takes > 150ms */}
-        {showSpinner && (
-          <>
-            <div style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              textAlign: 'center',
-              color: '#fff',
-              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-              zIndex: 10,
-              pointerEvents: 'none',
-              transition: 'opacity 0.8s ease-out',
-              opacity: fadeOut ? 0 : 1
-            }}>
-              <div style={{
-                width: '48px',
-                height: '48px',
-                border: '4px solid rgba(255, 255, 255, 0.2)',
-                borderTop: '4px solid #fff',
-                borderRadius: '50%',
-                animation: 'spin 0.8s linear infinite',
-                margin: '0 auto 16px'
-              }} />
-              <div style={{ fontSize: '15px', opacity: 0.9, fontWeight: '400' }}>
-                Loading scene...
-              </div>
-            </div>
-            <style>{`
-              @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-              }
-            `}</style>
-          </>
-        )}
+        {/* Loading spinner with progress percentage - crossfades with scene */}
+        <LoadingSpinner onLoaded={handleLoaded} />
         
         <Canvas
           shadows
@@ -2137,9 +1501,14 @@ function DeskScene({ activeView, onCloseView, isNightMode = true }) {
             near: 0.1,
             far: 100
           }}
-          style={{ width: '100%', height: '100%' }}
+          style={{
+            width: '100%',
+            height: '100%',
+            opacity: sceneReady ? 1 : 0,
+            transition: 'opacity 500ms ease-in',
+          }}
         >
-          <Suspense fallback={<CanvasLoader />}>
+          <Suspense fallback={null}>
             <Scene onObjectClick={handleObjectClick} isNightMode={isNightMode} />
             <OrbitControls 
               enablePan={false}
@@ -2154,17 +1523,19 @@ function DeskScene({ activeView, onCloseView, isNightMode = true }) {
         </Canvas>
       </div>
       
-      {shouldShowMacScreen && (
-        <MacHomeScreenFullscreen onClose={() => handleClose('mac')} />
-      )}
-      
-      {shouldShowNotebook && (
-        <NotebookFullscreen onClose={() => handleClose('notebook')} />
-      )}
-      
-      {shouldShowPostcard && (
-        <PostcardFullscreen onClose={() => handleClose('postcard')} />
-      )}
+      <Suspense fallback={null}>
+        {shouldShowMacScreen && (
+          <MacHomeScreenFullscreen onClose={() => handleClose('mac')} />
+        )}
+        
+        {shouldShowNotebook && (
+          <NotebookFullscreen onClose={() => handleClose('notebook')} />
+        )}
+        
+        {shouldShowPostcard && (
+          <PostcardFullscreen onClose={() => handleClose('postcard')} />
+        )}
+      </Suspense>
     </>
   )
 }
