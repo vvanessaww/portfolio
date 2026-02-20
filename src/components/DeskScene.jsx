@@ -69,7 +69,7 @@ function Desk() {
 // Mac Home Screen Component (mini version for laptop)
 function MacHomeScreen({ mini = false }) {
   const scale = mini ? 0.001 : 1
-  const wallpaperColor = "#1a1a1a"
+  const wallpaperColor = "#1e3a5f"
   
   return (
     <group scale={[1, 1, scale]}>
@@ -102,8 +102,8 @@ function MacHomeScreen({ mini = false }) {
             <mesh key={i} position={[x, -0.4, 0.002]}>
               <planeGeometry args={[0.05, 0.05]} />
               <meshStandardMaterial 
-                color={['#ffffff', '#ff3a3a', '#3aff3a', '#ff3aff', '#ffaa3a'][i]}
-                emissive={['#ffffff', '#ff3a3a', '#3aff3a', '#ff3aff', '#ffaa3a'][i]}
+                color={['#3a7dff', '#ff3a3a', '#3aff3a', '#ff3aff', '#ffaa3a'][i]}
+                emissive={['#3a7dff', '#ff3a3a', '#3aff3a', '#ff3aff', '#ffaa3a'][i]}
                 emissiveIntensity={0.3}
               />
             </mesh>
@@ -164,7 +164,7 @@ function Laptop({ hovered }) {
             <planeGeometry args={[0.5, 0.32]} />
             <meshStandardMaterial 
               color="#0a0a0a" 
-              emissive={hovered ? "#2a2a2a" : "#0a0a0a"}
+              emissive={hovered ? "#1a3a5a" : "#0a1a2a"}
               emissiveIntensity={0.3}
             />
           </mesh>
@@ -263,8 +263,8 @@ function Postcard({ hovered }) {
       <mesh position={[0.08, -0.02, 0.001]}>
         <planeGeometry args={[0.14, 0.16]} />
         <meshStandardMaterial 
-          color="#a0a0a0"
-          emissive={hovered ? "#404040" : "#000000"}
+          color="#8fa4b8"
+          emissive={hovered ? "#2a4a6a" : "#000000"}
           emissiveIntensity={hovered ? 0.3 : 0}
         />
       </mesh>
@@ -299,7 +299,7 @@ function Notebook({ hovered }) {
       <mesh position={[0, 0.015, 0]}>
         <boxGeometry args={[0.3, 0.03, 0.4]} />
         <meshStandardMaterial 
-          color={hovered ? "#3a3a3a" : "#1a1a1a"} 
+          color={hovered ? "#4a6a8a" : "#2c4a6a"} 
           roughness={0.7} 
         />
       </mesh>
@@ -312,7 +312,7 @@ function Notebook({ hovered }) {
       <mesh position={[-0.14, 0.015, 0]}>
         <boxGeometry args={[0.02, 0.032, 0.4]} />
         <meshStandardMaterial 
-          color={hovered ? "#2a2a2a" : "#0a0a0a"} 
+          color={hovered ? "#3a5a7a" : "#1c3a5a"} 
           roughness={0.5} 
         />
       </mesh>
@@ -369,7 +369,7 @@ function PenHolder() {
       {[[0.02, 0.08, 0.01], [-0.01, 0.09, -0.02], [0, 0.07, 0.02]].map((pos, i) => (
         <mesh key={i} position={pos} rotation={[(Math.random() - 0.5) * 0.3, 0, (Math.random() - 0.5) * 0.2]}>
           <cylinderGeometry args={[0.006, 0.006, 0.12, 6]} />
-          <meshStandardMaterial color={['#2a2a2a', '#7a2a2a', '#1a1a1a'][i]} />
+          <meshStandardMaterial color={['#2a4a7a', '#7a2a2a', '#2a2a2a'][i]} />
         </mesh>
       ))}
     </group>
@@ -432,10 +432,10 @@ function FloorToCeilingWindow({ isNightMode = true }) {
         <mesh key={`glass-${i}`} position={[0, y, 0]}>
           <boxGeometry args={[10, 2, 0.02]} />
           <meshStandardMaterial 
-            color="#e0e0e0" 
+            color="#e0f0ff" 
             transparent 
             opacity={0.1}
-            emissive="#c0c0c0" 
+            emissive="#b0d0e8" 
             emissiveIntensity={0.05}
             roughness={0.05}
             metalness={0.05}
@@ -495,8 +495,8 @@ function FloorToCeilingWindow({ isNightMode = true }) {
           <mesh key={`building-${i}`} position={[x, -1.5 + height / 2, 0]}>
             <boxGeometry args={[width, height, 0.1]} />
             <meshStandardMaterial 
-              color={isNightMode ? "#1a1a1a" : "#8a8a8a"} 
-              emissive={isNightMode ? "#2a2a2a" : "#a0a0a0"}
+              color={isNightMode ? "#1a2a3a" : "#8a9aaa"} 
+              emissive={isNightMode ? "#2a4a6a" : "#a0b0c0"}
               emissiveIntensity={isNightMode ? 0.3 : 0.1}
               roughness={0.7}
             />
@@ -505,8 +505,8 @@ function FloorToCeilingWindow({ isNightMode = true }) {
               <mesh key={`window-${wi}`} position={[0, (wi - 1) * height * 0.2, 0.06]}>
                 <boxGeometry args={[width * 0.15, 0.03, 0.01]} />
                 <meshStandardMaterial 
-                  color={isNightMode ? "#ffdd88" : "#e0e0e0"} 
-                  emissive={isNightMode ? "#ffdd88" : "#c0c0c0"}
+                  color={isNightMode ? "#ffdd88" : "#c0e0ff"} 
+                  emissive={isNightMode ? "#ffdd88" : "#a0c0e0"}
                   emissiveIntensity={isNightMode ? 0.8 : 0.2}
                 />
               </mesh>
@@ -572,7 +572,7 @@ function Bookshelf({ hovered }) {
         const bookWidth = 0.03 + Math.random() * 0.04
         const bookHeight = 0.2 + Math.random() * 0.15
         const xPos = -0.65 + (bookIndex * 0.16)
-        const colors = ['#8b4513', '#2a2a2a', '#4a2a2a', '#2a4a2a', '#5a3a1a', '#1a1a1a', '#4a1a3a']
+        const colors = ['#8b4513', '#2c4a6a', '#4a2a2a', '#2a4a2a', '#5a3a1a', '#1a2a4a', '#4a1a3a']
         const bookColor = colors[Math.floor(Math.random() * colors.length)]
         const rotation = (Math.random() - 0.5) * 0.1
         
@@ -859,7 +859,7 @@ function CoffeeTable() {
       {/* Book 2 - middle */}
       <mesh position={[0.27, 0.48, -0.18]} rotation={[0, 0.2, 0]}>
         <boxGeometry args={[0.37, 0.05, 0.5]} />
-        <meshStandardMaterial color="#2a2a2a" roughness={0.8} />
+        <meshStandardMaterial color="#2c4a6a" roughness={0.8} />
       </mesh>
       {/* Book 3 - top */}
       <mesh position={[0.25, 0.53, -0.15]} rotation={[0, 0.4, 0]}>
@@ -1028,7 +1028,7 @@ function StripedRug() {
       {/* Base rug */}
       <mesh>
         <planeGeometry args={[5, 3.5]} />
-        <meshStandardMaterial color="#1a1a1a" roughness={0.95} />
+        <meshStandardMaterial color="#1a3a5a" roughness={0.95} />
       </mesh>
       {/* White stripes */}
       {[-1.5, -0.75, 0, 0.75, 1.5].map((y, i) => (
@@ -1073,7 +1073,7 @@ function BarCart() {
         <mesh key={`bottle-${i}`} position={[x, 0.7, 0]}>
           <cylinderGeometry args={[0.03, 0.03, 0.15, 8]} />
           <meshStandardMaterial 
-            color={['#2a4a2a', '#4a2a2a', '#2a2a2a'][i]} 
+            color={['#2a4a2a', '#4a2a2a', '#2a3a4a'][i]} 
             transparent
             opacity={0.7}
             roughness={0.1}
@@ -1300,7 +1300,7 @@ function Scene({ onObjectClick, isNightMode = true }) {
       <directionalLight 
         position={[-3, 4, -2]} 
         intensity={isNightMode ? 0.3 : 0.8} 
-        color={isNightMode ? '#c0c0c0' : '#ffe0c0'}
+        color={isNightMode ? '#a0c0ff' : '#ffe0c0'}
       />
       <pointLight position={[0, 2, 0]} intensity={isNightMode ? 0.2 : 0.5} color={isNightMode ? '#fff5e6' : '#ffffff'} />
 
