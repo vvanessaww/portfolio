@@ -460,8 +460,8 @@ function FloorToCeilingWindow({ isNightMode = true }) {
       <mesh position={[0, 0, -0.8]}>
         <planeGeometry args={[12, 8]} />
         <meshStandardMaterial 
-          color={isNightMode ? '#0a0a0a' : '#d0d0d0'} 
-          emissive={isNightMode ? '#0a0a0a' : '#d0d0d0'}
+          color={isNightMode ? '#0a1628' : '#6bb3d9'} 
+          emissive={isNightMode ? '#0a1628' : '#6bb3d9'}
           emissiveIntensity={isNightMode ? 0.15 : 0.3}
         />
       </mesh>
