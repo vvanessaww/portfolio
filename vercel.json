@@ -5,6 +5,7 @@
   "installCommand": "npm install",
   "framework": "vite",
   "rewrites": [
+    { "source": "/books/:path*", "destination": "https://vanessasbooks.vercel.app/:path*" },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
