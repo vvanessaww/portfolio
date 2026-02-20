@@ -563,9 +563,7 @@ function DeskLamp() {
 }
 
 // Bookshelf with books
-function Bookshelf() {
-  const [hovered, setHovered] = useState(false)
-  
+function Bookshelf({ hovered }) {
   // Generate books once and memoize to prevent re-renders from changing them
   const books = useMemo(() => {
     return [0.25, 0.92, 1.63, 2.33].flatMap((shelfY, shelfIndex) => {
@@ -590,17 +588,8 @@ function Bookshelf() {
     })
   }, [])
 
-  const handleClick = () => {
-    window.location.href = '/books'
-  }
-
   return (
-    <group 
-      position={[-3.5, -1.25, -1.5]}
-      onClick={handleClick}
-      onPointerOver={() => { setHovered(true); document.body.style.cursor = 'pointer' }}
-      onPointerOut={() => { setHovered(false); document.body.style.cursor = 'auto' }}
-    >
+    <group>
       {/* Main frame */}
       {/* Left side */}
       <mesh position={[-0.75, 1.5, 0]}>
@@ -632,7 +621,12 @@ function Bookshelf() {
           rotation={book.rotation}
         >
           <boxGeometry args={[book.width, book.height, 0.12]} />
-          <meshStandardMaterial color={book.color} roughness={0.8} />
+          <meshStandardMaterial 
+            color={book.color} 
+            roughness={0.8}
+            emissive={hovered ? book.color : "#000000"}
+            emissiveIntensity={hovered ? 0.15 : 0}
+          />
         </mesh>
       ))}
     </group>
@@ -1373,7 +1367,17 @@ function Scene({ onObjectClick, isNightMode = true }) {
       <DeskLamp />
       <Mug position={[-1.2, 0.3, 0.4]} />
       <DeskChair />
-      <Bookshelf />
+      
+      <InteractiveObject
+        name="bookshelf"
+        position={[-3.5, -1.25, -1.5]}
+        onClick={() => window.location.href = '/books'}
+        floatSpeed={0.5}
+        floatAmount={0.005}
+      >
+        <Bookshelf hovered={hoveredObject === 'bookshelf'} />
+      </InteractiveObject>
+      
       <CloudCouch />
       <ThrowPillow position={[-0.7, 0.05, 4.9]} rotation={[0, 0.3, 0]} />
       <ThrowPillow position={[0.7, 0.05, 4.9]} rotation={[0, -0.2, 0]} />
