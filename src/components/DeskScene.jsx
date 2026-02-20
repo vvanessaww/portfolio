@@ -564,6 +564,8 @@ function DeskLamp() {
 
 // Bookshelf with books
 function Bookshelf() {
+  const [hovered, setHovered] = useState(false)
+  
   // Generate books once and memoize to prevent re-renders from changing them
   const books = useMemo(() => {
     return [0.25, 0.92, 1.63, 2.33].flatMap((shelfY, shelfIndex) => {
@@ -588,8 +590,17 @@ function Bookshelf() {
     })
   }, [])
 
+  const handleClick = () => {
+    window.location.href = '/books'
+  }
+
   return (
-    <group position={[-3.5, -1.25, -1.5]}>
+    <group 
+      position={[-3.5, -1.25, -1.5]}
+      onClick={handleClick}
+      onPointerOver={() => { setHovered(true); document.body.style.cursor = 'pointer' }}
+      onPointerOut={() => { setHovered(false); document.body.style.cursor = 'auto' }}
+    >
       {/* Main frame */}
       {/* Left side */}
       <mesh position={[-0.75, 1.5, 0]}>
