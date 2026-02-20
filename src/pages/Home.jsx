@@ -40,7 +40,7 @@ function Home({ onEnter, hasEntered, activeView, onCloseView, isNightMode }) {
         />
         <div className="hero-overlay">
           <h1>Vanessa's Desk</h1>
-          <p className="hero-subtitle">(click objects on desk to explore my work)</p>
+          <p className="hero-subtitle">(click around to explore my work)</p>
         </div>
         {showHint && (
           <div className={`hint-toast ${hintFading ? 'hint-fade-out' : 'hint-fade-in'}`}>
