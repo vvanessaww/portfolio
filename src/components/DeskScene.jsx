@@ -376,6 +376,45 @@ function PenHolder() {
   )
 }
 
+// Tablet for Git Art
+function Tablet({ hovered }) {
+  return (
+    <group>
+      {/* Tablet body */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <boxGeometry args={[0.35, 0.25, 0.01]} />
+        <meshStandardMaterial 
+          color="#1a1a1a" 
+          roughness={0.2} 
+          metalness={0.6}
+        />
+      </mesh>
+      {/* Screen */}
+      <mesh position={[0, 0.006, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[0.32, 0.22]} />
+        <meshStandardMaterial 
+          color={hovered ? "#00ff00" : "#1e3a5f"}
+          emissive={hovered ? "#00ff00" : "#1e3a5f"}
+          emissiveIntensity={hovered ? 0.5 : 0.3}
+        />
+      </mesh>
+      {/* Git Art text hint */}
+      {hovered && (
+        <mesh position={[0, 0.007, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[0.2, 0.05]} />
+          <meshStandardMaterial 
+            color="#00ff00"
+            emissive="#00ff00"
+            emissiveIntensity={0.8}
+            transparent
+            opacity={0.8}
+          />
+        </mesh>
+      )}
+    </group>
+  )
+}
+
 // Palm tree plant
 function PalmTree({ position = [-2.5, -1.2, 1.8], scale = 3 }) {
   return (
@@ -1354,6 +1393,15 @@ function Scene({ onObjectClick, isNightMode = true }) {
         onClick={onObjectClick}
       >
         <Notebook hovered={hoveredObject === 'notebook'} />
+      </InteractiveObject>
+
+      <InteractiveObject 
+        name="tablet" 
+        position={[-0.5, 0.3, -0.4]}
+        rotation={[0, 0.3, 0]}
+        onClick={() => window.location.href = '/git'}
+      >
+        <Tablet hovered={hoveredObject === 'tablet'} />
       </InteractiveObject>
 
       {/* Ambient objects (non-interactive) */}
