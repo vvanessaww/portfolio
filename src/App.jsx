@@ -45,6 +45,7 @@ function App() {
           <a href="#" onClick={(e) => handleNavClick('about', e)} aria-label="About Me">about me</a>
           <a href="#" onClick={(e) => handleNavClick('project', e)} aria-label="Project">project</a>
           <a href="/books" aria-label="Books">books</a>
+          <a href="/git" aria-label="Git Art">git art</a>
           <div className="nav-controls">
             <button 
               className="nav-icon-button"
