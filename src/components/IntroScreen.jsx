@@ -3,87 +3,6 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import * as THREE from 'three'
 
-// Simple human figure component
-function HumanFigure() {
-  return (
-    <group position={[0, 0.9, 0]}>
-      {/* Head */}
-      <mesh position={[0, 1.5, 0]}>
-        <sphereGeometry args={[0.15, 32, 32]} />
-        <meshStandardMaterial color="#ffdbac" />
-      </mesh>
-      
-      {/* Neck */}
-      <mesh position={[0, 1.3, 0]}>
-        <cylinderGeometry args={[0.05, 0.05, 0.1, 16]} />
-        <meshStandardMaterial color="#ffdbac" />
-      </mesh>
-      
-      {/* Torso - dark suit jacket */}
-      <mesh position={[0, 0.8, 0]}>
-        <boxGeometry args={[0.4, 0.6, 0.2]} />
-        <meshStandardMaterial color="#1a1a2e" />
-      </mesh>
-      
-      {/* White shirt collar */}
-      <mesh position={[0, 1.15, 0.08]}>
-        <boxGeometry args={[0.15, 0.15, 0.05]} />
-        <meshStandardMaterial color="#ffffff" />
-      </mesh>
-      
-      {/* Blue tie */}
-      <mesh position={[0, 0.9, 0.11]}>
-        <boxGeometry args={[0.08, 0.4, 0.02]} />
-        <meshStandardMaterial color="#4a90e2" />
-      </mesh>
-      
-      {/* Left arm */}
-      <mesh position={[-0.25, 0.7, 0]} rotation={[0, 0, 0.2]}>
-        <cylinderGeometry args={[0.06, 0.05, 0.5, 16]} />
-        <meshStandardMaterial color="#1a1a2e" />
-      </mesh>
-      
-      {/* Right arm */}
-      <mesh position={[0.25, 0.7, 0]} rotation={[0, 0, -0.2]}>
-        <cylinderGeometry args={[0.06, 0.05, 0.5, 16]} />
-        <meshStandardMaterial color="#1a1a2e" />
-      </mesh>
-      
-      {/* Left hand */}
-      <mesh position={[-0.3, 0.45, 0]}>
-        <sphereGeometry args={[0.06, 16, 16]} />
-        <meshStandardMaterial color="#ffdbac" />
-      </mesh>
-      
-      {/* Right hand */}
-      <mesh position={[0.3, 0.45, 0]}>
-        <sphereGeometry args={[0.06, 16, 16]} />
-        <meshStandardMaterial color="#ffdbac" />
-      </mesh>
-      
-      {/* Legs - dark pants */}
-      <mesh position={[-0.1, 0.2, 0]}>
-        <cylinderGeometry args={[0.08, 0.07, 0.6, 16]} />
-        <meshStandardMaterial color="#1a1a2e" />
-      </mesh>
-      <mesh position={[0.1, 0.2, 0]}>
-        <cylinderGeometry args={[0.08, 0.07, 0.6, 16]} />
-        <meshStandardMaterial color="#1a1a2e" />
-      </mesh>
-      
-      {/* Shoes */}
-      <mesh position={[-0.1, -0.08, 0.05]}>
-        <boxGeometry args={[0.12, 0.08, 0.2]} />
-        <meshStandardMaterial color="#000000" />
-      </mesh>
-      <mesh position={[0.1, -0.08, 0.05]}>
-        <boxGeometry args={[0.12, 0.08, 0.2]} />
-        <meshStandardMaterial color="#000000" />
-      </mesh>
-    </group>
-  )
-}
-
 // Hallway scene component
 function HallwayScene() {
   const hallwayLength = 12
@@ -148,9 +67,6 @@ function HallwayScene() {
         <planeGeometry args={[hallwayWidth, hallwayHeight]} />
         <meshStandardMaterial color="#ececec" />
       </mesh>
-      
-      {/* Human figure in the center */}
-      <HumanFigure />
     </>
   )
 }
@@ -219,15 +135,18 @@ function IntroScreen({ onEnter }) {
         />
       </Canvas>
 
-      {/* Name text overlay */}
+      {/* Name text and button container */}
       <div style={{
         position: 'absolute',
-        top: '30%',
+        top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         textAlign: 'center',
         zIndex: 10,
-        pointerEvents: 'none'
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '32px'
       }}>
         <h1 style={{
           fontFamily: '"Georgia", "Times New Roman", serif',
@@ -238,20 +157,16 @@ function IntroScreen({ onEnter }) {
           letterSpacing: '2px',
           textShadow: '0 2px 10px rgba(255, 255, 255, 0.9)',
           animation: 'fadeIn 1s ease forwards',
-          opacity: 0
+          opacity: 0,
+          pointerEvents: 'none'
         }}>
           Vanessa Wang
         </h1>
-      </div>
-
-      {/* Enter button */}
-      <div style={{
-        position: 'absolute',
-        bottom: '15%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        zIndex: 10
-      }}>
+        
+        {/* Enter button */}
+        <div style={{
+          pointerEvents: 'auto'
+        }}>
         {showButton && (
           <button
             onClick={handleEnterClick}
@@ -268,6 +183,7 @@ function IntroScreen({ onEnter }) {
             click to enter
           </button>
         )}
+        </div>
       </div>
 
       {/* CSS animations */}
