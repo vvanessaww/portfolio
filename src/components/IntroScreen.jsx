@@ -65,7 +65,7 @@ function HallwayScene() {
       {/* Back wall */}
       <mesh position={[0, hallwayHeight / 2, -hallwayLength]}>
         <planeGeometry args={[hallwayWidth, hallwayHeight]} />
-        <meshStandardMaterial color="#ececec" />
+        <meshStandardMaterial color="#f8f8f8" />
       </mesh>
     </>
   )
