@@ -125,8 +125,9 @@ function IntroScreen({ onEnter }) {
           display: 'block'
         }}
         shadows
+        dpr={[1, 2]}
       >
-        <PerspectiveCamera makeDefault position={[0, 1.6, 3.5]} fov={60} />
+        <PerspectiveCamera makeDefault position={[0, 1.6, 2.5]} fov={85} />
         <Suspense fallback={null}>
           <HallwayScene />
         </Suspense>
