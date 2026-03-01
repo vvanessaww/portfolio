@@ -93,8 +93,12 @@ function IntroScreen({ onEnter }) {
       position: 'fixed',
       top: 0,
       left: 0,
-      width: '100vw',
-      height: '100vh',
+      right: 0,
+      bottom: 0,
+      width: '100%',
+      height: '100%',
+      maxWidth: '100vw',
+      maxHeight: '100vh',
       background: '#ffffff',
       display: 'flex',
       flexDirection: 'column',
@@ -115,7 +119,10 @@ function IntroScreen({ onEnter }) {
           height: '100%',
           position: 'absolute',
           top: 0,
-          left: 0
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: 'block'
         }}
         shadows
       >
