@@ -46,6 +46,28 @@ function App() {
           <a href="#" onClick={(e) => handleNavClick('project', e)} aria-label="Project">project</a>
           <a href="/books" aria-label="Books">books</a>
           <a href="/git" aria-label="Git Art">git art</a>
+          <a 
+            href="mailto:vanessawang@example.com" 
+            className="nav-cta"
+            aria-label="Contact"
+            style={{
+              marginLeft: 'auto',
+              color: '#fff',
+              fontWeight: '600',
+              padding: '0.4rem 1rem',
+              borderRadius: '20px',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.6)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
+            }}
+          >contact</a>
           <div className="nav-controls">
             <button 
               className="nav-icon-button"
