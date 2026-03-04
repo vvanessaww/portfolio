@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import IntroScreen from '../components/IntroScreen'
 import DeskScene from '../components/DeskScene'
 
-function Home({ onEnter, hasEntered, activeView, onCloseView, isNightMode }) {
+function Home({ onEnter, hasEntered, activeView, onCloseView, onProjectClick, isNightMode }) {
   const [showIntro, setShowIntro] = useState(!hasEntered)
   const [showHint, setShowHint] = useState(false)
   const [hintFading, setHintFading] = useState(false)
@@ -36,6 +36,7 @@ function Home({ onEnter, hasEntered, activeView, onCloseView, isNightMode }) {
         <DeskScene 
           activeView={activeView}
           onCloseView={onCloseView}
+          onProjectClick={onProjectClick}
           isNightMode={isNightMode}
         />
         <div className="hero-overlay">

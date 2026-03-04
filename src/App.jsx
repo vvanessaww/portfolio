@@ -1,10 +1,13 @@
 import { useState, useRef } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
+import ProjectModal from './components/ProjectModal'
+import { getProjectByObject } from './data/projects'
 
 function App() {
   const [hasEnteredSite, setHasEnteredSite] = useState(false)
   const [activeView, setActiveView] = useState(null)
+  const [activeProject, setActiveProject] = useState(null)
   const [isMuted, setIsMuted] = useState(false) // Default to sound on
   const [isNightMode, setIsNightMode] = useState(false) // Default to day
   const audioRef = useRef(null)
@@ -23,6 +26,17 @@ function App() {
 
   const closeView = () => {
     setActiveView(null)
+  }
+
+  const handleProjectClick = (objectName) => {
+    const project = getProjectByObject(objectName)
+    if (project) {
+      setActiveProject(project)
+    }
+  }
+
+  const closeProject = () => {
+    setActiveProject(null)
   }
 
   const toggleMute = () => {
@@ -44,8 +58,8 @@ function App() {
           <a href="#" onClick={(e) => handleNavClick('writing', e)} aria-label="Writing">writing</a>
           <a href="#" onClick={(e) => handleNavClick('about', e)} aria-label="About Me">about me</a>
           <a href="#" onClick={(e) => handleNavClick('project', e)} aria-label="Project">project</a>
-          <a href="/books" aria-label="Books">books</a>
-          <a href="/git" aria-label="Git Art">git art</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('bookshelf') }} aria-label="Books">books</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('tablet') }} aria-label="Git Art">git art</a>
           <div className="nav-controls">
             <button 
               className="nav-icon-button"
@@ -102,6 +116,7 @@ function App() {
               hasEntered={hasEnteredSite}
               activeView={activeView}
               onCloseView={closeView}
+              onProjectClick={handleProjectClick}
               isNightMode={isNightMode}
             />
           } />
@@ -111,6 +126,7 @@ function App() {
               hasEntered={hasEnteredSite}
               activeView={activeView}
               onCloseView={closeView}
+              onProjectClick={handleProjectClick}
               isNightMode={isNightMode}
             />
           } />
@@ -118,6 +134,11 @@ function App() {
       </main>
       {/* Hidden audio element - controls are in the nav */}
       <audio ref={audioRef} src="/ambient.mp3" loop />
+      
+      {/* Project Modal */}
+      {activeProject && (
+        <ProjectModal project={activeProject} onClose={closeProject} />
+      )}
     </div>
   )
 }

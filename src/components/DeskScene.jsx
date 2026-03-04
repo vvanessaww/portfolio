@@ -1399,7 +1399,7 @@ function Scene({ onObjectClick, isNightMode = true }) {
         name="tablet" 
         position={[-0.5, 0.3, -0.4]}
         rotation={[0, 0.3, 0]}
-        onClick={() => window.location.href = '/git'}
+        onClick={onObjectClick}
       >
         <Tablet hovered={hoveredObject === 'tablet'} />
       </InteractiveObject>
@@ -1419,7 +1419,7 @@ function Scene({ onObjectClick, isNightMode = true }) {
       <InteractiveObject
         name="bookshelf"
         position={[-3.5, -1.25, -1.5]}
-        onClick={() => window.location.href = '/books'}
+        onClick={onObjectClick}
         floatSpeed={0.5}
         floatAmount={0.005}
       >
@@ -1510,14 +1510,19 @@ function LoadingSpinner({ onLoaded }) {
 }
 
 // Main exported component
-function DeskScene({ activeView, onCloseView, isNightMode = true }) {
+function DeskScene({ activeView, onCloseView, onProjectClick, isNightMode = true }) {
   const [showMacScreen, setShowMacScreen] = useState(false)
   const [showNotebook, setShowNotebook] = useState(false)
   const [showPostcard, setShowPostcard] = useState(false)
   const [sceneReady, setSceneReady] = useState(false)
 
   const handleObjectClick = (name) => {
-    if (name === 'laptop') {
+    // Check if it's a project object (bookshelf, tablet)
+    if (name === 'bookshelf' || name === 'tablet') {
+      if (onProjectClick) {
+        onProjectClick(name)
+      }
+    } else if (name === 'laptop') {
       setShowMacScreen(true)
     } else if (name === 'notebook') {
       setShowNotebook(true)
