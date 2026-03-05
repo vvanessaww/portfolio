@@ -1,10 +1,26 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function MacHomeScreenFullscreen({ onClose }) {
   const [isVisible, setIsVisible] = useState(false)
 
-  useState(() => {
-    setTimeout(() => setIsVisible(true), 10)
+  useEffect(() => {
+    // Fade in on mount
+    const timer = setTimeout(() => setIsVisible(true), 10)
+    
+    // Handle ESC key
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') handleClose()
+    }
+    document.addEventListener('keydown', handleEsc)
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden'
+    
+    return () => {
+      clearTimeout(timer)
+      document.removeEventListener('keydown', handleEsc)
+      document.body.style.overflow = ''
+    }
   }, [])
 
   const handleClose = () => {
@@ -14,16 +30,45 @@ function MacHomeScreenFullscreen({ onClose }) {
 
   return (
     <div 
+      className="modal-overlay"
       onClick={handleClose}
       style={{
-        position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
-        background: '#1e3a5f', zIndex: 1000, cursor: 'pointer',
-        opacity: isVisible ? 1 : 0, transform: isVisible ? 'scale(1)' : 'scale(0.8)',
-        transition: 'opacity 0.3s ease, transform 0.3s ease',
-        display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-        padding: 0, overflowX: 'hidden', overflowY: 'auto', WebkitOverflowScrolling: 'touch'
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        background: 'rgba(0, 0, 0, 0.85)',
+        backdropFilter: 'blur(8px)',
+        zIndex: 2000,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '20px',
+        opacity: isVisible ? 1 : 0,
+        transition: 'opacity 300ms ease',
+        cursor: 'pointer'
       }}
     >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: '1400px',
+          height: '90vh',
+          background: '#1e3a5f',
+          borderRadius: '16px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          overflowY: 'auto',
+          cursor: 'default',
+          transform: isVisible ? 'scale(1)' : 'scale(0.95)',
+          transition: 'transform 300ms ease',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)'
+        }}
+      >
       {/* Menu bar */}
       <div style={{
         width: '100%', height: '28px', background: 'rgba(0, 0, 0, 0.3)',
