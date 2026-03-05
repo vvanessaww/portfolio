@@ -7,7 +7,7 @@ export const projects = {
     techStack: ['React', 'Vite', 'Canvas API', 'GitHub API'],
     liveUrl: 'https://git-art-theta.vercel.app/',
     githubUrl: 'https://github.com/vvanessaww/git-art',
-    previewUrl: null, // Preview causes asset loading issues
+    previewUrl: 'https://vanessazwang.com/git',
     deskObject: 'tablet'
   },
   
