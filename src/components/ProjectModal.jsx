@@ -189,15 +189,32 @@ function ProjectModal({ project, onClose }) {
 
           {/* Header */}
           <div>
-            <h2 style={{
-              fontSize: '28px',
-              fontWeight: '700',
-              margin: '0 0 16px',
-              color: '#1a1a1a',
-              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-            }}>
-              {project.title}
-            </h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+              <h2 style={{
+                fontSize: '28px',
+                fontWeight: '700',
+                margin: 0,
+                color: '#1a1a1a',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+              }}>
+                {project.title}
+              </h2>
+              {project.comingSoon && (
+                <span style={{
+                  padding: '4px 12px',
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  color: '#ffffff',
+                  borderRadius: '12px',
+                  fontSize: '11px',
+                  fontWeight: '600',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                }}>
+                  Coming Soon
+                </span>
+              )}
+            </div>
             <p style={{
               fontSize: '15px',
               lineHeight: '1.6',
@@ -246,58 +263,89 @@ function ProjectModal({ project, onClose }) {
           </div>
 
           {/* Action buttons */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px'
-          }}>
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                padding: '14px 24px',
-                background: '#1a1a1a',
-                color: '#ffffff',
-                textDecoration: 'none',
-                borderRadius: '8px',
-                fontSize: '14px',
+          {project.comingSoon ? (
+            <div style={{
+              padding: '20px',
+              background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)',
+              borderRadius: '8px',
+              textAlign: 'center',
+              border: '1px solid rgba(102, 126, 234, 0.2)'
+            }}>
+              <div style={{
+                fontSize: '32px',
+                marginBottom: '8px'
+              }}>🚧</div>
+              <div style={{
+                fontSize: '15px',
                 fontWeight: '600',
-                textAlign: 'center',
-                transition: 'background 0.2s ease',
-                border: 'none',
+                color: '#667eea',
+                marginBottom: '4px',
                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.background = '#333'}
-              onMouseLeave={(e) => e.currentTarget.style.background = '#1a1a1a'}
-            >
-              Open Live Site ↗
-            </a>
-            {project.githubUrl && (
+              }}>
+                Coming Soon
+              </div>
+              <div style={{
+                fontSize: '13px',
+                color: '#666',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+              }}>
+                This project is still under development
+              </div>
+            </div>
+          ) : (
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '10px'
+            }}>
               <a
-                href={project.githubUrl}
+                href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
                   padding: '14px 24px',
-                  background: '#f5f5f5',
-                  color: '#1a1a1a',
+                  background: '#1a1a1a',
+                  color: '#ffffff',
                   textDecoration: 'none',
                   borderRadius: '8px',
                   fontSize: '14px',
                   fontWeight: '600',
                   textAlign: 'center',
                   transition: 'background 0.2s ease',
-                  border: '1px solid #e0e0e0',
+                  border: 'none',
                   fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = '#ebebeb'}
-                onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}
+                onMouseEnter={(e) => e.currentTarget.style.background = '#333'}
+                onMouseLeave={(e) => e.currentTarget.style.background = '#1a1a1a'}
               >
-                View Code on GitHub ↗
+                Open Live Site ↗
               </a>
-            )}
-          </div>
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    padding: '14px 24px',
+                    background: '#f5f5f5',
+                    color: '#1a1a1a',
+                    textDecoration: 'none',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    textAlign: 'center',
+                    transition: 'background 0.2s ease',
+                    border: '1px solid #e0e0e0',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#ebebeb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}
+                >
+                  View Code on GitHub ↗
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

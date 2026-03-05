@@ -29,7 +29,8 @@ export const projects = {
     techStack: ['React', 'TypeScript', 'Vite', 'Express', 'Strava API', 'Canvas'],
     liveUrl: 'https://strava-postcard.vercel.app/',
     githubUrl: 'https://github.com/vvanessaww/strava-postcard',
-    deskObject: 'postcard'
+    deskObject: 'postcard',
+    comingSoon: true // Hide deployment/GitHub until ready
   },
 
   writing: {
