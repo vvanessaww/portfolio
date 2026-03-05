@@ -8,6 +8,7 @@ function App() {
   const [hasEnteredSite, setHasEnteredSite] = useState(false)
   const [activeView, setActiveView] = useState(null)
   const [activeProject, setActiveProject] = useState(null)
+  const [showProjectsDropdown, setShowProjectsDropdown] = useState(false)
   const [isMuted, setIsMuted] = useState(false) // Default to sound on
   const [isNightMode, setIsNightMode] = useState(false) // Default to day
   const audioRef = useRef(null)
@@ -60,11 +61,33 @@ function App() {
       {hasEnteredSite && (
         <nav className="nav" role="navigation" aria-label="Main navigation">
           <a href="/" onClick={(e) => { e.preventDefault(); setActiveView(null) }} aria-label="Home">home</a>
+          <a href="#" onClick={(e) => handleNavClick('about', e)} aria-label="About">about</a>
           <a href="#" onClick={(e) => handleNavClick('writing', e)} aria-label="Writing">writing</a>
-          <a href="#" onClick={(e) => handleNavClick('about', e)} aria-label="About Me">about me</a>
-          <a href="#" onClick={(e) => handleNavClick('project', e)} aria-label="Project">project</a>
-          <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('bookshelf') }} aria-label="Books">books</a>
-          <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('tablet') }} aria-label="Git Art">git art</a>
+          
+          {/* Projects dropdown */}
+          <div 
+            className="nav-dropdown"
+            onMouseEnter={() => setShowProjectsDropdown(true)}
+            onMouseLeave={() => setShowProjectsDropdown(false)}
+          >
+            <a href="#" onClick={(e) => e.preventDefault()} aria-label="Projects">
+              projects ▾
+            </a>
+            {showProjectsDropdown && (
+              <div className="nav-dropdown-menu">
+                <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('bookshelf'); setShowProjectsDropdown(false) }}>
+                  books
+                </a>
+                <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('tablet'); setShowProjectsDropdown(false) }}>
+                  git art
+                </a>
+                <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('postcard'); setShowProjectsDropdown(false) }}>
+                  strava
+                </a>
+              </div>
+            )}
+          </div>
+          
           <div className="nav-controls">
             <button 
               className="nav-icon-button"
