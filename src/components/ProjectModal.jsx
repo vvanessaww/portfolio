@@ -228,28 +228,30 @@ function ProjectModal({ project, onClose }) {
             >
               Open Live Site ↗
             </a>
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                padding: '14px 24px',
-                background: '#f5f5f5',
-                color: '#1a1a1a',
-                textDecoration: 'none',
-                borderRadius: '8px',
-                fontSize: '14px',
-                fontWeight: '600',
-                textAlign: 'center',
-                transition: 'background 0.2s ease',
-                border: '1px solid #e0e0e0',
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.background = '#ebebeb'}
-              onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}
-            >
-              View Code on GitHub ↗
-            </a>
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  padding: '14px 24px',
+                  background: '#f5f5f5',
+                  color: '#1a1a1a',
+                  textDecoration: 'none',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  textAlign: 'center',
+                  transition: 'background 0.2s ease',
+                  border: '1px solid #e0e0e0',
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = '#ebebeb'}
+                onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}
+              >
+                View Code on GitHub ↗
+              </a>
+            )}
           </div>
         </div>
       </div>

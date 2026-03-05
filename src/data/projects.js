@@ -30,6 +30,17 @@ export const projects = {
     liveUrl: 'https://strava-postcard.vercel.app/',
     githubUrl: 'https://github.com/vvanessaww/strava-postcard',
     deskObject: 'postcard'
+  },
+
+  writing: {
+    id: 'writing',
+    title: 'Writing',
+    description: 'Essays, thoughts, and stories about product management, technology, and building things.',
+    techStack: ['Substack'],
+    liveUrl: 'https://vanessawang.substack.com',
+    githubUrl: null,
+    previewUrl: 'https://vanessawang.substack.com',
+    deskObject: 'notebook'
   }
 }
 

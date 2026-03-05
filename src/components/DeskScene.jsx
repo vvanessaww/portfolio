@@ -1517,15 +1517,13 @@ function DeskScene({ activeView, onCloseView, onProjectClick, isNightMode = true
   const [sceneReady, setSceneReady] = useState(false)
 
   const handleObjectClick = (name) => {
-    // Check if it's a project object (bookshelf, tablet)
-    if (name === 'bookshelf' || name === 'tablet') {
+    // Check if it's a project object (bookshelf, tablet, notebook)
+    if (name === 'bookshelf' || name === 'tablet' || name === 'notebook') {
       if (onProjectClick) {
         onProjectClick(name)
       }
     } else if (name === 'laptop') {
       setShowMacScreen(true)
-    } else if (name === 'notebook') {
-      setShowNotebook(true)
     } else if (name === 'postcard') {
       setShowPostcard(true)
     }
