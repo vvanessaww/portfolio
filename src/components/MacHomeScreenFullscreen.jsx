@@ -245,6 +245,7 @@ function MacHomeScreenFullscreen({ onClose }) {
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         textAlign: 'center', pointerEvents: 'none', zIndex: 10
       }}>Click outside the windows to close</div>
+      </div>
     </div>
   )
 }
