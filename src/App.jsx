@@ -68,13 +68,19 @@ function App() {
           <div 
             className="nav-dropdown"
             onMouseEnter={() => setShowProjectsDropdown(true)}
-            onMouseLeave={() => setShowProjectsDropdown(false)}
+            onMouseLeave={() => {
+              // Small delay before closing to prevent accidental close
+              setTimeout(() => setShowProjectsDropdown(false), 100)
+            }}
           >
             <a href="#" onClick={(e) => e.preventDefault()} aria-label="Projects">
               projects ▾
             </a>
             {showProjectsDropdown && (
-              <div className="nav-dropdown-menu">
+              <div 
+                className="nav-dropdown-menu"
+                onMouseEnter={() => setShowProjectsDropdown(true)}
+              >
                 <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('bookshelf'); setShowProjectsDropdown(false) }}>
                   books
                 </a>
