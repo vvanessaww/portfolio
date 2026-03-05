@@ -1517,6 +1517,7 @@ function DeskScene({ activeView, onCloseView, onProjectClick, isNightMode = true
   const [sceneReady, setSceneReady] = useState(false)
 
   const handleObjectClick = (name) => {
+    console.log('DeskScene handleObjectClick:', name, 'onProjectClick exists:', !!onProjectClick)
     // Check if it's a project object (bookshelf, tablet)
     if (name === 'bookshelf' || name === 'tablet') {
       if (onProjectClick) {

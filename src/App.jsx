@@ -29,9 +29,13 @@ function App() {
   }
 
   const handleProjectClick = (objectName) => {
+    console.log('handleProjectClick called with:', objectName)
     const project = getProjectByObject(objectName)
+    console.log('Found project:', project)
     if (project) {
       setActiveProject(project)
+    } else {
+      console.error('No project found for object:', objectName)
     }
   }
 
