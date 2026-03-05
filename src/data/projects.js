@@ -39,7 +39,8 @@ export const projects = {
     techStack: ['Substack'],
     liveUrl: 'https://vanessawang.substack.com',
     githubUrl: null,
-    previewUrl: null, // Substack blocks iframe embedding
+    previewUrl: '/previews/substack-preview.jpg',
+    previewType: 'image', // Use image instead of iframe
     deskObject: 'notebook'
   }
 }

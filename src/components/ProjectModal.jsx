@@ -80,29 +80,43 @@ function ProjectModal({ project, onClose }) {
           minHeight: '500px',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          overflow: 'hidden'
         }}>
           {project.previewUrl ? (
-            <div style={{
-              width: '100%',
-              height: '100%',
-              position: 'relative',
-              overflow: 'hidden'
-            }}>
-              <iframe
+            project.previewType === 'image' ? (
+              <img
                 src={project.previewUrl}
+                alt={`${project.title} preview`}
                 style={{
-                  width: '200%',
-                  height: '200%',
-                  border: 'none',
-                  transform: 'scale(0.5)',
-                  transformOrigin: 'top left',
-                  pointerEvents: 'none'
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'top'
                 }}
-                title={`${project.title} preview`}
-                loading="lazy"
               />
-            </div>
+            ) : (
+              <div style={{
+                width: '100%',
+                height: '100%',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <iframe
+                  src={project.previewUrl}
+                  style={{
+                    width: '200%',
+                    height: '200%',
+                    border: 'none',
+                    transform: 'scale(0.5)',
+                    transformOrigin: 'top left',
+                    pointerEvents: 'none'
+                  }}
+                  title={`${project.title} preview`}
+                  loading="lazy"
+                />
+              </div>
+            )
           ) : (
             <div style={{
               textAlign: 'center',
