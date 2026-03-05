@@ -8,33 +8,18 @@ export const projects = {
     liveUrl: 'https://git-art-theta.vercel.app/',
     githubUrl: 'https://github.com/vvanessaww/git-art',
     previewUrl: 'https://git-art-theta.vercel.app/',
-    deskObject: 'tablet',
-    features: [
-      '7 art styles: GitHub Classic, Rainbow, Tetris, Pac-Man, Custom Text, Your Name, Heatmap',
-      'Real 2026 contribution data from GitHub',
-      'Terminal/Matrix-inspired dark theme with green glow',
-      'Download as PNG for GitHub profile README',
-      'Auto-fetch username from GitHub profile',
-      'Mobile responsive, no authentication required'
-    ]
+    deskObject: 'tablet'
   },
   
   books: {
     id: 'bookworm',
     title: 'Bookworm',
-    description: 'A clean, minimal personal book library. Browse your collection in a beautiful responsive grid with automatic cover fetching from Google Books API. Simply add ISBNs and watch your library come to life.',
+    description: 'My personal digital book library. Pulls ISBNs and categories from my latest Goodreads export, fetches book covers from Google Books API, and displays them in a clean responsive grid organized by genre.',
     techStack: ['React', 'Vite', 'Google Books API', 'CSS Grid'],
     liveUrl: 'https://vanessasbooks.vercel.app/',
     githubUrl: 'https://github.com/vvanessaww/bookworm',
     previewUrl: 'https://vanessasbooks.vercel.app/',
-    deskObject: 'bookshelf',
-    features: [
-      'Responsive grid layout: 5 books per row on desktop',
-      'Automatic cover and metadata fetching via Google Books API',
-      'Dark theme with smooth hover effects',
-      'Easy customization: just edit books.json with ISBNs',
-      'Mobile-friendly design'
-    ]
+    deskObject: 'bookshelf'
   },
 
   stravaPostcard: {
@@ -44,15 +29,7 @@ export const projects = {
     techStack: ['React', 'TypeScript', 'Vite', 'Express', 'Strava API', 'Canvas'],
     liveUrl: 'https://strava-postcard.vercel.app/',
     githubUrl: 'https://github.com/vvanessaww/strava-postcard',
-    deskObject: 'postcard',
-    features: [
-      'Strava OAuth integration for secure authentication',
-      'Vintage postcard design with front (scenic image) and back (route/stats)',
-      'Activity-specific images: Run, Hike, Snowboard, and general fitness',
-      'Abstract route art generated from GPS polyline data',
-      'Display stats: distance, time, pace, elevation, location, date',
-      'Download as high-resolution PNG for printing or sharing'
-    ]
+    deskObject: 'postcard'
   }
 }
 
