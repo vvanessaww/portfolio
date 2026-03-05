@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 function ProjectModal({ project, onClose }) {
   const [isVisible, setIsVisible] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   useEffect(() => {
     // Fade in on mount
@@ -22,6 +23,19 @@ function ProjectModal({ project, onClose }) {
       document.body.style.overflow = ''
     }
   }, [])
+
+  useEffect(() => {
+    // Preload image if it's an image preview
+    if (project?.previewUrl && project?.previewType === 'image') {
+      const img = new Image()
+      img.onload = () => setImageLoaded(true)
+      img.src = project.previewUrl
+    } else {
+      // For iframes, just set loaded after modal animation
+      const timer = setTimeout(() => setImageLoaded(true), 400)
+      return () => clearTimeout(timer)
+    }
+  }, [project])
 
   const handleClose = () => {
     setIsVisible(false)
@@ -83,6 +97,30 @@ function ProjectModal({ project, onClose }) {
           justifyContent: 'center',
           overflow: 'hidden'
         }}>
+          {!imageLoaded && project.previewUrl && (
+            <div style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              color: '#999',
+              fontSize: '14px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '12px'
+            }}>
+              <div style={{
+                width: '40px',
+                height: '40px',
+                border: '3px solid rgba(0, 0, 0, 0.1)',
+                borderTop: '3px solid #666',
+                borderRadius: '50%',
+                animation: 'spin 0.8s linear infinite'
+              }} />
+              <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+            </div>
+          )}
           {project.previewUrl ? (
             project.previewType === 'image' ? (
               <img
@@ -92,15 +130,20 @@ function ProjectModal({ project, onClose }) {
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
-                  objectPosition: 'top'
+                  objectPosition: 'top',
+                  opacity: imageLoaded ? 1 : 0,
+                  transition: 'opacity 400ms ease'
                 }}
+                onLoad={() => setImageLoaded(true)}
               />
             ) : (
               <div style={{
                 width: '100%',
                 height: '100%',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                opacity: imageLoaded ? 1 : 0,
+                transition: 'opacity 400ms ease'
               }}>
                 <iframe
                   src={project.previewUrl}
@@ -128,7 +171,7 @@ function ProjectModal({ project, onClose }) {
                 marginBottom: '20px',
                 opacity: 0.9
               }}>
-                {project.id === 'writing' ? '✍️' : '🎨'}
+                {project.id === 'writing' ? '✍️' : project.comingSoon ? '🚧' : '🎨'}
               </div>
               <h3 style={{
                 fontSize: '24px',
@@ -138,15 +181,17 @@ function ProjectModal({ project, onClose }) {
               }}>
                 {project.title}
               </h3>
-              <p style={{
-                fontSize: '16px',
-                opacity: 0.9,
-                maxWidth: '300px',
-                margin: '0 auto',
-                lineHeight: '1.5'
-              }}>
-                Click "Open Live Site" below to view
-              </p>
+              {!project.comingSoon && (
+                <p style={{
+                  fontSize: '16px',
+                  opacity: 0.9,
+                  maxWidth: '300px',
+                  margin: '0 auto',
+                  lineHeight: '1.5'
+                }}>
+                  Click "Open Live Site" below to view
+                </p>
+              )}
             </div>
           )}
         </div>
