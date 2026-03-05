@@ -97,11 +97,17 @@ function HallwayScene() {
 function IntroScreen({ onEnter }) {
   const [showButton, setShowButton] = useState(false)
   const [isExiting, setIsExiting] = useState(false)
+  const [fadeIn, setFadeIn] = useState(false)
 
   useEffect(() => {
+    // Fade in from white
+    const fadeTimer = setTimeout(() => setFadeIn(true), 50)
     // Show button after scene loads
-    const timer = setTimeout(() => setShowButton(true), 1200)
-    return () => clearTimeout(timer)
+    const buttonTimer = setTimeout(() => setShowButton(true), 1200)
+    return () => {
+      clearTimeout(fadeTimer)
+      clearTimeout(buttonTimer)
+    }
   }, [])
 
   const handleEnterClick = () => {
@@ -123,7 +129,9 @@ function IntroScreen({ onEnter }) {
       overflow: 'hidden',
       zIndex: 9999,
       margin: 0,
-      padding: 0
+      padding: 0,
+      opacity: fadeIn ? 1 : 0,
+      transition: 'opacity 800ms ease-in'
     }}>
       {/* Three.js Canvas */}
       <Canvas
