@@ -72,17 +72,17 @@ function ProjectModal({ project, onClose }) {
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Left side: Preview */}
+        {/* Left side: Preview or Placeholder */}
         <div style={{
           flex: '1.2',
-          background: '#f5f5f5',
+          background: project.previewUrl ? '#f5f5f5' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           position: 'relative',
           minHeight: '500px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          {project.previewUrl && (
+          {project.previewUrl ? (
             <div style={{
               width: '100%',
               height: '100%',
@@ -102,6 +102,37 @@ function ProjectModal({ project, onClose }) {
                 title={`${project.title} preview`}
                 loading="lazy"
               />
+            </div>
+          ) : (
+            <div style={{
+              textAlign: 'center',
+              color: '#ffffff',
+              padding: '40px'
+            }}>
+              <div style={{
+                fontSize: '72px',
+                marginBottom: '20px',
+                opacity: 0.9
+              }}>
+                {project.id === 'writing' ? '✍️' : '🎨'}
+              </div>
+              <h3 style={{
+                fontSize: '24px',
+                fontWeight: '600',
+                margin: '0 0 12px',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+              }}>
+                {project.title}
+              </h3>
+              <p style={{
+                fontSize: '16px',
+                opacity: 0.9,
+                maxWidth: '300px',
+                margin: '0 auto',
+                lineHeight: '1.5'
+              }}>
+                Click "Open Live Site" below to view
+              </p>
             </div>
           )}
         </div>

@@ -7,7 +7,7 @@ export const projects = {
     techStack: ['React', 'Vite', 'Canvas API', 'GitHub API'],
     liveUrl: 'https://git-art-theta.vercel.app/',
     githubUrl: 'https://github.com/vvanessaww/git-art',
-    previewUrl: 'https://git-art-theta.vercel.app/',
+    previewUrl: null, // Preview causes asset loading issues
     deskObject: 'tablet'
   },
   
@@ -39,7 +39,7 @@ export const projects = {
     techStack: ['Substack'],
     liveUrl: 'https://vanessawang.substack.com',
     githubUrl: null,
-    previewUrl: 'https://vanessawang.substack.com',
+    previewUrl: null, // Substack blocks iframe embedding
     deskObject: 'notebook'
   }
 }
