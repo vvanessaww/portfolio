@@ -1418,7 +1418,8 @@ function Scene({ onObjectClick, isNightMode = true }) {
       
       <InteractiveObject
         name="bookshelf"
-        position={[-3.5, -1.25, -1.5]}
+        position={[-3.0, -1.25, 0.5]}
+        rotation={[0, Math.PI / 2, 0]}
         onClick={onObjectClick}
         floatSpeed={0.5}
         floatAmount={0.005}
@@ -1484,7 +1485,7 @@ function LoadingSpinner({ onLoaded }) {
         opacity: fadeIn && !fadeOut ? 1 : 0,
         transition: fadeOut ? 'opacity 500ms ease-out' : 'opacity 300ms ease-in',
       }}>
-        <div style={{ textAlign: 'center', color: '#fff', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
+        <div style={{ textAlign: 'center', color: '#fff', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' }}>
           <div style={{
             width: '48px',
             height: '48px',

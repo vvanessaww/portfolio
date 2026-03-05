@@ -74,7 +74,7 @@ function MacHomeScreenFullscreen({ onClose }) {
         width: '100%', height: '28px', background: 'rgba(0, 0, 0, 0.3)',
         backdropFilter: 'blur(20px)', display: 'flex', alignItems: 'center',
         padding: '0 16px', fontSize: '13px', color: '#fff',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
       }}>
         <span style={{ fontWeight: 600, marginRight: '20px' }}>🍎</span>
         <span style={{ marginRight: '16px' }}>Finder</span>
@@ -124,8 +124,8 @@ function MacHomeScreenFullscreen({ onClose }) {
               }}>
                 <img src="/profile-photo.jpg" alt="Vanessa Wang" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
-              <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
-                <h1 style={{ fontSize: '20px', fontWeight: '600', margin: '8px 0', color: '#000' }}>Vanessa Wang</h1>
+              <div style={{ fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' }}>
+                <h1 style={{ fontSize: '20px', fontWeight: '600', margin: '8px 0', color: '#000', fontFamily: '"Michroma", "Eurostile", sans-serif', textTransform: 'uppercase' }}>Vanessa Wang</h1>
                 <p style={{ fontSize: '14px', color: '#666', margin: '4px 0' }}>Product Manager @ ServiceNow</p>
                 <p style={{ fontSize: '12px', color: '#666', margin: '4px 0' }}>New York, NY · 1000+ connections</p>
               </div>
@@ -136,7 +136,7 @@ function MacHomeScreenFullscreen({ onClose }) {
                   marginTop: '12px', padding: '8px 20px', background: '#0a66c2',
                   color: '#fff', border: 'none', borderRadius: '24px', fontSize: '14px',
                   fontWeight: '600', cursor: 'pointer',
-                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
                   transition: 'background 0.2s ease', boxShadow: '0 2px 8px rgba(10,102,194,0.3)'
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.background = '#004182'}
@@ -144,17 +144,17 @@ function MacHomeScreenFullscreen({ onClose }) {
               >View Full Profile →</button>
               
               <div style={{ marginTop: '16px', padding: '16px', background: '#fff', borderRadius: '8px' }}>
-                <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 8px 0', color: '#000' }}>About</h2>
+                <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 8px 0', color: '#000', fontFamily: '"Michroma", "Eurostile", sans-serif', textTransform: 'uppercase' }}>About</h2>
                 <p style={{ fontSize: '13px', color: '#000', lineHeight: '1.6' }}>
                   Product Manager with an engineering background, currently building enterprise software at ServiceNow. I enjoy solving complex problems & owning ambiguous spaces.
                 </p>
               </div>
               <div style={{ marginTop: '12px', padding: '16px', background: '#fff', borderRadius: '8px', marginBottom: '20px' }}>
-                <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 12px 0', color: '#000' }}>Experience</h2>
+                <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 12px 0', color: '#000', fontFamily: '"Michroma", "Eurostile", sans-serif', textTransform: 'uppercase' }}>Experience</h2>
                 <div style={{ display: 'flex', gap: '12px' }}>
                   <div style={{ fontSize: '28px' }}>🏢</div>
                   <div>
-                    <h3 style={{ fontSize: '14px', fontWeight: '600', margin: '0', color: '#000' }}>Product Manager</h3>
+                    <h3 style={{ fontSize: '14px', fontWeight: '600', margin: '0', color: '#000', fontFamily: '"Michroma", "Eurostile", sans-serif', textTransform: 'uppercase' }}>Product Manager</h3>
                     <p style={{ fontSize: '13px', color: '#666', margin: '4px 0' }}>ServiceNow</p>
                     <p style={{ fontSize: '11px', color: '#999', margin: '4px 0' }}>2024 - Present</p>
                   </div>
@@ -242,7 +242,7 @@ function MacHomeScreenFullscreen({ onClose }) {
       <div style={{
         position: 'fixed', bottom: '92px', left: '50%',
         transform: 'translateX(-50%)', color: '#cccccc', fontSize: '14px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
         textAlign: 'center', pointerEvents: 'none', zIndex: 10
       }}>Click outside the windows to close</div>
       </div>

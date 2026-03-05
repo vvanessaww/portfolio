@@ -177,7 +177,8 @@ function ProjectModal({ project, onClose }) {
                 fontSize: '24px',
                 fontWeight: '600',
                 margin: '0 0 12px',
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                fontFamily: '"Michroma", "Eurostile", sans-serif',
+                textTransform: 'uppercase'
               }}>
                 {project.title}
               </h3>
@@ -236,11 +237,13 @@ function ProjectModal({ project, onClose }) {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
               <h2 style={{
-                fontSize: '28px',
+                fontSize: '20px',
                 fontWeight: '700',
                 margin: 0,
                 color: '#1a1a1a',
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                fontFamily: '"Michroma", "Eurostile", sans-serif',
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap'
               }}>
                 {project.title}
               </h2>
@@ -254,7 +257,7 @@ function ProjectModal({ project, onClose }) {
                   fontWeight: '600',
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em',
-                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                 }}>
                   Coming Soon
                 </span>
@@ -277,7 +280,8 @@ function ProjectModal({ project, onClose }) {
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
                 color: '#999',
-                margin: '0 0 10px'
+                margin: '0 0 10px',
+                fontFamily: '"Michroma", "Eurostile", sans-serif'
               }}>
                 Tech Stack
               </h3>
@@ -297,7 +301,7 @@ function ProjectModal({ project, onClose }) {
                       borderRadius: '16px',
                       fontSize: '12px',
                       fontWeight: '500',
-                      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                      fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                     }}
                   >
                     {tech}
@@ -325,14 +329,14 @@ function ProjectModal({ project, onClose }) {
                 fontWeight: '600',
                 color: '#667eea',
                 marginBottom: '4px',
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
               }}>
                 Coming Soon
               </div>
               <div style={{
                 fontSize: '13px',
                 color: '#666',
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
               }}>
                 This project is still under development
               </div>
@@ -358,7 +362,7 @@ function ProjectModal({ project, onClose }) {
                   textAlign: 'center',
                   transition: 'background 0.2s ease',
                   border: 'none',
-                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.background = '#333'}
                 onMouseLeave={(e) => e.currentTarget.style.background = '#1a1a1a'}
@@ -381,7 +385,7 @@ function ProjectModal({ project, onClose }) {
                     textAlign: 'center',
                     transition: 'background 0.2s ease',
                     border: '1px solid #e0e0e0',
-                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.background = '#ebebeb'}
                   onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}

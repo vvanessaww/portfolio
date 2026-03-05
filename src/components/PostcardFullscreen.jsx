@@ -93,7 +93,7 @@ function PostcardFullscreen({ onClose }) {
         <div style={{
           position: 'fixed', bottom: '15px', left: '50%',
           transform: 'translateX(-50%)', color: '#888', fontSize: '13px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
           textAlign: 'center', zIndex: 10
         }}>Click anywhere to close</div>
       </div>

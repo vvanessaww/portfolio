@@ -275,7 +275,7 @@ function IntroScreen({ onEnter }) {
           border: 1.5px solid #1a1a1a;
           color: #1a1a1a;
           font-size: 11px;
-          font-family: "Michroma", "Eurostile", sans-serif;
+          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
           letter-spacing: 0.25em;
           text-transform: uppercase;
           cursor: pointer;

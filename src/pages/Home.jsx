@@ -40,7 +40,7 @@ function Home({ onEnter, hasEntered, activeView, onCloseView, onProjectClick, is
           isNightMode={isNightMode}
         />
         <div className="hero-overlay">
-          <h1>Vanessa's Desk</h1>
+          <h1>Vanessa W.'s Desk</h1>
           <p className="hero-subtitle">(click around to explore my work)</p>
         </div>
         {showHint && (
