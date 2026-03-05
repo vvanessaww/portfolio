@@ -5,7 +5,7 @@ export const projects = {
     title: 'Git Art',
     description: 'Transform your GitHub contribution graph into terminal-style art! Choose from 7 different art styles including Rainbow, Tetris, Pac-Man, and custom text. Features a Matrix-inspired dark theme and downloads as PNG for your GitHub profile.',
     techStack: ['React', 'Vite', 'Canvas API', 'GitHub API'],
-    liveUrl: 'https://git-art-theta.vercel.app/',
+    liveUrl: 'https://vanessazwang.com/git',
     githubUrl: 'https://github.com/vvanessaww/git-art',
     previewUrl: 'https://vanessazwang.com/git',
     deskObject: 'tablet'
