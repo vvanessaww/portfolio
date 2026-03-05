@@ -69,6 +69,37 @@ function MacHomeScreenFullscreen({ onClose }) {
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)'
         }}
       >
+      {/* Close X button */}
+      <button
+        onClick={handleClose}
+        style={{
+          position: 'absolute',
+          top: '16px',
+          right: '16px',
+          width: '32px',
+          height: '32px',
+          borderRadius: '50%',
+          background: 'rgba(255, 255, 255, 0.2)',
+          backdropFilter: 'blur(10px)',
+          border: 'none',
+          color: '#fff',
+          fontSize: '20px',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10,
+          transition: 'background 0.2s ease',
+          fontFamily: 'Arial, sans-serif',
+          lineHeight: '1',
+          padding: 0
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)'}
+        onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)'}
+        aria-label="Close"
+      >
+        ×
+      </button>
       {/* Menu bar */}
       <div style={{
         width: '100%', height: '28px', background: 'rgba(0, 0, 0, 0.3)',

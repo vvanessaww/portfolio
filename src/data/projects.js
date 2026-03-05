@@ -16,9 +16,9 @@ export const projects = {
     title: 'Bookworm',
     description: 'My personal digital book library. Pulls ISBNs and categories from my latest Goodreads export, fetches book covers from Google Books API, and displays them in a clean responsive grid organized by genre.',
     techStack: ['React', 'Vite', 'Google Books API', 'CSS Grid'],
-    liveUrl: 'https://vanessasbooks.vercel.app/',
+    liveUrl: 'https://vanessazwang.com/books',
     githubUrl: 'https://github.com/vvanessaww/bookworm',
-    previewUrl: 'https://vanessasbooks.vercel.app/',
+    previewUrl: 'https://vanessazwang.com/books',
     deskObject: 'bookshelf'
   },
 
