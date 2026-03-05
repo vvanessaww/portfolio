@@ -1517,15 +1517,13 @@ function DeskScene({ activeView, onCloseView, onProjectClick, isNightMode = true
   const [sceneReady, setSceneReady] = useState(false)
 
   const handleObjectClick = (name) => {
-    // Check if it's a project object (bookshelf, tablet, notebook)
-    if (name === 'bookshelf' || name === 'tablet' || name === 'notebook') {
+    // Check if it's a project object (bookshelf, tablet, notebook, postcard)
+    if (name === 'bookshelf' || name === 'tablet' || name === 'notebook' || name === 'postcard') {
       if (onProjectClick) {
         onProjectClick(name)
       }
     } else if (name === 'laptop') {
       setShowMacScreen(true)
-    } else if (name === 'postcard') {
-      setShowPostcard(true)
     }
   }
 
@@ -1533,7 +1531,6 @@ function DeskScene({ activeView, onCloseView, onProjectClick, isNightMode = true
 
   // Determine what to show based on activeView prop or internal state
   const shouldShowMacScreen = activeView === 'about' || showMacScreen
-  const shouldShowNotebook = activeView === 'writing' || showNotebook
   const shouldShowPostcard = activeView === 'project' || showPostcard
   // overlay state removed
 
@@ -1542,7 +1539,6 @@ function DeskScene({ activeView, onCloseView, onProjectClick, isNightMode = true
       onCloseView()
     }
     if (type === 'mac') setShowMacScreen(false)
-    if (type === 'notebook') setShowNotebook(false)
     if (type === 'postcard') setShowPostcard(false)
   }
 
@@ -1600,10 +1596,6 @@ function DeskScene({ activeView, onCloseView, onProjectClick, isNightMode = true
       <Suspense fallback={null}>
         {shouldShowMacScreen && (
           <MacHomeScreenFullscreen onClose={() => handleClose('mac')} />
-        )}
-        
-        {shouldShowNotebook && (
-          <NotebookFullscreen onClose={() => handleClose('notebook')} />
         )}
         
         {shouldShowPostcard && (
