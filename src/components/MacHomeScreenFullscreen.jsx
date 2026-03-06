@@ -269,13 +269,6 @@ function MacHomeScreenFullscreen({ onClose }) {
           ))}
         </div>
       </div>
-
-      <div style={{
-        position: 'fixed', bottom: '92px', left: '50%',
-        transform: 'translateX(-50%)', color: '#cccccc', fontSize: '14px',
-        fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-        textAlign: 'center', pointerEvents: 'none', zIndex: 10
-      }}>Click outside the windows to close</div>
       </div>
     </div>
   )
