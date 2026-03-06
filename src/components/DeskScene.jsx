@@ -36,7 +36,6 @@ function InteractiveObject({ children, name, position, rotation, onClick, floatS
       }}
       onClick={(e) => {
         e.stopPropagation()
-        console.log(`Clicked: ${name}`)
         if (onClick) onClick(name)
       }}
       scale={hovered ? 1.05 : 1}
