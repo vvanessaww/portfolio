@@ -161,18 +161,33 @@ function MacHomeScreenFullscreen({ onClose }) {
                 <p style={{ fontSize: '12px', color: '#666', margin: '4px 0' }}>New York, NY · 1000+ connections</p>
               </div>
               
-              <button
-                onClick={(e) => { e.stopPropagation(); window.open('https://www.linkedin.com/in/vvanessaww', '_blank') }}
-                style={{
-                  marginTop: '12px', padding: '8px 20px', background: '#0a66c2',
-                  color: '#fff', border: 'none', borderRadius: '24px', fontSize: '14px',
-                  fontWeight: '600', cursor: 'pointer',
-                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-                  transition: 'background 0.2s ease', boxShadow: '0 2px 8px rgba(10,102,194,0.3)'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.background = '#004182'}
-                onMouseLeave={(e) => e.currentTarget.style.background = '#0a66c2'}
-              >View Full Profile →</button>
+              <div style={{ marginTop: '12px', display: 'flex', gap: '8px' }}>
+                <button
+                  onClick={(e) => { e.stopPropagation(); window.open('https://www.linkedin.com/in/vvanessaww', '_blank') }}
+                  style={{
+                    padding: '8px 20px', background: '#0a66c2',
+                    color: '#fff', border: 'none', borderRadius: '24px', fontSize: '14px',
+                    fontWeight: '600', cursor: 'pointer',
+                    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                    transition: 'background 0.2s ease', boxShadow: '0 2px 8px rgba(10,102,194,0.3)'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#004182'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = '#0a66c2'}
+                >View Full Profile →</button>
+                
+                <button
+                  onClick={(e) => { e.stopPropagation(); window.location.href = 'mailto:vanessawang.143@gmail.com' }}
+                  style={{
+                    padding: '8px 20px', background: '#6b6b6b',
+                    color: '#fff', border: 'none', borderRadius: '24px', fontSize: '14px',
+                    fontWeight: '600', cursor: 'pointer',
+                    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                    transition: 'background 0.2s ease', boxShadow: '0 2px 8px rgba(107,107,107,0.3)'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#4a4a4a'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = '#6b6b6b'}
+                >Get in Touch</button>
+              </div>
               
               <div style={{ marginTop: '16px', padding: '16px', background: '#fff', borderRadius: '8px' }}>
                 <h2 style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 8px 0', color: '#000', fontFamily: '"Michroma", "Eurostile", sans-serif', textTransform: 'uppercase' }}>About</h2>
