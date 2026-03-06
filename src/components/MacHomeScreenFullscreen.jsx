@@ -249,8 +249,9 @@ function MacHomeScreenFullscreen({ onClose }) {
               <span style={{ color: '#00ff00' }}>ls -la ~/projects</span>
             </div>
             <div>* portfolio website</div>
-            <div>* thoughtful: a smart journal</div>
-            <div>* kudos card: digital to analog</div>
+            <div>* books: dream digital personal library</div>
+            <div>* git art: your github contribution graph, reimagined</div>
+            <div>* strava postcard: coming soon... </div>
             <div style={{ marginTop: '12px' }}>
               <span style={{ color: '#4a9eff' }}>vanessa@macbook</span>
               <span style={{ color: '#fff' }}> ~ % </span>
