@@ -286,6 +286,14 @@ function MacHomeScreenFullscreen({ onClose }) {
         </div>
       </div>
       </div>
+      {/* Mobile styles */}
+      <style>{`
+        @media (max-width: 500px) {
+          .modal-overlay {
+            padding: 4px !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }

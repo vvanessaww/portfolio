@@ -407,10 +407,40 @@ function ProjectModal({ project, onClose }) {
             overflow-y: auto !important;
           }
           .modal-content > div:first-child {
-            min-height: 300px !important;
+            min-height: 55vw !important;
+            flex: none !important;
+            height: 55vw !important;
           }
           .modal-content > div:last-child {
             padding: 24px !important;
+          }
+        }
+        @media (max-width: 500px) {
+          .modal-overlay {
+            padding: 8px !important;
+          }
+          .modal-content {
+            flex-direction: column !important;
+            max-height: 97vh !important;
+            overflow-y: auto !important;
+            border-radius: 12px !important;
+          }
+          .modal-content > div:first-child {
+            min-height: 70vw !important;
+            flex: none !important;
+            height: 70vw !important;
+          }
+          .modal-content > div:first-child iframe {
+            width: 300% !important;
+            height: 300% !important;
+            transform: scale(0.3334) !important;
+            transform-origin: top left !important;
+          }
+          .modal-content > div:last-child {
+            padding: 20px !important;
+          }
+          .modal-content > div:last-child h2 {
+            font-size: 16px !important;
           }
         }
       `}</style>
