@@ -131,6 +131,27 @@ body {
   align-items: center;
 }
 
+.nav-get-in-touch {
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1rem;
+  padding: 0.3rem 0.75rem;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.nav-get-in-touch:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-get-in-touch:active {
+  transform: scale(0.95);
+}
+
 .nav-icon-button {
   background: none;
   border: 1px solid rgba(255, 255, 255, 0.3);

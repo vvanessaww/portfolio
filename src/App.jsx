@@ -95,7 +95,14 @@ function App() {
           </div>
           
           <div className="nav-controls">
-            <button 
+            <a
+              href="mailto:vanessawang.143@gmail.com"
+              className="nav-get-in-touch"
+              aria-label="Get in Touch"
+            >
+              get in touch
+            </a>
+            <button
               className="nav-icon-button"
               onClick={() => setIsNightMode(!isNightMode)}
               aria-label={isNightMode ? 'Switch to day mode' : 'Switch to night mode'}
