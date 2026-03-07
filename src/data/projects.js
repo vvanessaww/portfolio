@@ -3,7 +3,7 @@ export const projects = {
   gitArt: {
     id: 'git-art',
     title: 'Git Art',
-    description: 'your contribution graph, reimagined. enter your github username and turn your progress into art. features 7 different retro-inspired styles - including tetris, pacman, & custom text - and downloads as png for easy sharing.',
+    description: 'your contribution graph, reimagined. enter your github username and turn your commit history into art. choose from 7 retro-inspired styles — including tetris, pacman, and custom text — then download as a png to share.',
     techStack: ['React', 'Vite', 'Canvas API', 'GitHub API'],
     liveUrl: 'https://vanessazwang.com/git',
     githubUrl: 'https://github.com/vvanessaww/git-art',
@@ -14,7 +14,7 @@ export const projects = {
   books: {
     id: 'bookworm',
     title: 'Bookworm',
-    description: 'my personal digital book library. preview my favorite niche genres and progress towards my annual audacious reading goal. pulls ISBNs and categories from my latest goodreads export, fetches book covers using the google books api,and displays them in a clean responsive grid.',
+    description: 'my personal digital book library. browse my favorite niche genres and track progress toward my annual (audacious) reading goal. pulls ISBNs and categories from my latest goodreads export, fetches covers via the google books api, and displays everything in a clean, responsive grid.',
     techStack: ['React', 'Vite', 'Google Books API', 'CSS Grid'],
     liveUrl: 'https://vanessazwang.com/books',
     githubUrl: 'https://github.com/vvanessaww/bookworm',
@@ -25,7 +25,7 @@ export const projects = {
   stravaPostcard: {
     id: 'strava-postcard',
     title: 'Strava Postcard',
-    description: 'my love for running meets building. turn your strava activities into beautiful, vintage-style commemorative postcards. coming soon... features activity-specific imagery, route visualization from GPS data, and stats display for sharing your fitness achievements.',
+    description: 'where my love for running meets building. turn your strava activities into beautiful, vintage-style commemorative postcards. features activity-specific imagery, route visualization from GPS data, and a stats display for sharing your achievements.',
     techStack: ['React', 'TypeScript', 'Vite', 'Express', 'Strava API', 'Canvas'],
     liveUrl: 'https://strava-postcard.vercel.app/',
     githubUrl: 'https://github.com/vvanessaww/strava-postcard',
