@@ -17,7 +17,7 @@ const OBJECT_LABELS = {
 }
 
 // Interactive object wrapper with hover/click states and labels
-function InteractiveObject({ children, name, position, rotation, onClick, floatSpeed = 1, floatAmount = 0.008, labelOffset = [0, 0, 0] }) {
+function InteractiveObject({ children, name, position, rotation, onClick, floatSpeed = 1, floatAmount = 0, labelOffset = [0, 0, 0] }) {
   const [hovered, setHovered] = useState(false)
   const meshRef = useRef()
   const initialY = useRef(position ? position[1] : 0)
@@ -633,7 +633,7 @@ function Bookshelf({ hovered }) {
   // Generate books once and memoize to prevent re-renders from changing them
   const books = useMemo(() => {
     return [0.25, 0.92, 1.63, 2.33].flatMap((shelfY, shelfIndex) => {
-      const booksOnShelf = 8 + Math.floor(Math.random() * 3)
+      const booksOnShelf = 7 + Math.floor(Math.random() * 2)
       return Array.from({ length: booksOnShelf }).map((_, bookIndex) => {
         const bookWidth = 0.03 + Math.random() * 0.04
         const bookHeight = 0.2 + Math.random() * 0.15
@@ -1449,7 +1449,7 @@ function Scene({ onObjectClick, isNightMode = true }) {
         rotation={[0, Math.PI / 2, 0]}
         onClick={onObjectClick}
         floatSpeed={0.5}
-        floatAmount={0.005}
+        floatAmount={0}
         labelOffset={[0, 1.5, 0]}
       >
         <Bookshelf hovered={hoveredObject === 'bookshelf'} />
