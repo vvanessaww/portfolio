@@ -41,7 +41,7 @@ function Home({ onEnter, hasEntered, activeView, onCloseView, onProjectClick, is
         />
         <div className="hero-overlay">
           <h1>Vanessa W.'s Desk</h1>
-          <p className="hero-subtitle">(click around to explore my work)</p>
+          <p className="hero-subtitle">(click items to explore · drag to orbit · scroll to zoom)</p>
         </div>
         {showHint && (
           <div className={`hint-toast ${hintFading ? 'hint-fade-out' : 'hint-fade-in'}`}>

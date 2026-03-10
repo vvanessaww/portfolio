@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, Environment, useProgress } from '@react-three/drei'
+import { OrbitControls, Environment, useProgress, Html } from '@react-three/drei'
 import { useState, useRef, Suspense, useEffect, useMemo, lazy } from 'react'
 import * as THREE from 'three'
 
@@ -7,12 +7,21 @@ const PostcardFullscreen = lazy(() => import('./PostcardFullscreen'))
 const NotebookFullscreen = lazy(() => import('./NotebookFullscreen'))
 const MacHomeScreenFullscreen = lazy(() => import('./MacHomeScreenFullscreen'))
 
-// Interactive object wrapper with hover/click states and subtle float animation
-function InteractiveObject({ children, name, position, rotation, onClick, floatSpeed = 1, floatAmount = 0.008 }) {
+// Label names for interactive objects
+const OBJECT_LABELS = {
+  laptop: 'about',
+  postcard: 'postcard',
+  notebook: 'writing',
+  tablet: 'git art',
+  bookshelf: 'books',
+}
+
+// Interactive object wrapper with hover/click states and labels
+function InteractiveObject({ children, name, position, rotation, onClick, floatSpeed = 1, floatAmount = 0.008, labelOffset = [0, 0, 0] }) {
   const [hovered, setHovered] = useState(false)
   const meshRef = useRef()
   const initialY = useRef(position ? position[1] : 0)
-  const offset = useRef(Math.random() * Math.PI * 2) // random phase offset per object
+  const offset = useRef(Math.random() * Math.PI * 2)
 
   useFrame(({ clock }) => {
     if (meshRef.current) {
@@ -38,9 +47,28 @@ function InteractiveObject({ children, name, position, rotation, onClick, floatS
         e.stopPropagation()
         if (onClick) onClick(name)
       }}
-      scale={hovered ? 1.05 : 1}
     >
       {children}
+      {hovered && (
+        <Html center position={labelOffset} style={{ pointerEvents: 'none' }}>
+          <span style={{
+            color: '#ffffff',
+            fontSize: '11px',
+            fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            background: 'rgba(0,0,0,0.5)',
+            padding: '4px 10px',
+            borderRadius: '3px',
+            whiteSpace: 'nowrap',
+            backdropFilter: 'blur(4px)',
+            opacity: hovered ? 1 : 0.7,
+            transition: 'opacity 0.3s ease',
+          }}>
+            {OBJECT_LABELS[name] || name}
+          </span>
+        </Html>
+      )}
     </group>
   )
 }
@@ -1422,6 +1450,7 @@ function Scene({ onObjectClick, isNightMode = true }) {
         onClick={onObjectClick}
         floatSpeed={0.5}
         floatAmount={0.005}
+        labelOffset={[0, 1.5, 0]}
       >
         <Bookshelf hovered={hoveredObject === 'bookshelf'} />
       </InteractiveObject>
@@ -1580,7 +1609,7 @@ function DeskScene({ activeView, onCloseView, onProjectClick, isNightMode = true
         >
           <Suspense fallback={null}>
             <Scene onObjectClick={handleObjectClick} isNightMode={isNightMode} />
-            <OrbitControls 
+            <OrbitControls
               enablePan={false}
               enableZoom={true}
               minDistance={2}
@@ -1588,6 +1617,8 @@ function DeskScene({ activeView, onCloseView, onProjectClick, isNightMode = true
               minPolarAngle={Math.PI / 6}
               maxPolarAngle={Math.PI / 2.2}
               target={[0, 0.2, 0]}
+              autoRotate
+              autoRotateSpeed={0.4}
             />
           </Suspense>
         </Canvas>

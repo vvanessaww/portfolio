@@ -1,6 +1,6 @@
-import { useState, useEffect, Suspense } from 'react'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
+import { useState, useEffect, useRef, Suspense } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { PerspectiveCamera } from '@react-three/drei'
 import * as THREE from 'three'
 
 // Severance-inspired hallway scene
@@ -94,6 +94,35 @@ function HallwayScene() {
   )
 }
 
+function MouseCamera() {
+  const { camera } = useThree()
+  const mouse = useRef({ x: 0, y: 0 })
+  const smooth = useRef({ x: 0, y: 0 })
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1
+      mouse.current.y = (e.clientY / window.innerHeight) * 2 - 1
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  useFrame(() => {
+    smooth.current.x += (mouse.current.x - smooth.current.x) * 0.08
+    smooth.current.y += (mouse.current.y - smooth.current.y) * 0.08
+
+    const targetX = smooth.current.x * 1.2
+    const targetY = 1.4 - smooth.current.y * 0.5
+
+    camera.position.x = smooth.current.x * 0.5
+    camera.position.y = 1.4 - smooth.current.y * 0.2
+    camera.lookAt(targetX, targetY, -10)
+  })
+
+  return null
+}
+
 function IntroScreen({ onEnter }) {
   const [showButton, setShowButton] = useState(false)
   const [isExiting, setIsExiting] = useState(false)
@@ -150,17 +179,7 @@ function IntroScreen({ onEnter }) {
         <Suspense fallback={null}>
           <HallwayScene />
         </Suspense>
-        {/* Tight camera control - centered symmetric perspective */}
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          maxPolarAngle={Math.PI / 2.05}
-          minPolarAngle={Math.PI / 2.12}
-          maxAzimuthAngle={Math.PI / 30}
-          minAzimuthAngle={-Math.PI / 30}
-          rotateSpeed={0.3}
-          target={[0, 1.4, -10]}
-        />
+        <MouseCamera />
       </Canvas>
 
       {/* Globe logo and button container */}
