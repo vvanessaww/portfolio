@@ -37,11 +37,11 @@ function InteractiveObject({ children, name, position, rotation, onClick, floatS
       onPointerOver={(e) => {
         e.stopPropagation()
         setHovered(true)
-        document.body.style.cursor = 'pointer'
+        document.body.style.cursor = 'none'
       }}
       onPointerOut={(e) => {
         setHovered(false)
-        document.body.style.cursor = 'auto'
+        document.body.style.cursor = 'none'
       }}
       onClick={(e) => {
         e.stopPropagation()

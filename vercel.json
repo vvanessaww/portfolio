@@ -9,6 +9,9 @@
     { "source": "/git", "destination": "https://git-art-theta.vercel.app/" },
     { "source": "/git/", "destination": "https://git-art-theta.vercel.app/" },
     { "source": "/git/:path*", "destination": "https://git-art-theta.vercel.app/:path*" },
+    { "source": "/vibecheck", "destination": "https://vibecheck-two-lac.vercel.app/" },
+    { "source": "/vibecheck/", "destination": "https://vibecheck-two-lac.vercel.app/" },
+    { "source": "/vibecheck/:path*", "destination": "https://vibecheck-two-lac.vercel.app/:path*" },
     { "source": "/(.*)", "destination": "/" }
   ]
 }

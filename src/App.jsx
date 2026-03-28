@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import ProjectModal from './components/ProjectModal'
+import CustomCursor from './components/CustomCursor'
 import { getProjectByObject } from './data/projects'
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
 
   return (
     <div className="app">
+      <CustomCursor />
       {hasEnteredSite && (
         <nav className="nav" role="navigation" aria-label="Main navigation">
           <a href="/" onClick={(e) => { e.preventDefault(); setActiveView(null) }} aria-label="Home">home</a>

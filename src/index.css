@@ -1,7 +1,31 @@
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  cursor: none !important;
+}
+
+html, body, canvas {
+  cursor: none !important;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  z-index: 99999;
+  transition: transform 0.05s ease-out, width 0.15s ease, height 0.15s ease, background 0.15s ease;
+  will-change: transform;
+}
+
+.custom-cursor--pointer {
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.75);
 }
 
 .sr-only {
