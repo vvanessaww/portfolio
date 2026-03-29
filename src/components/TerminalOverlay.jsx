@@ -85,7 +85,7 @@ function TerminalOverlay({ onProjectClick }) {
               </div>
               <div className="data-row">
                 <span className="data-label">DEPT</span>
-                <span className="data-value">MDR / PRODUCT</span>
+                <span className="data-value">PRODUCT</span>
               </div>
               <div className="data-row">
                 <span className="data-label">LOCATION</span>
@@ -177,12 +177,18 @@ function TerminalOverlay({ onProjectClick }) {
               </div>
               <div className="data-row">
                 <span className="data-label">DEPT</span>
-                <span className="data-value">MDR / PRODUCT</span>
+                <span className="data-value">PRODUCT</span>
               </div>
               <div className="data-row">
                 <span className="data-label">LOCATION</span>
                 <span className="data-value">New York City</span>
               </div>
+            </div>
+            <div className="contact-links">
+              <div className="section-title">Contact Info</div>
+              <a href="https://github.com/vvanessaww" target="_blank" rel="noopener noreferrer" className="contact-link">GITHUB</a>
+              <a href="https://linkedin.com/in/vanessazwang" target="_blank" rel="noopener noreferrer" className="contact-link">LINKEDIN</a>
+              <a href="https://x.com/vanessazwang" target="_blank" rel="noopener noreferrer" className="contact-link">X</a>
             </div>
             <div className="skill-matrix">
               <div className="section-title">Core Competencies</div>
@@ -194,12 +200,6 @@ function TerminalOverlay({ onProjectClick }) {
                   </div>
                 </div>
               ))}
-            </div>
-            <div className="contact-links">
-              <div className="section-title">Contact Info</div>
-              <a href="https://github.com/vvanessaww" target="_blank" rel="noopener noreferrer" className="contact-link">GITHUB</a>
-              <a href="https://linkedin.com/in/vanessazwang" target="_blank" rel="noopener noreferrer" className="contact-link">LINKEDIN</a>
-              <a href="https://x.com/vanessazwang" target="_blank" rel="noopener noreferrer" className="contact-link">X</a>
             </div>
           </div>
         )}

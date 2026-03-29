@@ -1,84 +1,74 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+"
 
 const MESSAGES = [
-  { text: "Initializing System", duration: 600, scramble: true },
-  { text: "Portfolio Ready.", duration: 800, scramble: true }
+  { text: "Initializing System", duration: 1200 },
+  { text: "Portfolio Ready.", duration: 1500 }
 ]
 
 function LumonOverlay({ onComplete }) {
   const [mainText, setMainText] = useState('')
-  const currentMsgRef = useRef(0)
-  const intervalsRef = useRef([])
+  const startedRef = useRef(false)
+  const onCompleteRef = useRef(onComplete)
+  onCompleteRef.current = onComplete
 
-  // Clean up intervals on unmount
   useEffect(() => {
+    const timers = []
+    const intervals = []
+    let cancelled = false
+
+    function scrambleText(targetText, callback) {
+      const len = targetText.length
+      const id = setInterval(() => {
+        if (cancelled) return
+        const randomStr = Array.from({ length: len }, () =>
+          CHARS[Math.floor(Math.random() * CHARS.length)]
+        ).join("")
+        setMainText(randomStr)
+      }, 40)
+      intervals.push(id)
+
+      // Stop shuffling and show the real text after 800ms
+      const revealTimer = setTimeout(() => {
+        clearInterval(id)
+        if (cancelled) return
+        setMainText(targetText)
+        // Hold the revealed text for a beat before callback
+        const holdTimer = setTimeout(() => {
+          if (!cancelled && callback) callback()
+        }, 400)
+        timers.push(holdTimer)
+      }, 800)
+      timers.push(revealTimer)
+    }
+
+    function runSequence(msgIndex) {
+      if (cancelled) return
+      if (msgIndex >= MESSAGES.length) {
+        const t = setTimeout(() => {
+          if (!cancelled && onCompleteRef.current) onCompleteRef.current()
+        }, 800)
+        timers.push(t)
+        return
+      }
+
+      const msg = MESSAGES[msgIndex]
+      scrambleText(msg.text, () => {
+        const t = setTimeout(() => runSequence(msgIndex + 1), msg.duration)
+        timers.push(t)
+      })
+    }
+
+    const startTimer = setTimeout(() => runSequence(0), 800)
+    timers.push(startTimer)
+
     return () => {
-      intervalsRef.current.forEach(clearInterval)
+      cancelled = true
+      timers.forEach(clearTimeout)
+      intervals.forEach(clearInterval)
     }
   }, [])
-
-  const scrambleText = useCallback((targetText, callback) => {
-    let iteration = 0
-    const id = setInterval(() => {
-      const result = targetText.split("").map((char, index) => {
-        if (index < iteration) return targetText[index]
-        return CHARS[Math.floor(Math.random() * CHARS.length)]
-      }).join("")
-      setMainText(result)
-      if (iteration >= targetText.length) {
-        clearInterval(id)
-        if (callback) callback()
-      }
-      iteration += 1 / 3
-    }, 30)
-    intervalsRef.current = [...intervalsRef.current, id]
-  }, [])
-
-  const typeText = useCallback((targetText, callback) => {
-    let index = 0
-    setMainText('')
-    const id = setInterval(() => {
-      setMainText(prev => prev + targetText[index])
-      index++
-      if (index >= targetText.length) {
-        clearInterval(id)
-        if (callback) callback()
-      }
-    }, 60)
-    intervalsRef.current = [...intervalsRef.current, id]
-  }, [])
-
-
-  const runSequence = useCallback(() => {
-    if (currentMsgRef.current >= MESSAGES.length) {
-      setTimeout(() => {
-        if (onComplete) onComplete()
-      }, 600)
-      return
-    }
-
-    const msg = MESSAGES[currentMsgRef.current]
-    const next = () => {
-      setTimeout(() => {
-        currentMsgRef.current++
-        runSequence()
-      }, msg.duration)
-    }
-
-    if (msg.scramble) {
-      scrambleText(msg.text, next)
-    } else {
-      typeText(msg.text, next)
-    }
-  }, [scrambleText, typeText, onComplete])
-
-  // Start sequence after mount
-  useEffect(() => {
-    const timer = setTimeout(runSequence, 500)
-    return () => clearTimeout(timer)
-  }, [runSequence])
 
   return (
     <div style={{

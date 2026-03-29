@@ -364,8 +364,8 @@ body {
   }
 
   .hero-section {
-    height: calc(100vh - 60px);
-    min-height: calc(100vh - 60px);
+    height: calc(100dvh - 60px);
+    min-height: calc(100dvh - 60px);
     width: 100vw;
     margin: 0;
     padding: 0;
@@ -689,7 +689,7 @@ body {
 
 .panel-heading {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   color: #2D2A26;
   text-transform: uppercase;
@@ -700,14 +700,15 @@ body {
 }
 
 .section-title {
-  font-size: 9px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #A1998C;
+  color: #44423E;
   margin-bottom: 16px;
   border-bottom: 1px solid #C5BDB1;
   padding-bottom: 6px;
   font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
 }
 
 .employee-data {
@@ -734,7 +735,7 @@ body {
 }
 
 .data-label {
-  color: #A1998C;
+  color: #44423E;
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
 }
@@ -743,6 +744,7 @@ body {
   font-weight: 500;
   font-size: 11px;
   font-family: 'JetBrains Mono', monospace;
+  color: #2D2A26;
 }
 
 .skill-matrix {
@@ -1068,5 +1070,31 @@ body {
     background: rgba(218, 185, 62, 0.15);
     border-bottom: 2px solid #DAB93E;
     font-weight: 700;
+  }
+
+  .nav-clock {
+    display: none;
+  }
+
+  .mobile-tab {
+    color: #44423E;
+  }
+
+  .mobile-content .data-label,
+  .mobile-content .data-value,
+  .mobile-content .section-title,
+  .mobile-content .contact-link,
+  .mobile-content .bin-content,
+  .mobile-content .bin-status,
+  .mobile-content .bin-title,
+  .mobile-content .bin-num {
+    color: #44423E;
+  }
+
+  .mobile-content .employee-name,
+  .mobile-content .panel-heading,
+  .mobile-content .data-value,
+  .mobile-content .bin-title {
+    color: #2D2A26;
   }
 }

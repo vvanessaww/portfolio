@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import ProjectModal from './components/ProjectModal'
 import CustomCursor from './components/CustomCursor'
 import { getProjectByObject } from './data/projects'
 
@@ -158,23 +157,27 @@ function App() {
       <main className="main" role="main">
         <Routes>
           <Route path="/" element={
-            <Home 
-              onEnter={() => { setHasEnteredSite(true); startAudio(); }} 
+            <Home
+              onEnter={() => { setHasEnteredSite(true); startAudio(); }}
               hasEntered={hasEnteredSite}
               activeView={activeView}
               onCloseView={closeView}
               onProjectClick={handleProjectClick}
               isNightMode={isNightMode}
+              activeProject={activeProject}
+              onCloseProject={closeProject}
             />
           } />
           <Route path="*" element={
-            <Home 
-              onEnter={() => { setHasEnteredSite(true); startAudio(); }} 
+            <Home
+              onEnter={() => { setHasEnteredSite(true); startAudio(); }}
               hasEntered={hasEnteredSite}
               activeView={activeView}
               onCloseView={closeView}
               onProjectClick={handleProjectClick}
               isNightMode={isNightMode}
+              activeProject={activeProject}
+              onCloseProject={closeProject}
             />
           } />
         </Routes>
@@ -182,10 +185,6 @@ function App() {
       {/* Hidden audio element - controls are in the nav */}
       <audio ref={audioRef} src="/ambient.mp3" loop />
       
-      {/* Project Modal */}
-      {activeProject && (
-        <ProjectModal project={activeProject} onClose={closeProject} />
-      )}
     </div>
   )
 }

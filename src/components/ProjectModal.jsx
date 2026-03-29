@@ -415,20 +415,26 @@ function ProjectModal({ project, onClose }) {
             padding: 24px !important;
           }
         }
-        @media (max-width: 500px) {
+        @media (max-width: 1024px) {
           .modal-overlay {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
             padding: 8px !important;
+            z-index: 30 !important;
           }
           .modal-content {
             flex-direction: column !important;
-            max-height: 97vh !important;
+            max-height: 100% !important;
             overflow-y: auto !important;
-            border-radius: 12px !important;
+            border-radius: 8px !important;
           }
           .modal-content > div:first-child {
-            min-height: 70vw !important;
+            min-height: 40vw !important;
             flex: none !important;
-            height: 70vw !important;
+            height: 40vw !important;
           }
           .modal-content > div:first-child iframe {
             width: 300% !important;
@@ -437,7 +443,7 @@ function ProjectModal({ project, onClose }) {
             transform-origin: top left !important;
           }
           .modal-content > div:last-child {
-            padding: 20px !important;
+            padding: 16px !important;
           }
           .modal-content > div:last-child h2 {
             font-size: 16px !important;

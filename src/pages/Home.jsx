@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import IntroScreen from '../components/IntroScreen'
 import DeskScene from '../components/DeskScene'
 import TerminalOverlay from '../components/TerminalOverlay'
+import ProjectModal from '../components/ProjectModal'
 
-function Home({ onEnter, hasEntered, activeView, onCloseView, onProjectClick, isNightMode }) {
+function Home({ onEnter, hasEntered, activeView, onCloseView, onProjectClick, isNightMode, activeProject, onCloseProject }) {
   const [showIntro, setShowIntro] = useState(!hasEntered)
   const [showHint, setShowHint] = useState(false)
   const [hintFading, setHintFading] = useState(false)
@@ -41,6 +42,9 @@ function Home({ onEnter, hasEntered, activeView, onCloseView, onProjectClick, is
           isNightMode={isNightMode}
         />
         <TerminalOverlay onProjectClick={onProjectClick} />
+        {activeProject && (
+          <ProjectModal project={activeProject} onClose={onCloseProject} />
+        )}
         {showHint && (
           <div className={`hint-toast ${hintFading ? 'hint-fade-out' : 'hint-fade-in'}`}>
             <span>hint: toggle ☀️/🌙 to switch between 9–5 & after hours, or 🔊 to hear the sounds of the workday</span>
