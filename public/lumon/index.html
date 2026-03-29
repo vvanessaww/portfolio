@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Initialization | Lumon Industries</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --base-beige: #E1D9CD;
+            --paper-light: #EFEBE4;
+            --plastic-dark: #44423E;
+            --slider-black: #2D2A26;
+            --accent-yellow: #DAB93E;
+            --border-dim: #C5BDB1;
+            --border-dark: #A1998C;
+            --crt-green: #4AF626;
+        }
+
+        body {
+            background-color: var(--base-beige);
+            color: var(--plastic-dark);
+            font-family: 'JetBrains Mono', monospace;
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 100;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 101;
+        }
+
+        .terminal-container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .heading {
+            font-size: 2rem;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            color: var(--slider-black);
+            font-weight: 700;
+        }
+
+        .text-display {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 400;
+            min-height: 4.5rem;
+            color: var(--slider-black);
+            position: relative;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 24px;
+            height: 48px;
+            background-color: var(--plastic-dark);
+            vertical-align: middle;
+            margin-left: 8px;
+            animation: blink 0.8s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .status-footer {
+            position: absolute;
+            bottom: 48px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 48px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--border-dark);
+            box-sizing: border-box;
+        }
+
+        .lumon-badge {
+            background: var(--plastic-dark);
+            color: var(--base-beige);
+            padding: 4px 10px;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        .metadata {
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--border-dark);
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .metadata.visible {
+            opacity: 1;
+        }
+
+        .init-sequence {
+            position: absolute;
+            top: 48px;
+            left: 48px;
+            font-size: 10px;
+            color: var(--border-dark);
+            line-height: 1.5;
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 2px;
+            background: var(--border-dim);
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--plastic-dark);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .log {
+            margin-top: 40px;
+            font-size: 12px;
+            color: var(--border-dark);
+            text-align: left;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="init-sequence">
+        <div>SYS_BOOT: OK</div>
+        <div>LINK_ESTABLISHED: 127.0.0.1</div>
+        <div>SECURITY: LEVEL_KIER</div>
+        <div>DATA_REFINEMENT_V4.2</div>
+    </div>
+
+    <div class="terminal-container">
+        <h1 class="heading">MACRODATA REFINEMENT DIVISION</h1>
+
+        <div class="text-display" id="main-text"></div>
+
+        <div class="log" id="log"></div>
+
+        <div class="metadata" id="sub-text">
+            <p>PROPERTY OF LUMON INDUSTRIES &bull; SEVERED FLOOR</p>
+        </div>
+
+        <div class="progress-bar" id="p-bar">
+            <div class="progress-fill" id="p-fill"></div>
+        </div>
+    </div>
+
+    <div class="status-footer">
+        <div><span class="lumon-badge">LUMON</span>MACRODATA REFINEMENT</div>
+        <div id="timestamp">00:00:00</div>
+    </div>
+
+    <script>
+        const mainDisplay = document.getElementById('main-text');
+        const subDisplay = document.getElementById('sub-text');
+        const pBar = document.getElementById('p-bar');
+        const pFill = document.getElementById('p-fill');
+        const log = document.getElementById('log');
+
+        const messages = [
+            { text: "Initializing System", duration: 1500, scramble: true },
+            { text: "Security Check", duration: 1000, scramble: false },
+            { text: "Access Granted", duration: 1200, scramble: false },
+            { text: "Welcome, Mark S.", duration: 2500, scramble: true },
+            { text: "Macrodata Refinement", duration: 3000, scramble: false }
+        ];
+
+        let currentMsg = 0;
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+
+        function scrambleText(targetText, callback) {
+            let iteration = 0;
+            const interval = setInterval(() => {
+                mainDisplay.innerText = targetText.split("")
+                    .map((char, index) => {
+                        if (index < iteration) {
+                            return targetText[index];
+                        }
+                        return chars[Math.floor(Math.random() * chars.length)];
+                    })
+                    .join("");
+                if (iteration >= targetText.length) {
+                    clearInterval(interval);
+                    if (callback) callback();
+                }
+                iteration += 1 / 3;
+            }, 30);
+        }
+
+        function typeText(targetText, callback) {
+            let index = 0;
+            mainDisplay.innerText = "";
+            const interval = setInterval(() => {
+                mainDisplay.innerText += targetText[index];
+                index++;
+                if (index >= targetText.length) {
+                    clearInterval(interval);
+                    if (callback) callback();
+                }
+            }, 60);
+        }
+
+        function updateLog(msg) {
+            const line = document.createElement('div');
+            line.innerHTML = `&gt; ${msg}... DONE`;
+            log.appendChild(line);
+        }
+
+        function runSequence() {
+            if (currentMsg >= messages.length) {
+                subDisplay.classList.add('visible');
+                pBar.style.display = 'block';
+                let progress = 0;
+                const progInterval = setInterval(() => {
+                    progress += Math.random() * 5;
+                    if (progress > 100) progress = 100;
+                    pFill.style.width = progress + '%';
+                    if (progress === 100) {
+                        clearInterval(progInterval);
+                        mainDisplay.innerHTML = 'READY <span class="cursor"></span>';
+                    }
+                }, 100);
+                return;
+            }
+
+            const msg = messages[currentMsg];
+            const next = () => {
+                updateLog(msg.text.toUpperCase().replace(/\s/g, '_'));
+                setTimeout(() => {
+                    currentMsg++;
+                    runSequence();
+                }, msg.duration);
+            };
+
+            if (msg.scramble) {
+                scrambleText(msg.text, next);
+            } else {
+                typeText(msg.text, next);
+            }
+        }
+
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('timestamp').innerText =
+                now.toLocaleTimeString('en-US', { hour12: false });
+        }, 1000);
+
+        setTimeout(runSequence, 1000);
+    </script>
+</body>
+</html>

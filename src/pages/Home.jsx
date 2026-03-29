@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import IntroScreen from '../components/IntroScreen'
 import DeskScene from '../components/DeskScene'
+import TerminalOverlay from '../components/TerminalOverlay'
 
 function Home({ onEnter, hasEntered, activeView, onCloseView, onProjectClick, isNightMode }) {
   const [showIntro, setShowIntro] = useState(!hasEntered)
@@ -33,16 +34,13 @@ function Home({ onEnter, hasEntered, activeView, onCloseView, onProjectClick, is
   return (
     <div className="page home-page">
       <div className="hero-section">
-        <DeskScene 
+        <DeskScene
           activeView={activeView}
           onCloseView={onCloseView}
           onProjectClick={onProjectClick}
           isNightMode={isNightMode}
         />
-        <div className="hero-overlay">
-          <h1>Vanessa W.'s Desk</h1>
-          <p className="hero-subtitle">(click items to explore · drag to orbit · scroll to zoom)</p>
-        </div>
+        <TerminalOverlay onProjectClick={onProjectClick} />
         {showHint && (
           <div className={`hint-toast ${hintFading ? 'hint-fade-out' : 'hint-fade-in'}`}>
             <span>hint: toggle ☀️/🌙 to switch between 9–5 & after hours, or 🔊 to hear the sounds of the workday</span>

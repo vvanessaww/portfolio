@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import ProjectModal from './components/ProjectModal'
@@ -12,7 +12,15 @@ function App() {
   const [showProjectsDropdown, setShowProjectsDropdown] = useState(false)
   const [isMuted, setIsMuted] = useState(false) // Default to sound on
   const [isNightMode, setIsNightMode] = useState(false) // Default to day
+  const [navClock, setNavClock] = useState('00:00:00')
   const audioRef = useRef(null)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setNavClock(new Date().toLocaleTimeString('en-US', { hour12: false }))
+    }, 1000)
+    return () => clearInterval(id)
+  }, [])
 
   const startAudio = () => {
     if (audioRef.current) {
@@ -62,48 +70,44 @@ function App() {
       <CustomCursor />
       {hasEnteredSite && (
         <nav className="nav" role="navigation" aria-label="Main navigation">
-          <a href="/" onClick={(e) => { e.preventDefault(); setActiveView(null) }} aria-label="Home">home</a>
-          <a href="#" onClick={(e) => handleNavClick('about', e)} aria-label="About">about</a>
-          <a href="#" onClick={(e) => handleNavClick('writing', e)} aria-label="Writing">writing</a>
-          
+          <a href="/" onClick={(e) => { e.preventDefault(); setActiveView(null) }} aria-label="Home">HOME</a>
+          <a href="#" onClick={(e) => handleNavClick('about', e)} aria-label="About">ABOUT</a>
+          <a href="#" onClick={(e) => handleNavClick('writing', e)} aria-label="Writing">WRITING</a>
+
           {/* Projects dropdown */}
-          <div 
+          <div
             className="nav-dropdown"
             onMouseEnter={() => setShowProjectsDropdown(true)}
             onMouseLeave={() => {
-              // Small delay before closing to prevent accidental close
               setTimeout(() => setShowProjectsDropdown(false), 100)
             }}
           >
             <a href="#" onClick={(e) => e.preventDefault()} aria-label="Projects">
-              projects ▾
+              PROJECTS ▾
             </a>
             {showProjectsDropdown && (
-              <div 
+              <div
                 className="nav-dropdown-menu"
                 onMouseEnter={() => setShowProjectsDropdown(true)}
               >
                 <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('bookshelf'); setShowProjectsDropdown(false) }}>
-                  books
+                  BOOKS
                 </a>
                 <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('tablet'); setShowProjectsDropdown(false) }}>
-                  git art
+                  GIT ART
                 </a>
                 <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('postcard'); setShowProjectsDropdown(false) }}>
-                  strava
+                  STRAVA
+                </a>
+                <a href="/vibecheck" onClick={(e) => { setShowProjectsDropdown(false) }}>
+                  VIBE CHECK
                 </a>
               </div>
             )}
           </div>
-          
+
           <div className="nav-controls">
-            <a
-              href="mailto:vanessawang.143@gmail.com"
-              className="nav-get-in-touch"
-              aria-label="Get in Touch"
-            >
-              get in touch
-            </a>
+            <span className="nav-clock">{navClock}</span>
             <button
               className="nav-icon-button"
               onClick={() => setIsNightMode(!isNightMode)}
@@ -111,7 +115,7 @@ function App() {
               title={isNightMode ? 'Day mode' : 'Night mode'}
             >
               {isNightMode ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="5" />
                   <line x1="12" y1="1" x2="12" y2="3" />
                   <line x1="12" y1="21" x2="12" y2="23" />
@@ -123,25 +127,25 @@ function App() {
                   <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                 </svg>
               ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                 </svg>
               )}
             </button>
-            <button 
+            <button
               className="nav-icon-button"
               onClick={toggleMute}
               aria-label={isMuted ? 'Unmute' : 'Mute'}
               title={isMuted ? 'Unmute' : 'Mute'}
             >
               {isMuted ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
                   <line x1="23" y1="9" x2="17" y2="15" />
                   <line x1="17" y1="9" x2="23" y2="15" />
                 </svg>
               ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
                   <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
                   <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />

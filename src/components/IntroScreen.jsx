@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, Suspense } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { PerspectiveCamera } from '@react-three/drei'
 import * as THREE from 'three'
+import LumonOverlay from './LumonOverlay'
 
 // Severance-inspired hallway scene
 function HallwayScene() {
@@ -124,19 +125,12 @@ function MouseCamera() {
 }
 
 function IntroScreen({ onEnter }) {
-  const [showButton, setShowButton] = useState(false)
   const [isExiting, setIsExiting] = useState(false)
   const [fadeIn, setFadeIn] = useState(false)
 
   useEffect(() => {
-    // Fade in from white
     const fadeTimer = setTimeout(() => setFadeIn(true), 50)
-    // Show button after scene loads
-    const buttonTimer = setTimeout(() => setShowButton(true), 1200)
-    return () => {
-      clearTimeout(fadeTimer)
-      clearTimeout(buttonTimer)
-    }
+    return () => clearTimeout(fadeTimer)
   }, [])
 
   const handleEnterClick = () => {
@@ -182,146 +176,8 @@ function IntroScreen({ onEnter }) {
         <MouseCamera />
       </Canvas>
 
-      {/* Globe logo and button container */}
-      <div style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        textAlign: 'center',
-        zIndex: 10,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '16px',
-        pointerEvents: 'none'
-      }}>
-        {/* Lumon-style globe logo with name */}
-        <svg
-          viewBox="0 0 400 200"
-          style={{
-            width: 'clamp(220px, 36vw, 400px)',
-            height: 'auto',
-            filter: 'drop-shadow(0 1px 6px rgba(255,255,255,0.9))'
-          }}
-        >
-          <defs>
-            {/* Clip to top half of oval (above text band) */}
-            <clipPath id="clipTop">
-              <rect x="0" y="0" width="400" height="85" />
-            </clipPath>
-            {/* Clip to bottom half of oval (below text band) */}
-            <clipPath id="clipBottom">
-              <rect x="0" y="115" width="400" height="100" />
-            </clipPath>
-            {/* Clip to inside the oval */}
-            <clipPath id="clipGlobe">
-              <ellipse cx="200" cy="100" rx="170" ry="80" />
-            </clipPath>
-          </defs>
-
-          {/* Globe oval outline */}
-          <ellipse cx="200" cy="100" rx="170" ry="80" fill="none" stroke="#1a1a1a" strokeWidth="3" />
-
-          {/* Vertical meridian - center */}
-          <line x1="200" y1="20" x2="200" y2="85" stroke="#1a1a1a" strokeWidth="2.2" />
-          <line x1="200" y1="115" x2="200" y2="180" stroke="#1a1a1a" strokeWidth="2.2" />
-
-          {/* Vertical meridians - inner pair */}
-          <ellipse cx="200" cy="100" rx="28" ry="80" fill="none" stroke="#1a1a1a" strokeWidth="2.2"
-            clipPath="url(#clipTop)" />
-          <ellipse cx="200" cy="100" rx="28" ry="80" fill="none" stroke="#1a1a1a" strokeWidth="2.2"
-            clipPath="url(#clipBottom)" />
-
-          {/* Vertical meridians - outer pair */}
-          <ellipse cx="200" cy="100" rx="65" ry="80" fill="none" stroke="#1a1a1a" strokeWidth="2.2"
-            clipPath="url(#clipTop)" />
-          <ellipse cx="200" cy="100" rx="65" ry="80" fill="none" stroke="#1a1a1a" strokeWidth="2.2"
-            clipPath="url(#clipBottom)" />
-
-          {/* Vertical meridians - widest pair */}
-          <ellipse cx="200" cy="100" rx="110" ry="80" fill="none" stroke="#1a1a1a" strokeWidth="2.2"
-            clipPath="url(#clipTop)" />
-          <ellipse cx="200" cy="100" rx="110" ry="80" fill="none" stroke="#1a1a1a" strokeWidth="2.2"
-            clipPath="url(#clipBottom)" />
-
-          {/* Horizontal latitude line - upper */}
-          <ellipse cx="200" cy="60" rx="155" ry="10" fill="none" stroke="#1a1a1a" strokeWidth="2.2"
-            clipPath="url(#clipGlobe)" />
-
-          {/* Horizontal latitude line - lower */}
-          <ellipse cx="200" cy="140" rx="155" ry="10" fill="none" stroke="#1a1a1a" strokeWidth="2.2"
-            clipPath="url(#clipGlobe)" />
-
-          {/* Name text across the globe center */}
-          <text
-            x="200" y="107"
-            textAnchor="middle"
-            fontFamily="'Michroma', 'Eurostile', sans-serif"
-            fontSize="20"
-            fontWeight="700"
-            letterSpacing="0.2em"
-            fill="#1a1a1a"
-          >
-            VANESSA WANG
-          </text>
-        </svg>
-
-        {/* Enter button - always rendered, opacity toggled to prevent layout shift */}
-        <div style={{ pointerEvents: showButton ? 'auto' : 'none' }}>
-          <button
-            onClick={handleEnterClick}
-            className={`intro-button ${showButton ? 'intro-button-visible' : ''}`}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#1a1a1a'
-              e.currentTarget.style.color = '#ffffff'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.85)'
-              e.currentTarget.style.color = '#1a1a1a'
-            }}
-          >
-            click to enter
-          </button>
-        </div>
-      </div>
-
-      {/* CSS animations */}
-      <style>{`
-        .intro-button {
-          padding: 14px 44px;
-          background: rgba(255, 255, 255, 0.85);
-          border: 1.5px solid #1a1a1a;
-          color: #1a1a1a;
-          font-size: 11px;
-          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-          letter-spacing: 0.25em;
-          text-transform: uppercase;
-          cursor: pointer;
-          transition: opacity 1.2s ease-out, background 0.3s ease, color 0.3s ease;
-          opacity: 0;
-          white-space: nowrap;
-          backdrop-filter: blur(5px);
-        }
-
-        .intro-button-visible {
-          opacity: 1;
-        }
-        
-        @media (max-width: 768px) {
-          .intro-button {
-            padding: 12px 32px;
-            font-size: 14px;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .intro-button {
-            padding: 10px 24px;
-            font-size: 13px;
-          }
-        }
-      `}</style>
+      {/* Lumon terminal overlay */}
+      <LumonOverlay onComplete={handleEnterClick} />
 
       {/* Fade to black overlay */}
       <div style={{

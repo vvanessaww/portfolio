@@ -33,6 +33,17 @@ export const projects = {
     comingSoon: true // Hide deployment/GitHub until ready
   },
 
+  vibecheck: {
+    id: 'vibecheck',
+    title: 'Vibe Check',
+    description: 'a coachella 2026 vibe check. take a short quiz to find your stage and recommended artists, or share with a friend to find your coachella chemistry.',
+    techStack: ['React', 'Vite', 'Supabase'],
+    liveUrl: 'https://vanessazwang.com/vibecheck',
+    githubUrl: null,
+    previewUrl: 'https://vanessazwang.com/vibecheck',
+    deskObject: 'vibecheck'
+  },
+
   writing: {
     id: 'writing',
     title: 'Writing',
