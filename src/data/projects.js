@@ -33,6 +33,16 @@ export const projects = {
     comingSoon: true // Hide deployment/GitHub until ready
   },
 
+  auralFixation: {
+    id: 'aural-fixation',
+    title: 'Aural Fixation',
+    description: 'a curated spotify playlist collection showcasing my music taste across genres and moods. explore playlists for every vibe — from deep focus to weekend road trips.',
+    techStack: ['React', 'Vite', 'Spotify API'],
+    liveUrl: 'https://vanessazwang.com/mixtape',
+    githubUrl: 'https://github.com/vvanessaww/aural-fixation',
+    previewUrl: 'https://vanessazwang.com/mixtape'
+  },
+
   vibecheck: {
     id: 'vibecheck',
     title: 'Vibe Check',
