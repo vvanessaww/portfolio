@@ -33,6 +33,17 @@ export const projects = {
     comingSoon: true // Hide deployment/GitHub until ready
   },
 
+  auralFixation: {
+    id: 'aural-fixation',
+    title: 'Aural Fixation',
+    description: 'a mixtape maker. curate and share custom mixtapes with friends, complete with tracklists and cover art.',
+    techStack: ['Next.js', 'React', 'Supabase'],
+    liveUrl: 'https://vanessazwang.com/mixtape',
+    githubUrl: null,
+    previewUrl: 'https://vanessazwang.com/mixtape',
+    deskObject: 'mixtape'
+  },
+
   vibecheck: {
     id: 'vibecheck',
     title: 'Vibe Check',

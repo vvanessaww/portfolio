@@ -12,6 +12,9 @@
     { "source": "/vibecheck", "destination": "https://vibecheck-two-lac.vercel.app/" },
     { "source": "/vibecheck/", "destination": "https://vibecheck-two-lac.vercel.app/" },
     { "source": "/vibecheck/:path*", "destination": "https://vibecheck-two-lac.vercel.app/:path*" },
+    { "source": "/mixtape", "destination": "https://aural-fixation.vercel.app/mixtape" },
+    { "source": "/mixtape/", "destination": "https://aural-fixation.vercel.app/mixtape/" },
+    { "source": "/mixtape/:path*", "destination": "https://aural-fixation.vercel.app/mixtape/:path*" },
     { "source": "/(.*)", "destination": "/" }
   ]
 }

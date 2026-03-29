@@ -9,7 +9,7 @@ const MESSAGES = [
 
 function LumonOverlay({ onComplete }) {
   const [mainText, setMainText] = useState('')
-  const startedRef = useRef(false)
+  const [showEnter, setShowEnter] = useState(false)
   const onCompleteRef = useRef(onComplete)
   onCompleteRef.current = onComplete
 
@@ -46,10 +46,7 @@ function LumonOverlay({ onComplete }) {
     function runSequence(msgIndex) {
       if (cancelled) return
       if (msgIndex >= MESSAGES.length) {
-        const t = setTimeout(() => {
-          if (!cancelled && onCompleteRef.current) onCompleteRef.current()
-        }, 800)
-        timers.push(t)
+        if (!cancelled) setShowEnter(true)
         return
       }
 
@@ -165,6 +162,56 @@ function LumonOverlay({ onComplete }) {
         </div>
 
       </div>
+
+      {showEnter && (
+        <div style={{
+          position: 'absolute',
+          top: '60%',
+          left: 0,
+          right: 0,
+          display: 'flex',
+          justifyContent: 'center',
+          pointerEvents: 'none'
+        }}>
+        <button
+          onClick={() => {
+            if (onCompleteRef.current) onCompleteRef.current()
+          }}
+          style={{
+            padding: '12px 40px',
+            background: 'rgba(255, 255, 255, 0.85)',
+            border: '1.5px solid #2D2A26',
+            color: '#2D2A26',
+            fontSize: 11,
+            fontFamily: "'JetBrains Mono', monospace",
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            cursor: 'pointer',
+            backdropFilter: 'blur(5px)',
+            pointerEvents: 'auto',
+            transition: 'background 0.3s ease, color 0.3s ease',
+            animation: 'enterFadeIn 0.8s ease forwards'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = '#2D2A26'
+            e.currentTarget.style.color = '#ffffff'
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.85)'
+            e.currentTarget.style.color = '#2D2A26'
+          }}
+        >
+          click to enter
+        </button>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes enterFadeIn {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
 
     </div>
   )

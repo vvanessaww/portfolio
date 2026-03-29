@@ -98,6 +98,9 @@ function App() {
                 <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('postcard'); setShowProjectsDropdown(false) }}>
                   STRAVA
                 </a>
+                <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('mixtape'); setShowProjectsDropdown(false) }}>
+                  AURAL FIXATION
+                </a>
                 <a href="/vibecheck" onClick={(e) => { setShowProjectsDropdown(false) }}>
                   VIBE CHECK
                 </a>

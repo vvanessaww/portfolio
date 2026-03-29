@@ -10,35 +10,42 @@ const SKILLS = [
 const BINS = [
   {
     num: 1,
-    status: 'ACTIVE',
+    status: 'MAR 2026',
+    title: 'AURAL FIXATION',
+    desc: 'A mixtape maker. Curate and share custom mixtapes with friends, complete with tracklists and cover art.',
+    link: null
+  },
+  {
+    num: 2,
+    status: 'MAR 2026',
     title: 'VIBE CHECK',
     desc: 'Coachella 2026 vibe check. Take a short quiz to find your stage and recommended artists, or share with a friend to find your coachella chemistry.',
     link: null
   },
   {
-    num: 2,
-    status: 'ACTIVE',
+    num: 3,
+    status: 'FEB 2026',
     title: 'GIT ART',
     desc: 'GitHub contribution graph → retro pixel art. 7 style options including Tetris, Pacman, and custom text rendering.',
     link: null
   },
   {
-    num: 3,
-    status: 'ACTIVE',
+    num: 4,
+    status: 'FEB 2026',
     title: 'BOOKWORM',
     desc: 'Personal digital library with niche genre tracking and reading goals. Goodreads export with Google Books API cover lookup.',
     link: null
   },
   {
-    num: 4,
+    num: 5,
     status: 'IN PROGRESS',
     title: 'STRAVA POSTCARD',
     desc: 'Strava activities → vintage commemorative postcards. Route visualization with activity stats overlay.',
     link: null
   },
   {
-    num: 5,
-    status: 'ACTIVE',
+    num: 6,
+    status: 'ONGOING',
     title: 'WRITING',
     desc: 'Musings on life in New York and the digital world. Published on Substack.',
     link: null
@@ -56,6 +63,7 @@ function TerminalOverlay({ onProjectClick }) {
       return
     }
     const binToObject = {
+      'AURAL FIXATION': 'mixtape',
       'VIBE CHECK': 'vibecheck',
       'GIT ART': 'tablet',
       'BOOKWORM': 'bookshelf',
@@ -81,11 +89,11 @@ function TerminalOverlay({ onProjectClick }) {
               <h2 className="employee-name">Vanessa W.</h2>
               <div className="data-row">
                 <span className="data-label">ROLE</span>
-                <span className="data-value">Product Manager</span>
+                <span className="data-value">Product Manager @ ServiceNow</span>
               </div>
               <div className="data-row">
-                <span className="data-label">DEPT</span>
-                <span className="data-value">PRODUCT</span>
+                <span className="data-label">PREV</span>
+                <span className="data-value">Software Engineer @ Qualcomm</span>
               </div>
               <div className="data-row">
                 <span className="data-label">LOCATION</span>
@@ -173,11 +181,11 @@ function TerminalOverlay({ onProjectClick }) {
               <h2 className="employee-name">Vanessa W.</h2>
               <div className="data-row">
                 <span className="data-label">ROLE</span>
-                <span className="data-value">Product Manager</span>
+                <span className="data-value">Product Manager @ ServiceNow</span>
               </div>
               <div className="data-row">
-                <span className="data-label">DEPT</span>
-                <span className="data-value">PRODUCT</span>
+                <span className="data-label">PREV</span>
+                <span className="data-value">Software Engineer @ Qualcomm</span>
               </div>
               <div className="data-row">
                 <span className="data-label">LOCATION</span>
