@@ -10,41 +10,48 @@ const SKILLS = [
 const BINS = [
   {
     num: 1,
+    status: 'APR 2026',
+    title: 'GIT IT TOGETHER',
+    desc: 'An interactive CLI tutorial that teaches Git by having you type real commands. 15 lessons across 5 levels, from cloning to cherry-picking.',
+    link: null
+  },
+  {
+    num: 2,
     status: 'MAR 2026',
     title: 'AURAL FIXATION',
     desc: 'A mixtape maker. Curate and share custom mixtapes with friends, complete with tracklists and cover art.',
     link: null
   },
   {
-    num: 2,
+    num: 3,
     status: 'MAR 2026',
     title: 'VIBE CHECK',
     desc: 'Coachella 2026 vibe check. Take a short quiz to find your stage and recommended artists, or share with a friend to find your coachella chemistry.',
     link: null
   },
   {
-    num: 3,
+    num: 4,
     status: 'FEB 2026',
     title: 'GIT ART',
     desc: 'GitHub contribution graph → retro pixel art. 7 style options including Tetris, Pacman, and custom text rendering.',
     link: null
   },
   {
-    num: 4,
+    num: 5,
     status: 'FEB 2026',
     title: 'BOOKWORM',
     desc: 'Personal digital library with niche genre tracking and reading goals. Goodreads export with Google Books API cover lookup.',
     link: null
   },
   {
-    num: 5,
+    num: 6,
     status: 'IN PROGRESS',
     title: 'STRAVA POSTCARD',
     desc: 'Strava activities → vintage commemorative postcards. Route visualization with activity stats overlay.',
     link: null
   },
   {
-    num: 6,
+    num: 7,
     status: 'ONGOING',
     title: 'WRITING',
     desc: 'Musings on life in New York and the digital world. Published on Substack.',
@@ -59,10 +66,11 @@ function TerminalOverlay({ onProjectClick }) {
 
   const handleBinClick = (bin) => {
     if (bin.link) {
-      window.location.href = bin.link
+      window.open(bin.link, '_blank', 'noopener,noreferrer')
       return
     }
     const binToObject = {
+      'GIT IT TOGETHER': 'terminal',
       'AURAL FIXATION': 'mixtape',
       'VIBE CHECK': 'vibecheck',
       'GIT ART': 'tablet',

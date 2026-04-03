@@ -29,8 +29,7 @@ export const projects = {
     techStack: ['React', 'TypeScript', 'Vite', 'Express', 'Strava API', 'Canvas'],
     liveUrl: 'https://strava-postcard.vercel.app/',
     githubUrl: 'https://github.com/vvanessaww/strava-postcard',
-    deskObject: 'postcard',
-    comingSoon: true // Hide deployment/GitHub until ready
+    deskObject: 'postcard'
   },
 
   auralFixation: {
@@ -53,6 +52,42 @@ export const projects = {
     githubUrl: null,
     previewUrl: 'https://vanessazwang.com/vibecheck',
     deskObject: 'vibecheck'
+  },
+
+  botfriend: {
+    id: 'botfriend',
+    title: 'Botfriend',
+    description: 'A real-time voice-to-code pipeline. Talk about code changes out loud — botfriend listens, extracts what\'s actionable, and runs it through Claude Code.',
+    techStack: ['Python', 'Whisper', 'Claude Code', 'Textual TUI', 'pyannote'],
+    liveUrl: null,
+    githubUrl: 'https://github.com/vvanessaww/botfriend',
+    previewUrl: null,
+    previewType: 'image',
+    deskObject: 'microphone'
+  },
+
+  claudejournal: {
+    id: 'claudejournal',
+    title: 'Session Journal',
+    description: 'A Claude Code plugin that auto-logs every session so you never lose a conversation. Browse and resume past sessions with /sessions.',
+    techStack: ['Bash', 'jq', 'Claude Code Plugin API'],
+    liveUrl: null,
+    githubUrl: 'https://github.com/vvanessaww/claudejournal',
+    previewUrl: null,
+    previewType: 'image',
+    deskObject: 'journal'
+  },
+
+  gititogether: {
+    id: 'gititogether',
+    title: 'Git It Together',
+    description: 'an interactive CLI tutorial that teaches Git by having you type real commands. 15 lessons across 5 levels, from cloning a repo to cherry-picking commits. features a growing ASCII tree that evolves as you progress, contextual hints, and multi-step scenarios. built for PMs, designers, and founders who work with AI coding tools but never learned Git.',
+    techStack: ['TypeScript', 'React', 'Ink', 'Node.js CLI'],
+    liveUrl: 'https://www.npmjs.com/package/git-it-together',
+    githubUrl: 'https://github.com/vvanessaww/git-it-together',
+    previewUrl: '/previews/git-it-together-preview.gif',
+    previewType: 'image',
+    deskObject: 'terminal'
   },
 
   writing: {

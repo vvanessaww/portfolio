@@ -14,13 +14,9 @@ function ProjectModal({ project, onClose }) {
     }
     document.addEventListener('keydown', handleEsc)
     
-    // Prevent body scroll
-    document.body.style.overflow = 'hidden'
-    
     return () => {
       clearTimeout(timer)
       document.removeEventListener('keydown', handleEsc)
-      document.body.style.overflow = ''
     }
   }, [])
 

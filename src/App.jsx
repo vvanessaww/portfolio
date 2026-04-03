@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import CustomCursor from './components/CustomCursor'
 import { getProjectByObject } from './data/projects'
 
 function App() {
@@ -66,7 +65,6 @@ function App() {
 
   return (
     <div className="app">
-      <CustomCursor />
       {hasEnteredSite && (
         <nav className="nav" role="navigation" aria-label="Main navigation">
           <a href="/" onClick={(e) => { e.preventDefault(); setActiveView(null) }} aria-label="Home">HOME</a>
@@ -103,6 +101,9 @@ function App() {
                 </a>
                 <a href="/vibecheck" onClick={(e) => { setShowProjectsDropdown(false) }}>
                   VIBE CHECK
+                </a>
+                <a href="#" onClick={(e) => { e.preventDefault(); handleProjectClick('terminal'); setShowProjectsDropdown(false) }}>
+                  GIT IT TOGETHER
                 </a>
               </div>
             )}
