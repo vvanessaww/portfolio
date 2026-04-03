@@ -1,96 +1,79 @@
-import { useState, useEffect, useRef, Suspense } from 'react'
+import { useState, useEffect, useRef, Suspense, useMemo } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { PerspectiveCamera } from '@react-three/drei'
 import * as THREE from 'three'
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import LumonOverlay from './LumonOverlay'
 
-// Severance-inspired hallway scene
+// Helper for merging geometries at positions
+function transformedGeo(geo, { position = [0,0,0], rotation = [0,0,0] } = {}) {
+  const clone = geo.clone()
+  const m = new THREE.Matrix4()
+  const q = new THREE.Quaternion().setFromEuler(new THREE.Euler(...rotation))
+  m.compose(new THREE.Vector3(...position), q, new THREE.Vector3(1, 1, 1))
+  clone.applyMatrix4(m)
+  return clone
+}
+
+// Severance-inspired hallway — optimized: 28 lights → 4 lights, merged geometry
 function HallwayScene() {
   const hallwayLength = 35
   const hallwayWidth = 3
   const hallwayHeight = 2.8
 
+  // Merge all fluorescent panels into one mesh
+  const { panelGeo, panelMat } = useMemo(() => {
+    const base = new THREE.BoxGeometry(0.5, 0.03, 1.6)
+    const panels = Array.from({ length: 14 }, (_, i) => {
+      const z = -1 - i * 2.4
+      return transformedGeo(base, { position: [0, hallwayHeight - 0.02, z] })
+    })
+    return {
+      panelGeo: mergeGeometries(panels),
+      panelMat: new THREE.MeshStandardMaterial({
+        color: '#ffffff', emissive: '#f0f0ff', emissiveIntensity: 2,
+      }),
+    }
+  }, [])
+
+  // Shared materials
+  const mats = useMemo(() => ({
+    floor: new THREE.MeshStandardMaterial({ color: '#dcdeda' }),
+    ceiling: new THREE.MeshStandardMaterial({ color: '#f7f7f7' }),
+    wall: new THREE.MeshStandardMaterial({ color: '#f5f5f5' }),
+    baseboard: new THREE.MeshStandardMaterial({ color: '#d0d0d0' }),
+  }), [])
+
+  // Shared geometries
+  const geos = useMemo(() => ({
+    floor: new THREE.PlaneGeometry(hallwayWidth, hallwayLength),
+    ceiling: new THREE.PlaneGeometry(hallwayWidth, hallwayLength),
+    wall: new THREE.PlaneGeometry(hallwayLength, hallwayHeight),
+    baseboard: new THREE.PlaneGeometry(hallwayLength, 0.1),
+    backWall: new THREE.PlaneGeometry(hallwayWidth, hallwayHeight),
+  }), [])
+
   return (
     <>
-      {/* Brighter ambient wash */}
-      <ambientLight intensity={0.7} />
+      {/* Simplified lighting: 1 ambient + 3 point lights instead of 28 */}
+      <ambientLight intensity={0.9} color="#f8f8ff" />
+      <pointLight position={[0, hallwayHeight - 0.3, -5]} intensity={2} distance={12} color="#f8f8ff" />
+      <pointLight position={[0, hallwayHeight - 0.3, -15]} intensity={2} distance={12} color="#f8f8ff" />
+      <pointLight position={[0, hallwayHeight - 0.3, -25]} intensity={1.5} distance={12} color="#f8f8ff" />
 
-      {/* Fog - makes hallway fade to white, feels endless */}
       <fog attach="fog" args={['#ffffff', 12, 32]} />
 
-      {/* Fluorescent strip lights - evenly spaced, cast light downward onto floor */}
-      {Array.from({ length: 14 }, (_, i) => -1 - i * 2.4).map((z, i) => (
-        <group key={i}>
-          {/* Main downward light */}
-          <pointLight
-            position={[0, hallwayHeight - 0.2, z]}
-            intensity={1.0}
-            distance={6}
-            color="#f8f8ff"
-          />
-          {/* Floor bounce - subtle pool of light below each fixture */}
-          <spotLight
-            position={[0, hallwayHeight - 0.1, z]}
-            angle={Math.PI / 3}
-            penumbra={0.8}
-            intensity={0.5}
-            distance={4}
-            color="#f8f8ff"
-            target-position={[0, 0, z]}
-          />
-          {/* Rectangular fluorescent panel */}
-          <mesh position={[0, hallwayHeight - 0.02, z]}>
-            <boxGeometry args={[0.5, 0.03, 1.6]} />
-            <meshStandardMaterial
-              color="#ffffff"
-              emissive="#f0f0ff"
-              emissiveIntensity={2}
-            />
-          </mesh>
-        </group>
-      ))}
+      {/* Merged fluorescent panels — 1 draw call */}
+      <mesh geometry={panelGeo} material={panelMat} />
 
-      {/* Floor - lighter linoleum */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -hallwayLength / 2]} receiveShadow>
-        <planeGeometry args={[hallwayWidth, hallwayLength]} />
-        <meshStandardMaterial color="#dcdeda" />
-      </mesh>
-
-      {/* Ceiling */}
-      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, hallwayHeight, -hallwayLength / 2]}>
-        <planeGeometry args={[hallwayWidth, hallwayLength]} />
-        <meshStandardMaterial color="#f7f7f7" />
-      </mesh>
-
-      {/* Left wall */}
-      <mesh rotation={[0, Math.PI / 2, 0]} position={[-hallwayWidth / 2, hallwayHeight / 2, -hallwayLength / 2]}>
-        <planeGeometry args={[hallwayLength, hallwayHeight]} />
-        <meshStandardMaterial color="#f5f5f5" />
-      </mesh>
-
-      {/* Right wall */}
-      <mesh rotation={[0, -Math.PI / 2, 0]} position={[hallwayWidth / 2, hallwayHeight / 2, -hallwayLength / 2]}>
-        <planeGeometry args={[hallwayLength, hallwayHeight]} />
-        <meshStandardMaterial color="#f5f5f5" />
-      </mesh>
-
-      {/* Left baseboard */}
-      <mesh rotation={[0, Math.PI / 2, 0]} position={[-hallwayWidth / 2 + 0.001, 0.05, -hallwayLength / 2]}>
-        <planeGeometry args={[hallwayLength, 0.1]} />
-        <meshStandardMaterial color="#d0d0d0" />
-      </mesh>
-
-      {/* Right baseboard */}
-      <mesh rotation={[0, -Math.PI / 2, 0]} position={[hallwayWidth / 2 - 0.001, 0.05, -hallwayLength / 2]}>
-        <planeGeometry args={[hallwayLength, 0.1]} />
-        <meshStandardMaterial color="#d0d0d0" />
-      </mesh>
-
-      {/* Back wall - distant, mostly hidden by fog */}
-      <mesh position={[0, hallwayHeight / 2, -hallwayLength]}>
-        <planeGeometry args={[hallwayWidth, hallwayHeight]} />
-        <meshStandardMaterial color="#f5f5f5" />
-      </mesh>
+      {/* Walls/floor/ceiling */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -hallwayLength / 2]} geometry={geos.floor} material={mats.floor} />
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, hallwayHeight, -hallwayLength / 2]} geometry={geos.ceiling} material={mats.ceiling} />
+      <mesh rotation={[0, Math.PI / 2, 0]} position={[-hallwayWidth / 2, hallwayHeight / 2, -hallwayLength / 2]} geometry={geos.wall} material={mats.wall} />
+      <mesh rotation={[0, -Math.PI / 2, 0]} position={[hallwayWidth / 2, hallwayHeight / 2, -hallwayLength / 2]} geometry={geos.wall} material={mats.wall} />
+      <mesh rotation={[0, Math.PI / 2, 0]} position={[-hallwayWidth / 2 + 0.001, 0.05, -hallwayLength / 2]} geometry={geos.baseboard} material={mats.baseboard} />
+      <mesh rotation={[0, -Math.PI / 2, 0]} position={[hallwayWidth / 2 - 0.001, 0.05, -hallwayLength / 2]} geometry={geos.baseboard} material={mats.baseboard} />
+      <mesh position={[0, hallwayHeight / 2, -hallwayLength]} geometry={geos.backWall} material={mats.wall} />
     </>
   )
 }
@@ -135,7 +118,6 @@ function IntroScreen({ onEnter }) {
 
   const handleEnterClick = () => {
     setIsExiting(true)
-    // Wait for fade to black, then trigger scene change
     setTimeout(() => {
       onEnter()
     }, 1000)
@@ -156,7 +138,6 @@ function IntroScreen({ onEnter }) {
       opacity: fadeIn ? 1 : 0,
       transition: 'opacity 800ms ease-in'
     }}>
-      {/* Three.js Canvas */}
       <Canvas
         style={{
           position: 'absolute',
@@ -165,8 +146,7 @@ function IntroScreen({ onEnter }) {
           width: '100%',
           height: '100%'
         }}
-        shadows
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
       >
         <color attach="background" args={['#ffffff']} />
         <PerspectiveCamera makeDefault position={[0, 1.4, -2]} fov={60} />
@@ -176,10 +156,8 @@ function IntroScreen({ onEnter }) {
         <MouseCamera />
       </Canvas>
 
-      {/* Lumon terminal overlay */}
       <LumonOverlay onComplete={handleEnterClick} />
 
-      {/* Fade to black overlay */}
       <div style={{
         position: 'fixed',
         top: 0,
