@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
+// import CustomCursor from './components/CustomCursor'
 import { getProjectByObject } from './data/projects'
 
 function App() {
@@ -188,7 +189,7 @@ function App() {
       </main>
       {/* Hidden audio element - controls are in the nav */}
       <audio ref={audioRef} src="/ambient.mp3" loop />
-      
+      {/* <CustomCursor /> */}
     </div>
   )
 }

@@ -2,11 +2,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  cursor: none !important;
 }
 
 html, body, canvas {
-  cursor: none !important;
 }
 
 .custom-cursor {
@@ -650,7 +648,7 @@ body {
   height: 24px;
   background: none;
   border: 1px solid #C5BDB1;
-  cursor: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
